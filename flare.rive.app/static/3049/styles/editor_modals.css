@@ -1,0 +1,551 @@
+.ExportShotModal
+{
+}
+	.ExportShotModal .Modal
+	{
+		display:flex;
+		width:auto;
+		min-height:554px;
+	}
+		.ExportShotModalIcon
+		{
+			width:33px;
+			height:32px;
+		}
+		.ExportEngineModalIcon
+		{
+			width:39px;
+			height:32px;
+		}
+		.ExportModalIcon
+		{
+			width:25px;
+			height:31px;
+			fill:#666;
+		}
+		.ExportNimaFileIcon
+		{
+			width:32px;
+			height:32px;
+		}
+		.ExportShotOptionsCol
+		{
+			width:250px;
+			box-sizing:border-box;
+			background:#FAFAFA;
+			border-radius:10px 0 0 10px;
+			border-right:1px solid #EBEBEB;
+		}
+		.ExportShotPreviewCol
+		{
+			width:600px;
+			padding:30px;
+			box-sizing:border-box;
+			display:flex;
+			flex-direction: column;
+		}
+
+			.ExportShotPreviewCol .SelectionPanelButton,
+			.ExportShotPreviewCol .ExportShotUserProfile,
+			.ExportShotPreviewCol .ExportShotTitle,
+			.ExportShotPreviewCol .ExportShotContainer
+			{
+				flex-shrink:0;
+			}
+			.ExportShotContainer
+			{
+				width:100%;
+				padding-top:56.25%;
+				box-shadow: 0px 15px 50px rgba(0,0,0,0.2);
+				background:#5d5d5d;
+				border-radius:10px;
+				position:relative;
+			}
+				.ExportShotContainer canvas
+				{
+					position:absolute;
+					width:100%;
+					height:100%;
+					left:0;
+					top:0;
+					border-radius:10px;
+					z-index:0;
+				}
+				.ExportShotCanvasOverlay
+				{
+					position:absolute;
+					width:100%;
+					height:100%;
+					top:0;
+				}
+					.ExportShotCanvasTip
+					{
+						border-radius:50px;
+						padding:10px 20px;
+						color:#fff;
+						background:rgba(0,0,0,0.5);
+						z-index:2;
+						cursor:default;
+						bottom:20px;
+						margin:250px auto 0 auto;
+						max-width:250px;
+						text-align:center;
+						position:relative;
+						pointer-events: none;
+					}
+				.ExportShotGuides
+				{
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					transition:opacity 0.15s ease-in-out;
+				}
+				.ExportShotThirdLeftGuide,
+				.ExportShotThirdRightGuide
+				{
+					position:absolute;
+					height:100%;
+					width:1px;
+					left:33.333%;
+					border-left:1px dashed rgba(255,255,255,0.8);
+					box-shadow: 0 0 2px rgba(0,0,0,0.25);
+				}
+				.ExportShotThirdRightGuide
+				{
+					left:66.666%;
+				}
+				.ExportShotThirdTopGuide,
+				.ExportShotThirdBottomGuide
+				{
+					position:absolute;
+					width:100%;
+					height:1px;
+					top:33.333%;
+					border-top:1px dashed rgba(255,255,255,0.8);
+					box-shadow: 0 0 2px rgba(0,0,0,0.25);
+				}
+				.ExportShotThirdBottomGuide
+				{
+					top:66.666%;
+				}
+
+				.ExportShotPlaybackControls
+				{
+					display:flex;
+					margin-top:38px;
+					flex-shrink:0;
+				}
+				.ExportShotPlaybackControls .PlayButton
+				{
+					fill:#333;
+				}
+				.ExportShotPlaybackTransport
+				{
+					flex:1;
+					position:relative;
+					margin-left:14px;
+				}
+				.ExportShotPlaybackTrack
+				{
+					height:1px;
+					background:#EBEBEB;
+					width:100%;
+					margin-top:8px;
+				}
+				.ExportShotPlaybackScrubber
+				{
+					width:10px;
+					height:10px;
+					border:1px solid #888888;
+					border-radius:10px;
+					box-shadow: 0 6px 15px rgba(0,0,0,0.16);
+					background:#fff;
+					position:absolute;
+					box-sizing: border-box;
+					top:3px;
+					margin-left:-5px;
+					z-index:2;
+				}
+				.ExportShotCoverScrubber
+				{
+					position:absolute;
+					width:1px;
+					height:10px;
+					background:#57A5E0;
+					margin-top:-10px;
+				}
+				.ExportShotCoverScrubber .ShotCoverBadge
+				{
+					position:absolute;
+					top:-17px;
+					left:-20px;
+				}
+		.ExportShotAnimationsCol
+		{
+			width:250px;
+			box-sizing:border-box;
+			background:#FAFAFA;
+			border-radius:0 10px 10px 0;
+			border-left:1px solid #EBEBEB;
+			display:flex;
+			flex-direction:column;
+			font-weight:400;
+		}
+			.ExportShotAnimationsCol .ModalGroupTitle
+			{
+				padding:35px 30px 0 30px;
+				margin-top:0;
+				margin-bottom:8px;
+			}
+			.ExportShotAnimationsCol .ModalGroupSubTitle
+			{
+				padding:0 30px;
+				margin-top:0;
+			}
+			.ExportShotAnimationsList
+			{
+				flex:1;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+				.ExportShotAnimationsList .CheckboxWrapper,
+				.ExportShotAnimationGhost
+				{
+					padding:10px 30px;
+					margin-bottom:0;
+					color:#777;
+				}
+				.ExportShotAnimationsList .CheckboxLabel,
+				.ExportShotAnimationGhost .CheckboxLabel
+				{
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+					flex:1;
+				}
+				.ExportShotAnimationsList .CheckboxWrapper:hover .Checkbox:hover
+				{
+					border:1px solid #999;
+				}
+				.ExportShotAnimationsList .CheckboxWrapper:hover .Checkbox
+				{
+					border:1px solid #CCC;
+				}
+				.ExportShotAnimationsList .CheckboxWrapper:hover
+				{
+					background:rgba(0,0,0,0.02);
+					color:#555;
+				}
+
+				.ExportShotAnimationsList .CheckboxWrapperSelected,
+				.ExportShotAnimationsList .CheckboxWrapperSelected.CheckboxWrapper:hover
+				{
+					background:rgba(87,165,224,0.1);
+					color:#57A5E0;
+				}
+				.ShotCoverBadge
+				{
+					background:#57A5E0;
+					border-radius:3px;
+					color:#fff;
+					font-size:10px;
+					padding:3px 5px;
+					font-weight:400;
+					pointer:default;
+				}
+				.ExportShotAnimationGhost .ShotCoverBadge
+				{
+					display:none;
+				}
+				.ExportShotAnimationsList ul
+				{
+					margin:0;
+					padding:0;
+				}
+	.ExportShotUserProfile
+	{
+		display:flex;
+		font-size:13px;
+		font-weight:400;
+		align-items: center;
+		margin-top:15px;
+	}
+	.ExportShotTitle
+	{
+		display: block;
+		margin-top: 15px;
+	    font-size: 20px;
+	    border: none;
+	    outline: 0;
+	    font-weight: 300;
+	    padding: 0;
+	    width:100%;
+	    color:#666;
+	}
+
+
+	.ExportShotModal .ComposePanelMessage .Panel
+	{
+		height:100%;
+	}
+
+	.ExportShotModal .ComposePanelMessage
+	{
+		min-height:50px;
+		margin-top:8px;
+		overflow-y:auto;
+		-webkit-overflow-scrolling: touch;
+		overflow-x:hidden;
+		margin-bottom:20px;
+	}
+
+	.ExportShotModal .SelectionPanelButton,
+	.ExportShotModal .SelectionPanelButtonDisabled,
+	.ExportModal .ModalFooter .SelectionPanelButton
+	{
+		height: 30px;
+		width: 200px;
+		font-size: 12px;
+		margin: 0 auto 0 auto;
+		flex-shrink:0;
+	}
+		.ExportShotModal .SelectionPanelButtonDisabled
+		{
+			background:#fff;
+			border:1px solid #ddd;
+			color:#ccc;
+		}
+
+	.ExportShotModal .InputSpan
+	{
+		width:50px;
+	}
+.ModalGroup
+{
+	border-top:1px solid rgba(0,0,0,0.06);
+	padding-top:20px;
+}
+	.ModalGroup:first-of-type
+	{
+		border-top:none;
+	}
+	.ModalGroupProperty
+	{
+		display:flex;
+		margin-bottom:20px;
+		justify-content: space-between;
+		color:#777;
+		transition:height .4s cubic-bezier(0.8, 0, 0, 1);
+	}
+		.ModalGroupLicense
+		{
+			overflow:hidden;
+			border-bottom:1px solid rgba(0,0,0,0.06);
+			display:block;
+			text-align:right;
+		}
+		.ModalGroupLicense .ModalGroupPropertyTitle
+		{
+			text-align:left;
+			float:left;
+			display:inline-left;
+		}
+	.ModalGroupTitle
+	{
+		margin-bottom:14px;
+		font-weight:400;
+		color:#555;
+	}
+	.ModalGroupSubTitle
+	{
+		margin-top:-10px;
+		margin-bottom:14px;
+		color:#AAA;
+		line-height:22px;
+	}
+	.ModalGroupPropertyTitle
+	{
+		flex:1;
+	}
+.DropdownAutoWidth
+{
+	display:inline-block;
+}
+	.DropdownAutoWidth .DropdownCurrent
+	{
+		padding-right:10px;
+	}
+	.DropdownAutoWidth .DropdownCurrent span
+	{
+		position: relative;
+	}
+	.DropdownAutoWidth .DropdownArrow
+	{
+		top:1px;
+	}
+
+.ExportModal .ModalContent
+{
+	padding:30px;
+}
+.ExportModal .Modal
+{
+	display:flex;
+	flex-direction: column;
+}
+.ExportModal .ModalFooter
+{
+	padding:20px 30px;
+}
+
+.ExportGroup
+{
+	border-top:1px solid rgba(0,0,0,0.06);
+	padding:20px 0;
+}
+	.ExportGroup:first-of-type
+	{
+		border-top:none;
+		padding-top:0;
+	}
+	.ExportGroup:last-of-type
+	{
+		padding-bottom:0;
+	}
+	.ExportGroupProperty
+	{
+		display:flex;
+		margin-bottom:20px;
+		justify-content: space-between;
+	}
+		.ExportGroupProperty:last-of-type
+		{
+			margin-bottom:0;
+		}
+	.ExportGroupProperty a
+	{
+		font-weight:600;
+		color:#333;
+	}
+	.ExportGroupTitle
+	{
+		margin-bottom:24px;
+		font-weight:500;
+	}
+	.ExportGroupSubTitle
+	{
+		margin-top:-20px;
+		margin-bottom:24px;
+		color:#AAA;
+	}
+	.ExportGroupPropertyTitle
+	{
+		flex:1;
+		color:#888;
+	}
+	.ExportGroupDesc
+	{
+		line-height:22px;
+		margin-top:-5px;
+		margin-bottom:19px;
+		color:#999;
+	}
+	.LinkToggleIcon
+	{
+		width:14px;
+		height:14px;
+		fill:#888;
+		padding-left:10px;
+		padding-right:10px;
+	}
+	.UnlinkToggleIcon
+	{
+		width:14px;
+		height:13px;
+		fill:#888;
+		padding-left:10px;
+		padding-right:10px;
+		margin-top:1px;
+	}
+	.LockedSizeLabel
+	{
+		color:#888;
+	}
+.LockedSizeInput, .SingleInput
+	{
+		border:0;
+		border-bottom:2px solid #EAEAEA;
+		width:68px;
+		outline:none;
+		background:none;
+		color:#000;
+		transition:border 0.1s ease-in-out;
+	}
+	.SingleLabel
+	{
+		color:#888;
+		width:140px;
+		margin-right:10px;
+	}
+	.SingleInput
+	{
+		flex:1;
+		width:auto;
+	}
+	.LockedSizeInput:focus, .SingleInput:focus
+	{
+		border-bottom:2px solid #CCC;
+	}
+
+.ModalFooter .SelectionPanelButton,
+.ModalFooter .SelectionPanelButtonDisabled
+{
+	flex:1;
+	background: none;
+	border:1px solid #999;
+	color:#777;
+	margin:0 auto;
+	max-width:150px;
+}
+	.ModalFooter .SelectionPanelButton:hover
+	{
+		background: none;
+		border:1px solid #888;
+		color:#333;
+	}
+.ModalFooter .SelectionPanelButtonDisabled
+{
+	opacity:.3;
+}
+.ModalFooter .SelectionPanelAccentButton,
+.ModalFooter .SelectionPanelAccentButton:hover
+{
+	border:none;
+}
+	.ModalFooter .SelectionPanelAccentButton:active
+	{
+	}
+.ModalTip
+{
+cursor:default;
+line-height:22px;
+color:#888;
+}
+.Modal .Dropdown
+{
+margin-left:0;
+}
+.Modal .DropdownCurrent
+{
+color:#000;
+border-bottom:2px solid #EAEAEA;
+}
+/*.Modal2 .DropdownCurrent:hover
+{
+	color:#111;
+	border-bottom:2px solid #CCC;
+}*/
+.Modal .DropdownArrow
+{
+fill:#333;
+}

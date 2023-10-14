@@ -1,0 +1,78 @@
+.BlogAuthorAvatar, .CommentAvatar, .CommentAvatarEmpty
+{
+	width:36px;
+	height:36px;
+	background:#D8D8D8;
+	background-size:cover;
+	border-radius:25px;
+	display:inline-block;
+	vertical-align: middle;
+	margin-right:8px;
+	position:relative;
+	flex-shrink: 0;
+}
+	.BlogAuthorAvatar:hover + .CommentAuthorDate a:first-of-type, .CommentAvatar:hover + .CommentAuthorDate a:first-of-type, .CommentAvatarEmpty:hover + .CommentAuthorDate a:first-of-type
+	{
+		color:#222;
+	}
+.CommentAvatarEmpty
+{
+	border:1px solid #888;
+	box-sizing: border-box;
+	background:#eee;
+}
+	.CommentAvatarEmpty svg
+	{
+		width:21px;
+		height:21px;
+		position:relative;
+		top:5px;
+		left:7px;
+		fill:#666;
+	}
+
+	.CommentAvatar .Badge2D, .CommentAvatarEmpty .Badge2D
+	{
+		width:22px;
+		height:22px;
+		top:-5px;
+		left:-10px;
+	}
+			.CommentAvatar .Badge2D svg, .CommentAvatarEmpty .Badge2D svg
+		{
+			width:18px;
+			height:8px;
+		}
+	.ArtistAvatar .Badge2D, .EnquiryHeader .Badge2D
+	{
+		width:30px;
+		height:30px;
+		top:4px;
+		left:-11px;
+	}
+		.ArtistAvatar .Badge2D svg, .EnquiryHeader .ProfileThumb .Badge2D svg 
+		{
+			width:22px;
+			height:16px;
+			fill:#fff;
+			top:initial;
+			left:initial;
+		}
+
+.Nav .CommentAvatar, .Nav .CommentAvatarEmpty
+{
+	width:25px;
+	height:25px;
+	margin-right:0;
+	margin-left:17px;
+	cursor:pointer;
+}
+.Nav .AccountPopup .CommentAvatar, .Nav .AccountPopup .CommentAvatarEmpty
+{
+	display:block;
+	margin-right:10px;
+	margin-left:0;
+	margin-top:0;
+	width:36px;
+	height:36px;
+}

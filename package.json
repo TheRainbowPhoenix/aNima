@@ -1,0 +1,33 @@
+{
+  "name": "flare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jimp/utils": "^0.22.10",
+    "amplitude-js": "5.11.0",
+    "core-js": "2.5.7",
+    "esrever": "^0.2.0",
+    "jimp": "^0.22.10",
+    "localforage": "^1.10.0",
+    "lodash": "4.17.16",
+    "markdown-it": "8.4.2",
+    "moment": "2.29.1",
+    "normalize.css": "3.0.3",
+    "punycode": "1.4.1",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-facebook-pixel": "^1.0.4",
+    "react-move": "0.0.1",
+    "react-stripe-elements": "2.0.3",
+    "rollbar": "^2.19.4",
+    "universal-ga": "^1.2.0",
+    "webpack-bundle-analyzer": "^4.9.1"
+  }
+}

@@ -1,0 +1,175 @@
+.ClrPck
+{
+
+}
+
+.ClrPckPrv
+{
+	width:15px;
+	height:15px;
+	background:rgb(255,0,0);
+	margin-left:5px;
+	border-radius:3px;
+}
+	.Modal .ClrPckPrv
+	{
+		border:1px solid #eaeaea;
+	}
+
+.ClrPckMenu
+{
+	position:fixed;
+	white-space:nowrap;
+	margin-top:13px;
+	margin-left:5px;
+	background:rgba(34,34,34,0.9);
+	box-shadow: 0px 50px 100px rgba(0,0,0,0.4);
+	z-index:100;
+	pointer-events: auto;
+	cursor:default;
+	transition: opacity 0.1s ease-in-out;
+	border-radius:10px;
+	font-weight:400;
+}
+	.Modal .ClrPckMenu
+	{
+		margin-top:-40px;
+		margin-left:30px;
+	}
+
+.ClrPckHGraph
+{
+	position:relative;
+	width: 200px;
+	height: 10px;
+	background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+}
+
+.ClrPckHGrabber
+{
+	position:absolute;
+	height:12px;
+	width:12px;
+	margin-top:-2px;
+	background-color: rgb(255, 0, 0);
+	border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+
+	border-radius: 14px;
+	border: 1px solid #fff;
+	box-shadow:0px 2px 5px rgba(0,0,0,.5);
+	margin-left:-7px;
+}
+
+.ClrPckSVGraph
+{
+	position:relative;
+	width:200px;
+	height:200px;
+	border-radius:10px 10px 0 0;
+	border-bottom:10px solid black;
+}
+
+.ClrPckSVLighten
+{
+	background-image: linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	border-radius:9px 9px 0 0;
+}
+
+.ClrPckSVDarken
+{
+	background-image: linear-gradient(to top, #000, rgba(204, 154, 129, 0));
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	border-radius:10px 10px 0 0;
+}
+
+.ClrPckSVGrabber
+{
+	position:absolute;
+	top:0%;
+	left:0%;
+}
+
+.ClrPckSVGrabber div
+{
+	position: absolute;
+	border-radius: 14px;
+	height: 12px;
+	width: 12px;
+	border: 1px solid #fff;
+	/* background: #000; */
+	top: -7.5px;
+	left: -7.5px;
+	box-shadow:0px 2px 5px rgba(0,0,0,.5)
+}
+
+.ClrPckSVGrabber div div
+{
+	border-radius: 11px;
+	position: absolute;
+	height: 11px;
+	width: 11px;
+	border: 1px solid #8d8d8d;
+	/* background: #000; */
+	top: -3px;
+	left: -3px;
+	display: none;
+}
+
+.ClrPckInput
+{
+	padding:17px;
+	color:#919191;
+}
+.ContrastInput .ClrPckInput input:focus
+{
+	border-bottom: 2px solid rgba(0,0,0,0.75);
+	color: rgba(255,255,255,1);
+}
+
+.ClrPckInput div
+{
+	margin-bottom:17px;
+}
+	.ClrPckInput div:last-of-type
+	{
+		margin-bottom:0px;
+	}
+
+.ClrPckInput div div
+{
+    display: inline;
+    font-size: 11px;
+    text-transform:uppercase;
+}
+
+.ClrPckInput div input
+{
+	color:#fff;
+    width: 40px;
+    border-bottom: 2px solid rgba(0,0,0,0.3);
+    margin-right: 5px;
+    margin-left: 5px;
+    text-transform:uppercase;
+    border-bottom 0.1s ease-in-out,
+				color 0.1s ease-in-out;
+}
+.ClrPckInput div input:last-of-type
+{
+	margin-right:0;
+}
+
+
+.ClrPckInputLong
+{
+	width: 55px !important;
+}

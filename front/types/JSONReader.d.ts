@@ -1,0 +1,30 @@
+export default class JSONReader extends StreamReader {
+    constructor(object: any);
+    _readObject: any;
+    _context: any[];
+    readProp(label: any): any;
+    readFloat32(label: any): any;
+    readFloat32Array(ar: any, label: any): void;
+    readFloat32ArrayOffset(ar: any, length: any, offset: any, label: any): void;
+    readArray(ar: any, label: any): void;
+    readFloat64(label: any): any;
+    readUint8(label: any): any;
+    readUint8Length(): number;
+    isEOF(): boolean;
+    readInt8(label: any): any;
+    readUint16(label: any): any;
+    readInt16(label: any): any;
+    readUint16Length(): number;
+    readUint32(label: any): any;
+    byteArrayToString(bytes: any): string;
+    readString(label: any): any;
+    readBool(label: any): any;
+    readRaw(obj: any, length: any, label: any): void;
+    readBlockType(block: any): any;
+    readId(label: any): any;
+    _peekNext(): any;
+    get _nextKey(): string;
+    _readLength(): number;
+    get _last(): any;
+}
+import StreamReader from "./StreamReader.js";
