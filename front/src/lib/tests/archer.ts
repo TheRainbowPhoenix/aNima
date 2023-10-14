@@ -2,8 +2,8 @@ import { ActorLoader, AnimationInstance, Graphics } from "$lib/runtime/Nima";
 import { mat2d, vec2 } from "gl-matrix";
 
 export default class Archer {
-  public _ViewCenter = [0.0, 2000.0];
-  public _Scale = 0.2;
+  public _ViewCenter = [0.0, 100.0];
+  public _Scale = 0.4;
   public _ScreenScale = 1.0;
 
   public _ScreenMouse = vec2.create();
@@ -202,7 +202,7 @@ export default class Archer {
     const w = graphics.viewportWidth;
     const h = graphics.viewportHeight;
 
-    this._ViewCenter[1] = h * 2.0;
+    this._ViewCenter[1] = 0.5 * h;
 
     const vt = this._ViewTransform;
     vt[0] = this._Scale;
