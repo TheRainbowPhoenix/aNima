@@ -33,7 +33,7 @@
         id: 3,
         name: "Luigi Rosso",
         username: "castor",
-        avatar: "https://cdn.2dimensions.com/avatars/3-1-1539908803-local",
+        avatar: "/cdn/avatars/3-1-1539908803-local",
       },
     },
     preferences: {},

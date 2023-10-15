@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="14px" viewBox="0 0 28 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>nima_small</title>
+    <defs>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M9.5,6.5 L6.22219014,12.6398704 C5.73664627,13.4814798 4.83887517,14 3.86724808,14 L0,14 L7.325,0.845 L9.5,6.5 Z" id="path-2"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M17.5,7.5 L20.9653099,1.36012958 C21.4508537,0.518520199 22.3486248,1.52441023e-15 23.3202519,4.82947016e-16 L27.1875,0 L19.675,13.155 L17.5,7.5 Z" id="path-4"></path>
+        <linearGradient x1="0%" y1="142.908654%" x2="91.6886549%" y2="-29.1611606%" id="linearGradient-5">
+            <stop stop-color="#2474E0" offset="0%"></stop>
+            <stop stop-color="#7FE8F3" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Shot-Streamlined" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-46" transform="translate(-398.000000, -993.000000)">
+            <g id="Group-19" transform="translate(379.000000, 984.000000)">
+                <g id="nima_small" transform="translate(19.000000, 9.000000)">
+                    <g id="Combined-Shape">
+                        <use fill="#4098E6" xlink:href="#path-2"></use>
+                        <use fill-opacity="0.5" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                    </g>
+                    <g id="Combined-Shape">
+                        <use fill="#4098E6" xlink:href="#path-4"></use>
+                        <use fill-opacity="0.5" fill="url(#linearGradient-3)" xlink:href="#path-4"></use>
+                    </g>
+                    <path d="M18.875,-1.77635684e-15 L14.6763866,10.8102229 C13.9295411,12.7331357 12.078438,14 10.0155827,14 L8,14 L12.1986134,3.18977706 C12.9454589,1.26686433 14.796562,1.26711878e-15 16.8594173,8.8817842e-16 L18.875,-1.77635684e-15 Z" id="Path-4" fill="url(#linearGradient-5)" transform="translate(13.437500, 7.000000) scale(-1, 1) translate(-13.437500, -7.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
