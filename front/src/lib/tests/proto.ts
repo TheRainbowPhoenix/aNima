@@ -27,6 +27,15 @@ export default class Proto {
 
   private _AdvanceTimeout: any;
 
+  private _ShallFear: boolean = false;
+  private _Attacked: boolean = false;
+  private _AttackedTime: number = 0;
+  private _AttackedCount: number = 0;
+  private _Tamed: boolean = false;
+  private _TamedTime: number = 0;
+
+  private _HitBox: HTMLDivElement | null = null;
+
   constructor(canvas: HTMLCanvasElement) {
     this._Graphics = new Graphics(canvas);
     this._LastAdvanceTime = Date.now();
@@ -40,6 +49,31 @@ export default class Proto {
 
     this._ScheduleAdvance(_This);
     this._Advance(_This);
+
+    this._HitBox = document.querySelector(".hitBox");
+
+    if (this._HitBox) {
+      this._HitBox.addEventListener("mouseenter", (ev) => {
+        if (!this._ShallFear) {
+          this._ShallFear = true;
+          console.log("set _ShallFear to true");
+        }
+      });
+
+      this._HitBox.addEventListener("mouseleave", (ev) => {
+        if (this._ShallFear) {
+          this._ShallFear = false;
+          console.log("set _ShallFear to false");
+        }
+      });
+
+      this._HitBox.addEventListener("click", (ev) => {
+        if (!this._Attacked) {
+          this._Attacked = true;
+          console.log("got event _Attacked");
+        }
+      });
+    }
 
     document.addEventListener("keydown", (ev) => {
       switch (ev.keyCode) {
@@ -85,8 +119,57 @@ export default class Proto {
       vt[4] = -_ViewCenter[0] * _Scale + w / 2;
       vt[5] = -_ViewCenter[1] * _Scale + h / 2;
 
-      if (this._AnimationInstance === null) {
-        this._AnimationInstance = this._IdleAnimation;
+      let now = new Date().getTime();
+
+      // if (this._AttackedTime != 0) {
+      //   console.log(this._AttackedTime, now, this._AttakedAnimation._Duration);
+      // }
+
+      if (this._Attacked) {
+        this._Attacked = false;
+        this._AttackedCount += 1;
+        this._AttackedTime = now;
+        this._AnimationInstance = this._AttakedAnimation;
+      } else if (
+        this._AttackedTime > 0 &&
+        this._AttackedTime + this._AttakedAnimation._Duration * 1000 > now
+      ) {
+        this._AnimationInstance = this._AttakedAnimation;
+      } else {
+        if (this._AnimationInstance === null) {
+          this._AnimationInstance = this._IdleAnimation;
+        }
+
+        if (this._AttackedCount > 10) {
+          console.log("!!! Tamed !!!");
+          this._AttackedCount = 0;
+          this._Tamed = true;
+          this._TamedTime = now;
+          this._AnimationInstance = this._TamedAnimation;
+        }
+
+        if (
+          this._AnimationInstance !== this._IdleAnimation &&
+          !this._ShallFear
+        ) {
+          // reset to normal
+          this._AnimationInstance = this._IdleAnimation;
+        }
+
+        if (
+          this._ShallFear &&
+          this._AnimationInstance !== this._FearAnimation
+        ) {
+          this._AnimationInstance = this._FearAnimation;
+        }
+      }
+
+      if (this._Tamed) {
+        if (this._TamedTime + this._TamedAnimation._Duration * 1000 > now) {
+          this._AnimationInstance = this._TamedAnimation;
+        } else {
+          this._Tamed = false;
+        }
       }
 
       if (this._AnimationInstance) {
