@@ -121,6 +121,9 @@ export default class Proto {
 
       let now = new Date().getTime();
 
+      var mixSpeed = 3.5;
+      let animMix = 1.0;
+
       // if (this._AttackedTime != 0) {
       //   console.log(this._AttackedTime, now, this._AttakedAnimation._Duration);
       // }
@@ -161,12 +164,41 @@ export default class Proto {
           this._AnimationInstance !== this._FearAnimation
         ) {
           this._AnimationInstance = this._FearAnimation;
+
+          let amMix =
+            ((this._AnimationInstance.time || 0) +
+              (elapsed % this._AnimationInstance._Duration)) /
+            this._AnimationInstance._Duration;
+          animMix = Math.min(1.0, Math.max(0.0, amMix));
         }
       }
 
       if (this._Tamed) {
         if (this._TamedTime + this._TamedAnimation._Duration * 1000 > now) {
           this._AnimationInstance = this._TamedAnimation;
+          // let tameMix =
+          //   1.0 -
+          //   ((this._AnimationInstance.time || 0) +
+          //     (elapsed % this._AnimationInstance._Duration)) /
+          //     this._AnimationInstance._Duration;
+          // animMix = Math.min(1.0, Math.max(0.0, tameMix));
+
+          try {
+            actor.root._Children[0]._IsHidden = true;
+            // let onFace = actor.root._Children
+            //   .filter((x: any) => x._Name === "Main")[0]
+            //   ?._Children[0]?._Children.filter(
+            //     (x: any) => x._Name === "BODY Bone"
+            //   )[0]
+            //   ?._Children.filter((x: any) => x._Name === "ropeUp Bone")[0]
+            //   ._Children.filter((x: any) => x._Name === "Bone")[0]
+            //   ?._Children.filter((x: any) => x._Name === "Face Bone")[0]
+            //   ?._Children.filter((x: any) => x._Name === "ONFACE")[0]
+            //   ?._Children[0];
+            // if (onFace) {
+            //   onFace._IsHidden = true;
+            // }
+          } catch (_) {}
         } else {
           this._Tamed = false;
         }
@@ -176,7 +208,8 @@ export default class Proto {
         const ai = this._AnimationInstance;
         ai.time = (ai.time || 0) + elapsed;
         let time = ai.time % this._AnimationInstance._Duration;
-        ai.apply(time, actor, 1.0);
+
+        ai.apply(time, actor, animMix);
       }
 
       // if (this._IdleAnimation) {

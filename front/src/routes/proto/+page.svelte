@@ -55,7 +55,6 @@
   let hits: any[] = [];
 
   const doHit = (ev: MouseEvent) => {
-    console.log(ev);
     hits.push({
       x: ev.clientX,
       y: ev.clientY,
