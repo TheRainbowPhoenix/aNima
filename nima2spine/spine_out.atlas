@@ -1,0 +1,15 @@
+assets/local-284.png
+	size: 714, 732
+	format: RGBA8888
+	filter: Linear,Linear
+	repeat: none
+local-284
+	  bounds: 0, 0, 714, 732
+
+assets/local-285.png
+	size: 1000, 1000
+	format: RGBA8888
+	filter: Linear,Linear
+	repeat: none
+local-285
+	  bounds: 0, 0, 1000, 1000

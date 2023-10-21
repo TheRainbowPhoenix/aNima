@@ -1,0 +1,113 @@
+{
+  "root": {
+    "type": "node",
+    "id": 1000,
+    "name": "Hierarchy",
+    "displayType": "empty",
+    "children": [
+      {
+        "type": "rootBone",
+        "id": 2408,
+        "name": "Root Bone",
+        "translation": [-2.3214690685272217, 22.390533447265625],
+        "size": 10,
+        "children": [
+          {
+            "type": "bone",
+            "id": 2411,
+            "name": "Bone",
+            "rotation": 90,
+            "length": 292.3415040575949,
+            "size": 10,
+            "children": [
+              {
+                "type": "image",
+                "id": 2409,
+                "name": "awootbh",
+                "translation": [326.8234558105469, 95.65559387207031],
+                "rotation": -90,
+                "drawOrder": 2,
+                "sequence": 0,
+                "useCustomMesh": false,
+                "useVertexDeform": false,
+                "asset": "local-284",
+                "width": 714,
+                "height": 732,
+                "blendMode": "Normal"
+              },
+              {
+                "type": "bone",
+                "id": 2412,
+                "name": "Bone",
+                "translation": [292.34149169921875, 9.089449122257065e-7],
+                "rotation": 11.999999949386854,
+                "length": 218.48502373894047,
+                "size": 10,
+                "children": [
+                  {
+                    "type": "image",
+                    "id": 2414,
+                    "name": "chalk_details",
+                    "translation": [247.4951629638672, 5.710959385396563e-7],
+                    "drawOrder": 1,
+                    "sequence": 0,
+                    "useCustomMesh": false,
+                    "useVertexDeform": false,
+                    "asset": "local-285",
+                    "width": 1000,
+                    "height": 1000,
+                    "blendMode": "Normal"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "assets": [
+    {
+      "name": "awootbh",
+      "id": "local-284",
+      "type": "image/png",
+      "isFilteringEnabled": true,
+      "showBorder": true
+    },
+    {
+      "name": "chalk_details",
+      "id": "local-285",
+      "type": "image/png",
+      "isFilteringEnabled": true,
+      "showBorder": true
+    }
+  ],
+  "animations": [
+    {
+      "displayEnd": 8,
+      "displayStart": 0,
+      "duration": 8,
+      "fps": 60,
+      "id": 9023,
+      "isWorkAreaActive": false,
+      "loop": false,
+      "name": "Untitled",
+      "order": 0,
+      "nodes": {
+        "2412": {
+          "frameRotation": [
+            { "t": 0, "v": 0.5235987755982988, "i": 1 },
+            { "t": 2, "v": 1.0471975511965976, "i": 1 },
+            { "t": 4, "v": 1.5707963267948966, "i": 1 },
+            { "t": 6, "v": -1.5707963267948966, "i": 1 },
+            { "t": 8, "v": 1.0471975511965974, "i": 1 }
+          ]
+        }
+      },
+      "position": 8,
+      "workAreaEnd": 8,
+      "workAreaStart": 0
+    }
+  ],
+  "settings": {}
+}

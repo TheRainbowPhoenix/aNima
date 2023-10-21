@@ -1,0 +1,13 @@
+{
+  "name": "purple_tree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "nima2spine.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "deno run --allow-read --allow-write nima2spine.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
