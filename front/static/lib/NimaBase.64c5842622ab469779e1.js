@@ -27915,7 +27915,7 @@
         shortcutsMap = U(n(692)), // Shortcuts
         keyBindingHandler = U(n(417)), // KeyBindingHandler.ts + keycode.js
         appKeyMaps = U(n(1111)), // JSON of Key Maps
-        readOnly_object = U(n(1)), // called with react_comp_instance, (key) "reload", (value) function () ... 
+        readOnly_object = U(n(1)), // called with react_comp_instance, (key) "reload", (value) function () ... ==> luigi-rosso/bind
         CrashError = U(n(1112)), // CrashError
         BrowserWarning = U(n(1113)), // BrowserWarning
         UnhandledError = U(n(1114)), // UnhandledError
@@ -27940,13 +27940,13 @@
         j = U(n(201)), // getLayerOptions(j.default)
         L = U(n(243)), // getLayerOptions(L.default)
         R = U(n(13)), // ContextMenu related 
-        F = U(n(551)), // FilesModal
-        B = U(n(730)),
-        V = U(n(165)),
-        N = U(n(15)),
-        z = U(n(702)),
-        W = U(n(11)),
-        H = U(n(1226));
+        FilesModal = U(n(551)), // FilesModal
+        PropertiesModal = U(n(730)), // PropertiesModal
+        userProps = U(n(165)), // __props.user
+        universal_ga = U(n(15)), // universal_ga
+        ShotExportScreen = U(n(702)),
+        rollbar_log = U(n(11)),
+        errorCauses = U(n(1226)); // error causes with link
       function U(e) {
         return e && e.__esModule
           ? e
@@ -28074,7 +28074,7 @@
                         e && e.constructor === M.default) // Error class ?
                       )
                         return void (this.state.error =
-                          H.default.WebGLDisabled);
+                          errorCauses.default.WebGLDisabled);
                       var t =
                         (e &&
                           e.constructor &&
@@ -28082,11 +28082,11 @@
                           e.constructor.toString()) ||
                         "unknown";
                       return (
-                        W.default.warn(
+                        rollbar_log.default.warn(
                           "Nima failed to instance due to an unhandled error. Error constructor " +
                             t
                         ),
-                        void (this.state.error = H.default.Unknown)
+                        void (this.state.error = errorCauses.default.Unknown)
                       );
                     }
                     (this.shortcuts = new shortcutsMap.default(this.nima)),
@@ -28205,7 +28205,7 @@
                       }, 300));
                     var t = this.props.file;
                     this.nima._ExpiredAlert &&
-                      (t.isPublic || V.default.isPaid) &&
+                      (t.isPublic || userProps.default.isPaid) &&
                       (this.nima._ExpiredAlert.hide(),
                       (this.nima._ExpiredAlert = null));
                   },
@@ -29195,7 +29195,7 @@
                     var e = this.nima.actor;
                     e && e.animations && e.animations.length
                       ? (this.state.showExportToEngine ||
-                          (this.exporter = z.default),
+                          (this.exporter = ShotExportScreen.default),
                         this.toggleShowExport())
                       : this.nima.alert({
                           title: "No Animations",
@@ -29443,13 +29443,13 @@
                         this.exporter)
                       ) {
                         case ToEngineExportScreen.default:
-                          N.default.event("file", "export", "nima");
+                          universal_ga.default.event("file", "export", "nima");
                           break;
                         case ProjectExportScreen.default:
-                          N.default.event("file", "export-project", "nima");
+                          universal_ga.default.event("file", "export-project", "nima");
                           break;
                         case ImageSeqExportScreen.default:
-                          N.default.event("file", "export-image-seq", "nima");
+                          universal_ga.default.event("file", "export-image-seq", "nima");
                       }
                     else {
                       var t = this;
@@ -29523,8 +29523,8 @@
                             onExportComplete: this.toggleShowExport,
                           });
                           break;
-                        case z.default:
-                          i = o.default.createElement(z.default, { // react
+                        case ShotExportScreen.default:
+                          i = o.default.createElement(ShotExportScreen.default, { // react
                             ref: this.setExportScreen,
                             username: this.props.user.username,
                             verified: this.props.isVerified,
@@ -29541,7 +29541,7 @@
                       },
                       this.state.isFilesModalOpen ||
                         this.state.isFilesModalClosing
-                        ? o.default.createElement(F.default, { // react
+                        ? o.default.createElement(FilesModal.default, { // react
                             key: "files",
                             defaultFilename: r.title,
                             onChooseLocation: this.state.chooseLocation,
@@ -29553,7 +29553,7 @@
                         : null,
                       this.state.isPropertiesModalOpen ||
                         this.state.isPropertiesModalClosing
-                        ? o.default.createElement(B.default, { // react
+                        ? o.default.createElement(PropertiesModal.default, { // react
                             isOpen: this.state.isPropertiesModalOpen,
                             isClosing: this.state.isPropertiesModalClosing,
                             onClose: this.closePropertiesModal,
@@ -41568,8 +41568,8 @@
     function (e, t, n) {
       "use strict";
       (function (e) {
-        var t = r(n(19)),
-          i = r(n(690));
+        var t = r(n(19)), // main.jsx 
+          i = r(n(690)); // Nima <App />
         function r(e) {
           return e && e.__esModule
             ? e
@@ -92277,7 +92277,7 @@
           return void 0 !== a ? a.call(i) : void 0;
         },
         a = u(n(1)),
-        s = u(n(690)),
+        s = u(n(690)), // Nima UIPanels
         l = u(n(361));
       function u(e) {
         return e && e.__esModule

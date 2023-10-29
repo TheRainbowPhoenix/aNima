@@ -59,4 +59,4 @@
 <a href="/slide">See the slide test</a>
 <a href="/archer">See the archer test</a>
 
-<Editor props={__props} />
+<!-- <Editor props={__props} /> -->
