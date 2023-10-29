@@ -179,4 +179,142 @@
       </div>
     </div>
   {/if}
+
+  <!--
+
+  <div class="DefaultToolbar" style="transform: {state.meshMode || state.weightsMode ? 'translate3D(100%, 0, 0)' : null}">
+    <div class="ToolGroup">
+      <Tool
+        type={S.default}
+        cssID="TranslateTool"
+        icon="/images/symbol-defs.svg#icon-move"
+        onSelected={() => toolSelected(S.default)}
+        isSelected={state.selectedTool === S.default}
+        tip={{ label: "Translate", action: h.default.Actions.TranslateTool }}
+      />
+      <Tool
+        type={P.default}
+        cssID="RotateTool"
+        icon="/images/symbol-defs.svg#icon-rotate"
+        onSelected={() => toolSelected(P.default)}
+        isSelected={state.selectedTool === P.default}
+        tip={{ label: "Rotate", action: h.default.Actions.RotateTool }}
+      />
+      <Tool
+        type={E.default}
+        cssID="ScaleTool"
+        icon="/images/symbol-defs.svg#icon-scale"
+        onSelected={() => toolSelected(E.default)}
+        isSelected={state.selectedTool === E.default}
+        tip={{ label: "Scale", action: h.default.Actions.ScaleTool }}
+      />
+      <Tool
+        type={O.default}
+        cssID="IKTool"
+        icon="/images/symbol-defs.svg#icon-arrow-divert"
+        onSelected={() => toolSelected(O.default)}
+        isSelected={state.selectedTool === O.default}
+        tip={{ label: "IK Pose", action: h.default.Actions.IKTool }}
+      />
+    </div>
+    <ToolGroup isStageTool={true} ref={setCreateGroup} addClass="CreateTools" iconHref="/images/symbol-defs.svg#icon-plus" selectedType={context.nima.stage.toolType} tip={{ label: "Create Tools" }}>
+      <Tool
+        type={T.default}
+        cssID="CreateBoneTool"
+        icon="/images/symbol-defs.svg#icon-bone-add"
+        onSelected={() => toolSelected(T.default)}
+        isSelected={state.selectedTool === T.default}
+        tip={{ label: "Create Bone", action: h.default.Actions.BoneTool }}
+      />
+      <Tool
+        type={x.default}
+        cssID="CreateNodeTool"
+        icon="/images/symbol-defs.svg#icon-node-add"
+        onSelected={() => toolSelected(x.default)}
+        isSelected={state.selectedTool === x.default}
+        tip={{ label: "Create Node", action: h.default.Actions.NodeTool }}
+      />
+      <Tool
+        type={I.default}
+        cssID="CreateColliderTool"
+        icon="/images/symbol-defs.svg#icon-collider-add"
+        onSelected={() => toolSelected(I.default)}
+        isSelected={state.selectedTool === I.default}
+        tip={{ label: "Create Collider", action: h.default.Actions.ColliderTool }}
+      />
+      <Tool
+        type={C.default}
+        icon="/images/symbol-defs.svg#icon-solo-add"
+        onSelected={() => toolSelected(C.default)}
+        isSelected={state.selectedTool === C.default}
+        tip={{ label: "Create Solo Node", action: h.default.Actions.SoloTool }}
+      />
+    </ToolGroup>
+    <ToolGroup addClass="SelectionFilters" showActive={true} iconHref="/images/symbol-defs.svg#icon-select-all" selectedType={state.selectedFilter && state.selectedFilter.constructor} tip={{ label: "Selection Modes", actions: [
+      { label: "Next", action: h.default.Actions.NextSelectionFilter },
+      { label: "Prev", action: h.default.Actions.PreviousSelectionFilter },
+    ] }}>
+      <Tool
+        type={D.default}
+        cssID="SelectionFilter"
+        icon="/images/symbol-defs.svg#icon-select-all"
+        onSelected={() => filterSelected(D.default)}
+        isSelected={state.selectedFilter && state.selectedFilter.constructor === D.default}
+        tip={{ label: "Select Anything", action: h.default.Actions.AllSelectionFilter }}
+      />
+      <Tool
+        type={M.default}
+        cssID="BoneSelectionFilter"
+        icon="/images/symbol-defs.svg#icon-select-bones"
+        onSelected={() => filterSelected(M.default)}
+        isSelected={state.selectedFilter && state.selectedFilter.constructor === M.default}
+        tip={{ label: "Select Bones", action: h.default.Actions.BoneSelectionFilter }}
+      />
+      <Tool
+        type={A.default}
+        cssID="ImageSelectionFilter"
+        icon="/images/symbol-defs.svg#icon-select-images"
+        onSelected={() => filterSelected(A.default)}
+        isSelected={state.selectedFilter && state.selectedFilter.constructor === A.default}
+        tip={{ label: "Select Images", action: h.default.Actions.ImageSelectionFilter }}
+      />
+      <Tool
+        type={j.default}
+        cssID="VertexSelectionFilter"
+        icon="/images/symbol-defs.svg#icon-select-vertices"
+        onSelected={() => filterSelected(j.default)}
+        isSelected={state.selectedFilter && state.selectedFilter.constructor === j.default}
+        tip={{ label: "Select Vertices", action: h.default.Actions.VertexSelectionFilter }}
+      />
+    </ToolGroup>
+    <ToolGroup cssID="VisibilityOptions" data={state.visibilityPopup} onChange={visibilityOptionsChanged} tip={{ label: "Visibility Options" }} />
+    <ToolGroup cssID="AxisOptions" data={state.axisPopup} onChange={visibilityOptionsChanged} tip={{ label: "Axis Options" }} />
+    <ToolGroup cssID="GridOptions" data={state.gridPopup} tip={{ label: "Grid Options" }} onChange={gridOptionsChanged} />
+    <div class="ToolGroup">
+      <ZoomInput value={state.zoom} valueChanged={zoomInputChanged} tip={{ label: "Zoom", actions: [
+        { label: "In", action: h.default.Actions.ZoomIn },
+        { label: "Out", action: h.default.Actions.ZoomOut },
+        { label: "Actual Size", action: h.default.Actions.Zoom100 },
+        { label: "Fit", action: h.default.Actions.ZoomFit },
+      ] }} />
+    </div>
+    <div class="ToolGroup">
+      {state.canCopy && (
+        <Tool
+          cssID="ExportButton"
+          icon="/images/symbol-defs.svg#icon-export"
+          onSelected={props.onGotoExport}
+          tip={{ label: "Export" }}
+        />
+      )}
+      <Tool
+        cssID="SettingsButton"
+        isActive={props.settingsOpen}
+        onSelected={props.onSettingsToggled}
+        icon={props.settingsOpen ? "/images/symbol-defs.svg#icon-cog-selected" : "/images/symbol-defs.svg#icon-cog"}
+        tip={{ label: "Settings" }}
+      />
+    </div>
+  </div>
+   -->
 </div>
