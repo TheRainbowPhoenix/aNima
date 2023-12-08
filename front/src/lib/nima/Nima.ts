@@ -1,6 +1,8 @@
+import Graphics from "$lib/runtime/Graphics";
+
 export default class Nima {
   public _BuildNumber: string;
-  public _Graphics: any;
+  public _Graphics: GraphicsWrapper;
   public _Canvas: HTMLCanvasElement;
   public _EditorUI: any;
   public _UserPreferences: any;
@@ -59,7 +61,7 @@ export default class Nima {
     file: any
   ) {
     this._BuildNumber = buildNumber;
-    // this._Graphics = new l.default(canvas);
+    this._Graphics = new GraphicsWrapper(canvas);
     this._Canvas = canvas;
     this._EditorUI = currentStage;
     this._UserPreferences = preferences || {};
@@ -75,5 +77,14 @@ export default class Nima {
 
   cleanup() {
     // Cleanup code goes here
+  }
+}
+
+class GraphicsWrapper {
+  _graphics: Graphics;
+
+  constructor(canvas: HTMLCanvasElement) {
+    this._graphics = new Graphics(canvas);
+    // r.default.call(this); // defines PieShader and stuff, also drawGrid and Selection Shader
   }
 }

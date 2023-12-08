@@ -28056,12 +28056,12 @@
                       (this.dropDownPopups = []),
                       (this.isMeshMode = false);
                     try {
-                      var e = document.createElement("canvas");
-                      (e.style.display = "none"),
-                        (e.className = "Stage"),
-                        document.body.insertBefore(e, document.body.firstChild),
+                      var stageCanvas = document.createElement("canvas");
+                      (stageCanvas.style.display = "none"),
+                        (stageCanvas.className = "Stage"),
+                        document.body.insertBefore(stageCanvas, document.body.firstChild),
                         (this.nima = new NimaBase.default(
-                          e,
+                          stageCanvas,
                           this,
                           this.props.user,
                           this.props.preferences,
@@ -86013,7 +86013,7 @@
         (t.default = function (e) {
           i.default.call(this, e), r.default.call(this);
         });
-      var i = o(n(1211)),
+      var i = o(n(1211)), // Nima.Graphics
         r = o(n(1214));
       function o(e) {
         return e && e.__esModule
@@ -86028,8 +86028,8 @@
       Object.defineProperty(t, "__esModule", {
         value: true,
       }),
-        (t.default = function (e) {
-          var t = this,
+        (t.default = function (canvasElem) {
+          var _this = this,
             n = {},
             u = {},
             c = -1,
@@ -86037,24 +86037,24 @@
               premultipliedAlpha: false,
               preserveDrawingBuffer: true,
             },
-            h =
-              e.getContext("webgl", d) || e.getContext("experimental-webgl", d);
-          if (!h) throw new i.default();
-          h.getExtension("OES_standard_derivatives");
-          var f = new o.default(h),
-            p = new a.default(h),
+            gl =
+              canvasElem.getContext("webgl", d) || canvasElem.getContext("experimental-webgl", d);
+          if (!gl) throw new i.default();
+          gl.getExtension("OES_standard_derivatives");
+          var f = new o.default(gl),
+            p = new a.default(gl),
             y = 0,
             m = 0,
-            v = null,
+            loadError = null,
             g = Date.now(),
-            _ = r.mat4.create(),
-            b = 0,
-            w = 0,
+            projection = r.mat4.create(),
+            viewportWidth = 0,
+            viewportHeight = 0,
             O = [1, 1, 1, 1],
             S = new Float32Array(O),
             k = r.mat4.create(),
             P = r.mat4.create(),
-            E = h.createBuffer();
+            E = gl.createBuffer();
           function T() {
             y++;
           }
@@ -86062,26 +86062,26 @@
             var n = Date.now(),
               i = n - g;
             (g = n),
-              (v = e),
-              t.advanceProgress && t.advanceProgress.call(t, m / y, i);
+              (loadError = e),
+              _this.advanceProgress && _this.advanceProgress.call(_this, m / y, i);
           }
           function x() {
             var e = Date.now(),
               n = e - g;
             (g = e),
               m++,
-              t.advanceProgress && t.advanceProgress.call(t, m / y, n);
+              _this.advanceProgress && _this.advanceProgress.call(_this, m / y, n);
           }
           function I(e) {
             if (
-              (h.attachShader(e.program, e.vertex),
-              h.attachShader(e.program, e.fragment),
-              h.linkProgram(e.program),
-              h.getProgramParameter(e.program, h.LINK_STATUS))
+              (gl.attachShader(e.program, e.vertex),
+              gl.attachShader(e.program, e.fragment),
+              gl.linkProgram(e.program),
+              gl.getProgramParameter(e.program, gl.LINK_STATUS))
             ) {
-              for (var t in (h.useProgram(e.program), e.attributes))
+              for (var t in (gl.useProgram(e.program), e.attributes))
                 -1 ==
-                  (e.attributes[t].index = h.getAttribLocation(
+                  (e.attributes[t].index = gl.getAttribLocation(
                     e.program,
                     e.attributes[t].name
                   )) &&
@@ -86094,7 +86094,7 @@
               if (e.attributes2)
                 for (var n in e.attributes2)
                   -1 ==
-                    (e.attributes2[n].index = h.getAttribLocation(
+                    (e.attributes2[n].index = gl.getAttribLocation(
                       e.program,
                       e.attributes2[n].name
                     )) &&
@@ -86107,7 +86107,7 @@
               if (e.attributes3)
                 for (var i in e.attributes3)
                   -1 ==
-                    (e.attributes3[i].index = h.getAttribLocation(
+                    (e.attributes3[i].index = gl.getAttribLocation(
                       e.program,
                       e.attributes3[i].name
                     )) &&
@@ -86119,7 +86119,7 @@
                     );
               for (var r in e.uniforms) {
                 var o = e.uniforms[r];
-                null == (e.uniforms[r] = h.getUniformLocation(e.program, o)) &&
+                null == (e.uniforms[r] = gl.getUniformLocation(e.program, o)) &&
                   console.log(
                     "Could not find uniform",
                     o,
@@ -86131,7 +86131,7 @@
               console.log(
                 "Could not link shader",
                 e.name,
-                h.getProgramInfoLog(e.program)
+                gl.getProgramInfoLog(e.program)
               ),
                 C(e.name + " failed to link");
             x();
@@ -86147,7 +86147,7 @@
             return (
               T(),
               (e.fragment = A(e.fragment)) && (e.vertex = A(e.vertex))
-                ? ((e.program = h.createProgram()),
+                ? ((e.program = gl.createProgram()),
                   e.fragment.__isReady || (e.fragment.__onLoaded = D(e)),
                   e.vertex.__isReady || (e.vertex.__onLoaded = D(e)),
                   e.fragment.__isReady && e.vertex.__isReady && I(e),
@@ -86175,24 +86175,24 @@
                   (c = c.substring(f + "<![CDATA[".length, p)),
                 "x-shader/x-fragment" == u.type)
               )
-                s = h.createShader(h.FRAGMENT_SHADER);
+                s = gl.createShader(gl.FRAGMENT_SHADER);
               else {
                 if ("x-shader/x-vertex" != u.type)
                   return C(e + " failed to detect type"), null;
-                s = h.createShader(h.VERTEX_SHADER);
+                s = gl.createShader(gl.VERTEX_SHADER);
               }
               if (
-                (h.shaderSource(s, c),
-                h.compileShader(s),
-                !h.getShaderParameter(s, h.COMPILE_STATUS))
+                (gl.shaderSource(s, c),
+                gl.compileShader(s),
+                !gl.getShaderParameter(s, gl.COMPILE_STATUS))
               )
                 return C(e + " failed to compile"), null;
               (s.__isReady = true), (n[e] = s);
             } else
               e.indexOf(".fs") == e.length - 3
-                ? (s = h.createShader(h.FRAGMENT_SHADER))
+                ? (s = gl.createShader(gl.FRAGMENT_SHADER))
                 : e.indexOf(".vs") == e.length - 3 &&
-                  (s = h.createShader(h.VERTEX_SHADER)),
+                  (s = gl.createShader(gl.VERTEX_SHADER)),
                 (s.__isReady = false),
                 s
                   ? ((s.__isLoading = true),
@@ -86203,13 +86203,13 @@
                       i,
                       ((r = function (e) {
                         e
-                          ? (h.shaderSource(a, e),
-                            h.compileShader(a),
-                            h.getShaderParameter(a, h.COMPILE_STATUS)
+                          ? (gl.shaderSource(a, e),
+                            gl.compileShader(a),
+                            gl.getShaderParameter(a, gl.COMPILE_STATUS)
                               ? ((a.__isReady = true),
                                 (n[o] = a),
                                 a.__onLoaded && a.__onLoaded.call(this, true))
-                              : (console.log(o, h.getShaderInfoLog(a)),
+                              : (console.log(o, gl.getShaderInfoLog(a)),
                                 C(o + " failed to compile"),
                                 a.__onLoaded && a.__onLoaded.call(this, false)))
                           : (C(o + " failed to load"),
@@ -86228,25 +86228,25 @@
               var r = u[e];
               if (r) return r;
             }
-            ((r = n || h.createTexture()).flags = t || 0),
+            ((r = n || gl.createTexture()).flags = t || 0),
               i || (u[e] = r),
-              h.bindTexture(h.TEXTURE_2D, r),
-              h.texImage2D(
-                h.TEXTURE_2D,
+              gl.bindTexture(gl.TEXTURE_2D, r),
+              gl.texImage2D(
+                gl.TEXTURE_2D,
                 0,
-                h.RGBA,
+                gl.RGBA,
                 1,
                 1,
                 0,
-                h.RGBA,
-                h.UNSIGNED_BYTE,
+                gl.RGBA,
+                gl.UNSIGNED_BYTE,
                 null
               ),
-              h.texParameteri(h.TEXTURE_2D, h.TEXTURE_MAG_FILTER, h.LINEAR),
-              h.texParameteri(h.TEXTURE_2D, h.TEXTURE_MIN_FILTER, h.LINEAR),
-              h.texParameteri(h.TEXTURE_2D, h.TEXTURE_WRAP_S, h.CLAMP_TO_EDGE),
-              h.texParameteri(h.TEXTURE_2D, h.TEXTURE_WRAP_T, h.CLAMP_TO_EDGE),
-              h.bindTexture(h.TEXTURE_2D, null),
+              gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR),
+              gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR),
+              gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE),
+              gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE),
+              gl.bindTexture(gl.TEXTURE_2D, null),
               (r.isLoaded = false),
               (r.width = 0),
               (r.height = 0);
@@ -86273,40 +86273,40 @@
                     0 == a.height ||
                     a.height & (a.height - 1)
                   );
-                  h.bindTexture(h.TEXTURE_2D, o),
+                  gl.bindTexture(gl.TEXTURE_2D, o),
                     0 != (o.flags & s.default.MultiplyAlpha)
-                      ? h.pixelStorei(h.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true)
-                      : h.pixelStorei(h.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false),
-                    h.texImage2D(
-                      h.TEXTURE_2D,
+                      ? gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true)
+                      : gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false),
+                    gl.texImage2D(
+                      gl.TEXTURE_2D,
                       0,
-                      h.RGBA,
-                      h.RGBA,
-                      h.UNSIGNED_BYTE,
+                      gl.RGBA,
+                      gl.RGBA,
+                      gl.UNSIGNED_BYTE,
                       this
                     ),
-                    h.texParameteri(
-                      h.TEXTURE_2D,
-                      h.TEXTURE_MAG_FILTER,
-                      h.LINEAR
+                    gl.texParameteri(
+                      gl.TEXTURE_2D,
+                      gl.TEXTURE_MAG_FILTER,
+                      gl.LINEAR
                     ),
-                    h.texParameteri(
-                      h.TEXTURE_2D,
-                      h.TEXTURE_MIN_FILTER,
-                      n && t ? h.LINEAR_MIPMAP_LINEAR : h.LINEAR
+                    gl.texParameteri(
+                      gl.TEXTURE_2D,
+                      gl.TEXTURE_MIN_FILTER,
+                      n && t ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR
                     ),
-                    h.texParameteri(
-                      h.TEXTURE_2D,
-                      h.TEXTURE_WRAP_S,
-                      n && !e ? h.REPEAT : h.CLAMP_TO_EDGE
+                    gl.texParameteri(
+                      gl.TEXTURE_2D,
+                      gl.TEXTURE_WRAP_S,
+                      n && !e ? gl.REPEAT : gl.CLAMP_TO_EDGE
                     ),
-                    h.texParameteri(
-                      h.TEXTURE_2D,
-                      h.TEXTURE_WRAP_T,
-                      n && !e ? h.REPEAT : h.CLAMP_TO_EDGE
+                    gl.texParameteri(
+                      gl.TEXTURE_2D,
+                      gl.TEXTURE_WRAP_T,
+                      n && !e ? gl.REPEAT : gl.CLAMP_TO_EDGE
                     ),
-                    n && t && h.generateMipmap(h.TEXTURE_2D),
-                    h.bindTexture(h.TEXTURE_2D, null);
+                    n && t && gl.generateMipmap(gl.TEXTURE_2D),
+                    gl.bindTexture(gl.TEXTURE_2D, null);
                 })),
               (a.onerror = (function (e) {
                 return function () {
@@ -86333,28 +86333,28 @@
             );
           }
           function R(e, t, n, i) {
-            var r = h.getParameter(h.ARRAY_BUFFER_BINDING),
-              o = h.getParameter(h.CURRENT_PROGRAM);
+            var r = gl.getParameter(gl.ARRAY_BUFFER_BINDING),
+              o = gl.getParameter(gl.CURRENT_PROGRAM);
             if (o !== e || r !== t) {
               if (o)
                 for (
-                  var a = h.getProgramParameter(o, h.ACTIVE_ATTRIBUTES), s = 1;
+                  var a = gl.getProgramParameter(o, gl.ACTIVE_ATTRIBUTES), s = 1;
                   s < a;
                   s++
                 )
-                  h.disableVertexAttribArray(s);
+                  gl.disableVertexAttribArray(s);
               if (null != e) {
-                if ((h.useProgram(e.program), n)) {
-                  h.bindBuffer(h.ARRAY_BUFFER, n);
+                if ((gl.useProgram(e.program), n)) {
+                  gl.bindBuffer(gl.ARRAY_BUFFER, n);
                   var l = e.attributes2;
                   for (var u in l) {
                     var c = l[u];
                     -1 != c.index &&
-                      (h.enableVertexAttribArray(c.index),
-                      h.vertexAttribPointer(
+                      (gl.enableVertexAttribArray(c.index),
+                      gl.vertexAttribPointer(
                         c.index,
                         c.size,
-                        h.FLOAT,
+                        gl.FLOAT,
                         false,
                         c.stride,
                         c.offset
@@ -86362,48 +86362,48 @@
                   }
                 }
                 if (i) {
-                  h.bindBuffer(h.ARRAY_BUFFER, i);
+                  gl.bindBuffer(gl.ARRAY_BUFFER, i);
                   var d = e.attributes3;
                   for (var f in d) {
                     var p = d[f];
                     -1 != p.index &&
-                      (h.enableVertexAttribArray(p.index),
-                      h.vertexAttribPointer(
+                      (gl.enableVertexAttribArray(p.index),
+                      gl.vertexAttribPointer(
                         p.index,
                         p.size,
-                        h.FLOAT,
+                        gl.FLOAT,
                         false,
                         p.stride,
                         p.offset
                       ));
                   }
                 }
-                h.bindBuffer(h.ARRAY_BUFFER, t);
+                gl.bindBuffer(gl.ARRAY_BUFFER, t);
                 var y = e.attributes;
                 for (var m in y) {
                   var v = y[m];
                   -1 != v.index &&
-                    (h.enableVertexAttribArray(v.index),
-                    h.vertexAttribPointer(
+                    (gl.enableVertexAttribArray(v.index),
+                    gl.vertexAttribPointer(
                       v.index,
                       v.size,
-                      h.FLOAT,
+                      gl.FLOAT,
                       false,
                       v.stride,
                       v.offset
                     ));
                 }
-              } else h.useProgram(null);
+              } else gl.useProgram(null);
             }
           }
           function F(e) {
             var t = 0;
             (this.update = function (n) {
-              h.bindBuffer(h.ARRAY_BUFFER, e),
-                h.bufferData(
-                  h.ARRAY_BUFFER,
+              gl.bindBuffer(gl.ARRAY_BUFFER, e),
+                gl.bufferData(
+                  gl.ARRAY_BUFFER,
                   n instanceof Float32Array ? n : new Float32Array(n),
-                  h.DYNAMIC_DRAW
+                  gl.DYNAMIC_DRAW
                 ),
                 (t = n.length);
             }),
@@ -86414,17 +86414,17 @@
                 return t;
               }),
               (this.dispose = function () {
-                h.deleteBuffer(e);
+                gl.deleteBuffer(e);
               });
           }
           function B(e) {
             var t = 0;
             (this.update = function (n) {
-              h.bindBuffer(h.ELEMENT_ARRAY_BUFFER, e),
-                h.bufferData(
-                  h.ELEMENT_ARRAY_BUFFER,
+              gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, e),
+                gl.bufferData(
+                  gl.ELEMENT_ARRAY_BUFFER,
                   n instanceof Uint16Array ? n : new Uint16Array(n),
-                  h.DYNAMIC_DRAW
+                  gl.DYNAMIC_DRAW
                 ),
                 (t = n.length);
             }),
@@ -86435,20 +86435,20 @@
                 return t;
               }),
               (this.dispose = function () {
-                h.deleteBuffer(e);
+                gl.deleteBuffer(e);
               });
           }
           this.__defineGetter__("gl", function () {
-            return h;
+            return gl;
           }),
             this.__defineGetter__("projection", function () {
-              return _;
+              return projection;
             }),
             this.__defineGetter__("viewportWidth", function () {
-              return b;
+              return viewportWidth;
             }),
             this.__defineGetter__("viewportHeight", function () {
-              return w;
+              return viewportHeight;
             }),
             this.__defineGetter__("isLoading", function () {
               return y != m;
@@ -86457,7 +86457,7 @@
               return m / y;
             }),
             this.__defineGetter__("loadError", function () {
-              return v;
+              return loadError;
             }),
             (this.initializeShader = M),
             (this.loadTexture = j),
@@ -86467,7 +86467,7 @@
                 r = u[e];
               return (
                 r ||
-                ((r = h.createTexture()),
+                ((r = gl.createTexture()),
                 (function (e, t) {
                   var n = L(
                     e,
@@ -86491,88 +86491,88 @@
             }),
             (this.setSize = function (t, n) {
               return (
-                (e.width !== t || e.height !== n) &&
-                ((e.width = t),
-                (e.height = n),
-                (b = t),
-                (w = n),
-                r.mat4.ortho(_, 0, b, 0, w, 0, 1),
-                h.viewport(0, 0, b, w),
+                (canvasElem.width !== t || canvasElem.height !== n) &&
+                ((canvasElem.width = t),
+                (canvasElem.height = n),
+                (viewportWidth = t),
+                (viewportHeight = n),
+                r.mat4.ortho(projection, 0, viewportWidth, 0, viewportHeight, 0, 1),
+                gl.viewport(0, 0, viewportWidth, viewportHeight),
                 true)
               );
             }),
             (this.setViewport = function (e, t) {
-              (b = e),
-                (w = t),
-                r.mat4.ortho(_, 0, b, 0, w, 0, 1),
-                h.viewport(0, 0, b, w);
+              (viewportWidth = e),
+                (viewportHeight = t),
+                r.mat4.ortho(projection, 0, viewportWidth, 0, viewportHeight, 0, 1),
+                gl.viewport(0, 0, viewportWidth, viewportHeight);
             }),
             (this.disableBlending = function () {
-              0 !== c && ((c = 0), h.disable(h.BLEND));
+              0 !== c && ((c = 0), gl.disable(gl.BLEND));
             }),
             (this.enableBlending = function () {
               1 !== c &&
                 ((c = 1),
-                h.enable(h.BLEND),
-                h.blendFuncSeparate(
-                  h.SRC_ALPHA,
-                  h.ONE_MINUS_SRC_ALPHA,
-                  h.SRC_ALPHA,
-                  h.ONE
+                gl.enable(gl.BLEND),
+                gl.blendFuncSeparate(
+                  gl.SRC_ALPHA,
+                  gl.ONE_MINUS_SRC_ALPHA,
+                  gl.SRC_ALPHA,
+                  gl.ONE
                 ));
             }),
             (this.enableNormalBlending = function () {
               6 !== c &&
                 ((c = 6),
-                h.enable(h.BLEND),
-                h.blendFunc(h.ONE, h.ONE_MINUS_SRC_ALPHA));
+                gl.enable(gl.BLEND),
+                gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA));
             }),
             (this.enablePremultipliedBlending = function () {
               4 !== c &&
                 ((c = 4),
-                h.enable(h.BLEND),
-                h.blendFuncSeparate(
-                  h.ONE,
-                  h.ONE_MINUS_SRC_ALPHA,
-                  h.ONE,
-                  h.ONE_MINUS_SRC_ALPHA
+                gl.enable(gl.BLEND),
+                gl.blendFuncSeparate(
+                  gl.ONE,
+                  gl.ONE_MINUS_SRC_ALPHA,
+                  gl.ONE,
+                  gl.ONE_MINUS_SRC_ALPHA
                 ));
             }),
             (this.enableAdditiveBlending = function () {
               5 !== c &&
                 ((c = 5),
-                h.enable(h.BLEND),
-                h.blendFuncSeparate(h.ONE, h.ONE, h.ONE, h.ONE));
+                gl.enable(gl.BLEND),
+                gl.blendFuncSeparate(gl.ONE, gl.ONE, gl.ONE, gl.ONE));
             }),
             (this.enableScreenBlending = function () {
               2 !== c &&
                 ((c = 2),
-                h.enable(h.BLEND),
-                h.blendFuncSeparate(
-                  h.ONE,
-                  h.ONE_MINUS_SRC_COLOR,
-                  h.ONE,
-                  h.ONE_MINUS_SRC_ALPHA
+                gl.enable(gl.BLEND),
+                gl.blendFuncSeparate(
+                  gl.ONE,
+                  gl.ONE_MINUS_SRC_COLOR,
+                  gl.ONE,
+                  gl.ONE_MINUS_SRC_ALPHA
                 ));
             }),
             (this.enableMultiplyBlending = function () {
               3 !== c &&
                 ((c = 3),
-                h.enable(h.BLEND),
-                h.blendFuncSeparate(
-                  h.DST_COLOR,
-                  h.ONE_MINUS_SRC_ALPHA,
-                  h.DST_ALPHA,
-                  h.ONE_MINUS_SRC_ALPHA
+                gl.enable(gl.BLEND),
+                gl.blendFuncSeparate(
+                  gl.DST_COLOR,
+                  gl.ONE_MINUS_SRC_ALPHA,
+                  gl.DST_ALPHA,
+                  gl.ONE_MINUS_SRC_ALPHA
                 ));
             }),
             (this.bind = R),
             (this.makeVertexBuffer = function (e) {
-              var t = new F(h.createBuffer());
+              var t = new F(gl.createBuffer());
               return e && t.update(e), t;
             }),
             (this.makeIndexBuffer = function (e) {
-              var t = new B(h.createBuffer());
+              var t = new B(gl.createBuffer());
               return e && t.update(e), t;
             }),
             (this.drawLine = function (e, t, n, i) {
@@ -86587,11 +86587,11 @@
                 t.constructor === F
                   ? ((r = t.size / 2), R(V, t.id))
                   : ((r = t.length / 2),
-                    h.bindBuffer(h.ARRAY_BUFFER, E),
-                    h.bufferData(
-                      h.ARRAY_BUFFER,
+                    gl.bindBuffer(gl.ARRAY_BUFFER, E),
+                    gl.bufferData(
+                      gl.ARRAY_BUFFER,
                       new Float32Array(t),
-                      h.DYNAMIC_DRAW
+                      gl.DYNAMIC_DRAW
                     ),
                     R(V, E)),
                 (S[0] = i[0]),
@@ -86599,12 +86599,12 @@
                 (S[2] = i[2]),
                 (S[3] = i[3]);
               var o = V.uniforms;
-              h.uniform2f(o.Viewport, b, w),
-                h.uniform1f(o.Opacity, n),
-                h.uniform4fv(o.Color, S),
-                h.uniformMatrix4fv(o.WorldMatrix, false, k),
-                h.uniformMatrix4fv(o.ProjectionMatrix, false, _),
-                h.drawArrays(h.LINES, 0, r);
+              gl.uniform2f(o.Viewport, viewportWidth, viewportHeight),
+                gl.uniform1f(o.Opacity, n),
+                gl.uniform4fv(o.Color, S),
+                gl.uniformMatrix4fv(o.WorldMatrix, false, k),
+                gl.uniformMatrix4fv(o.ProjectionMatrix, false, projection),
+                gl.drawArrays(gl.LINES, 0, r);
             }),
             (this.drawColor = function (e, t, n, i, r, o) {
               (P[0] = e[0]),
@@ -86622,12 +86622,12 @@
                 (S[2] = r[2]),
                 (S[3] = r[3]);
               var s = a.uniforms;
-              h.uniform1f(s.Opacity, i),
-                h.uniform4fv(s.Color, S),
-                h.uniformMatrix4fv(s.WorldMatrix, false, P),
-                h.uniformMatrix4fv(s.ProjectionMatrix, false, _),
-                h.bindBuffer(h.ELEMENT_ARRAY_BUFFER, n.id),
-                h.drawElements(h.TRIANGLES, n.size, h.UNSIGNED_SHORT, 0);
+              gl.uniform1f(s.Opacity, i),
+                gl.uniform4fv(s.Color, S),
+                gl.uniformMatrix4fv(s.WorldMatrix, false, P),
+                gl.uniformMatrix4fv(s.ProjectionMatrix, false, projection),
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, n.id),
+                gl.drawElements(gl.TRIANGLES, n.size, gl.UNSIGNED_SHORT, 0);
             }),
             (this.makeThickLine = f.make),
             (this.makeWireframe = function (e, t, n, i, r) {
@@ -86645,7 +86645,7 @@
                 void 0 === i && (i = 1),
                 r || (r = O),
                 (r = [r[0], r[1], r[2], r[3] * i]),
-                f.draw(t, n, r, k, _);
+                f.draw(t, n, r, k, projection);
             }),
             (this.drawWireframe = function (e, t, n, i, r) {
               (k[0] = e[0]),
@@ -86654,7 +86654,7 @@
                 (k[5] = e[3]),
                 (k[12] = e[4]),
                 (k[13] = e[5]),
-                p.draw(t, n, i, r, k, _);
+                p.draw(t, n, i, r, k, projection);
             });
           var V = M({
               name: "LineShader",
@@ -87108,14 +87108,14 @@
         value: true,
       }),
         (t.default = function () {
-          var e = this,
-            t = e.gl;
-          t.getExtension("OES_standard_derivatives");
+          var thisCanvas = this,
+            _gl = thisCanvas.gl;
+          _gl.getExtension("OES_standard_derivatives");
           var n,
-            i = new Float32Array([1, 1, 1, 1]),
-            o = r.mat4.create(),
-            s = r.mat4.create(),
-            l = e.initializeShader({
+            tintColor = new Float32Array([1, 1, 1, 1]), // color ? defaultTint 
+            worldMatrix = r.mat4.create(), // mat4Tmp1 ?
+            viewMatrix = r.mat4.create(), // mat4Tmp2 ?
+            pieShader = thisCanvas.initializeShader({
               name: "PieShader",
               vertex: "Pie.vs",
               fragment: "Pie.fs",
@@ -87158,7 +87158,7 @@
                 Antialias: "Antialias",
               },
             }),
-            u = e.initializeShader({
+            colorCodedSkinShader = thisCanvas.initializeShader({
               name: "ColorCodedSkinShader",
               vertex: "ColorCodedSkin.vs",
               fragment: "ColorCodedSkin.fs",
@@ -87191,7 +87191,7 @@
                 BoneColors: "BoneColors",
               },
             }),
-            c = e.initializeShader({
+            colorCodedSkinDeformedShader = thisCanvas.initializeShader({
               name: "ColorCodedSkinShader",
               vertex: "ColorCodedSkinDeformed.vs",
               fragment: "ColorCodedSkin.fs",
@@ -87240,7 +87240,7 @@
                 BoneMatrices: "BoneMatrices",
               },
             }),
-            d = e.initializeShader({
+            texturedShader = thisCanvas.initializeShader({
               name: "TexturedShader",
               vertex: "Textured.vs",
               fragment: "Textured.fs",
@@ -87266,7 +87266,7 @@
                 Color: "Color",
               },
             }),
-            h = e.initializeShader({
+            texturedSkinShader = thisCanvas.initializeShader({
               name: "TexturedSkinShader",
               vertex: "TexturedSkin.vs",
               fragment: "Textured.fs",
@@ -87308,7 +87308,7 @@
                 BoneMatrices: "BoneMatrices",
               },
             }),
-            f = e.initializeShader({
+            contouredSkinShader = thisCanvas.initializeShader({
               name: "ContouredSkinShader",
               vertex: "TexturedSkin.vs",
               fragment: "Contoured.fs",
@@ -87351,7 +87351,7 @@
                 ContourScale: "ContourScale",
               },
             }),
-            p = e.initializeShader({
+            texturedTintShader = thisCanvas.initializeShader({
               name: "TexturedShader",
               vertex: "Textured.vs",
               fragment: "TexturedTint.fs",
@@ -87377,7 +87377,7 @@
                 Color: "Color",
               },
             }),
-            y = e.initializeShader({
+            contouredShader = thisCanvas.initializeShader({
               name: "ContourShader",
               vertex: "Textured.vs",
               fragment: "Contoured.fs",
@@ -87404,7 +87404,7 @@
                 ContourScale: "ContourScale",
               },
             }),
-            m = e.initializeShader({
+            gridShader = thisCanvas.initializeShader({
               name: "GridShader",
               vertex: "Grid.vs",
               fragment: "Grid.fs",
@@ -87430,7 +87430,7 @@
                 SmallIntensity: "SmallIntensity",
               },
             }),
-            v = e.initializeShader({
+            gridAxisShader = thisCanvas.initializeShader({
               name: "GridShader",
               vertex: "Grid.vs",
               fragment: "GridAxis.fs",
@@ -87456,7 +87456,7 @@
                 SmallIntensity: "SmallIntensity",
               },
             }),
-            g = e.initializeShader({
+            gridSubdivisionsShader = thisCanvas.initializeShader({
               name: "GridShader",
               vertex: "Grid.vs",
               fragment: "GridSubdivisions.fs",
@@ -87482,93 +87482,93 @@
                 SmallIntensity: "SmallIntensity",
               },
             }),
-            _ = t.createBuffer();
-          t.bindBuffer(t.ARRAY_BUFFER, _),
-            t.bufferData(
-              t.ARRAY_BUFFER,
+            _ = _gl.createBuffer();
+          _gl.bindBuffer(_gl.ARRAY_BUFFER, _),
+            _gl.bufferData(
+              _gl.ARRAY_BUFFER,
               (n = new Float32Array([
                 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0,
               ])),
-              t.DYNAMIC_DRAW
+              _gl.DYNAMIC_DRAW
             );
           var b = r.mat4.create();
           var w = null;
           function O(n, i) {
-            var r = t.createFramebuffer(),
-              o = t.createTexture();
-            t.bindTexture(t.TEXTURE_2D, o),
-              t.texParameteri(t.TEXTURE_2D, t.TEXTURE_MAG_FILTER, t.NEAREST),
-              t.texParameteri(t.TEXTURE_2D, t.TEXTURE_MIN_FILTER, t.NEAREST),
-              t.texParameteri(t.TEXTURE_2D, t.TEXTURE_WRAP_S, t.CLAMP_TO_EDGE),
-              t.texParameteri(t.TEXTURE_2D, t.TEXTURE_WRAP_T, t.CLAMP_TO_EDGE);
-            var a = n || e.viewportWidth,
-              s = i || e.viewportHeight;
-            t.texImage2D(
-              t.TEXTURE_2D,
+            var r = _gl.createFramebuffer(),
+              o = _gl.createTexture();
+            _gl.bindTexture(_gl.TEXTURE_2D, o),
+              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_MAG_FILTER, _gl.NEAREST),
+              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_MIN_FILTER, _gl.NEAREST),
+              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_WRAP_S, _gl.CLAMP_TO_EDGE),
+              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_WRAP_T, _gl.CLAMP_TO_EDGE);
+            var a = n || thisCanvas.viewportWidth,
+              s = i || thisCanvas.viewportHeight;
+            _gl.texImage2D(
+              _gl.TEXTURE_2D,
               0,
-              t.RGBA,
+              _gl.RGBA,
               a,
               s,
               0,
-              t.RGBA,
-              t.UNSIGNED_BYTE,
+              _gl.RGBA,
+              _gl.UNSIGNED_BYTE,
               null
             ),
-              t.bindTexture(t.TEXTURE_2D, null),
-              t.bindFramebuffer(t.FRAMEBUFFER, r),
-              t.framebufferTexture2D(
-                t.FRAMEBUFFER,
-                t.COLOR_ATTACHMENT0,
-                t.TEXTURE_2D,
+              _gl.bindTexture(_gl.TEXTURE_2D, null),
+              _gl.bindFramebuffer(_gl.FRAMEBUFFER, r),
+              _gl.framebufferTexture2D(
+                _gl.FRAMEBUFFER,
+                _gl.COLOR_ATTACHMENT0,
+                _gl.TEXTURE_2D,
                 o,
                 0
               ),
-              t.bindFramebuffer(t.FRAMEBUFFER, null);
+              _gl.bindFramebuffer(_gl.FRAMEBUFFER, null);
             var l = null,
               u = 0,
               c = 0;
             (this.bind = function (n, i) {
               w !== r &&
-                ((l = w), (u = e.viewportWidth), (c = e.viewportHeight)),
-                n || (n = e.viewportWidth),
-                i || (i = e.viewportHeight),
+                ((l = w), (u = thisCanvas.viewportWidth), (c = thisCanvas.viewportHeight)),
+                n || (n = thisCanvas.viewportWidth),
+                i || (i = thisCanvas.viewportHeight),
                 (a == n && s == i) ||
                   ((a = n),
                   (s = i),
-                  t.bindTexture(t.TEXTURE_2D, o),
-                  t.texImage2D(
-                    t.TEXTURE_2D,
+                  _gl.bindTexture(_gl.TEXTURE_2D, o),
+                  _gl.texImage2D(
+                    _gl.TEXTURE_2D,
                     0,
-                    t.RGBA,
+                    _gl.RGBA,
                     n,
                     i,
                     0,
-                    t.RGBA,
-                    t.UNSIGNED_BYTE,
+                    _gl.RGBA,
+                    _gl.UNSIGNED_BYTE,
                     null
                   ),
-                  t.bindTexture(t.TEXTURE_2D, null)),
-                e.setViewport(n, i),
-                t.viewport(0, 0, n, i),
-                t.bindFramebuffer(t.FRAMEBUFFER, r),
-                t.clearColor(0.3628, 0.3628, 0.3628, 0),
-                t.clear(t.COLOR_BUFFER_BIT),
+                  _gl.bindTexture(_gl.TEXTURE_2D, null)),
+                thisCanvas.setViewport(n, i),
+                _gl.viewport(0, 0, n, i),
+                _gl.bindFramebuffer(_gl.FRAMEBUFFER, r),
+                _gl.clearColor(0.3628, 0.3628, 0.3628, 0),
+                _gl.clear(_gl.COLOR_BUFFER_BIT),
                 (w = r);
             }),
               this.__defineGetter__("texture", function () {
                 return o;
               }),
               (this.unbind = function () {
-                t.bindFramebuffer(t.FRAMEBUFFER, l),
-                  e.setViewport(u, c),
+                _gl.bindFramebuffer(_gl.FRAMEBUFFER, l),
+                  thisCanvas.setViewport(u, c),
                   (w = l);
               }),
               (this.destroy = function () {
-                t.deleteFramebuffer(r), t.deleteTexture(o);
+                _gl.deleteFramebuffer(r), _gl.deleteTexture(o);
               }),
               (this.read = function () {
                 var e = new Uint8Array(a * s * 4);
-                return t.readPixels(0, 0, a, s, t.RGBA, t.UNSIGNED_BYTE, e), e;
+                return _gl.readPixels(0, 0, a, s, _gl.RGBA, _gl.UNSIGNED_BYTE, e), e;
               });
           }
           (this.makeFrameBuffer = function (e, t) {
@@ -87576,18 +87576,18 @@
           }),
             (this.drawGrid = function (i, r, o, a, s, l, u, c, d) {
               var h;
-              if (i && r) h = m;
-              else if (i) h = v;
+              if (i && r) h = gridShader;
+              else if (i) h = gridAxisShader;
               else {
                 if (!r)
                   return (
-                    t.clearColor(0.3628, 0.3628, 0.3628, 1),
-                    void t.clear(t.COLOR_BUFFER_BIT)
+                    _gl.clearColor(0.3628, 0.3628, 0.3628, 1), // background color
+                    void _gl.clear(_gl.COLOR_BUFFER_BIT)
                   );
-                h = g;
+                h = gridSubdivisionsShader;
               }
-              var f = e.viewportWidth,
-                p = e.viewportHeight;
+              var f = thisCanvas.viewportWidth,
+                p = thisCanvas.viewportHeight;
               (n[0] = 0),
                 (n[1] = p),
                 (n[4] = 0),
@@ -87597,34 +87597,34 @@
                 (n[12] = f),
                 (n[13] = 0);
               var y = h.uniforms;
-              e.bind(h, _),
-                t.bufferData(t.ARRAY_BUFFER, n, t.DYNAMIC_DRAW),
-                t.uniform1f(y.Opacity, u),
-                t.uniform1f(y.DiagonalIntensity, c),
-                t.uniform1f(y.SmallIntensity, d),
+              thisCanvas.bind(h, _),
+                _gl.bufferData(_gl.ARRAY_BUFFER, n, _gl.DYNAMIC_DRAW),
+                _gl.uniform1f(y.Opacity, u),
+                _gl.uniform1f(y.DiagonalIntensity, c),
+                _gl.uniform1f(y.SmallIntensity, d),
                 (b[0] = f / s),
                 (b[5] = p / l),
                 (b[12] = -o / s),
                 (b[13] = -a / l),
-                t.uniformMatrix4fv(y.WorldMatrix, false, b),
-                t.uniformMatrix4fv(y.ProjectionMatrix, false, e.projection),
-                t.drawArrays(t.TRIANGLE_STRIP, 0, 4);
+                _gl.uniformMatrix4fv(y.WorldMatrix, false, b),
+                _gl.uniformMatrix4fv(y.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.drawArrays(_gl.TRIANGLE_STRIP, 0, 4);
             }),
             (this.drawColorCodedSkin = function (n, i, r, a, s, l) {
-              (o[0] = n[0]),
-                (o[1] = n[1]),
-                (o[4] = n[2]),
-                (o[5] = n[3]),
-                (o[12] = n[4]),
-                (o[13] = n[5]),
-                e.bind(u, i.id, r.id);
-              var c = u.uniforms;
-              t.uniform1f(c.Opacity, l),
-                t.uniform4fv(c.BoneColors, s),
-                t.uniformMatrix4fv(c.WorldMatrix, false, o),
-                t.uniformMatrix4fv(c.ProjectionMatrix, false, e.projection),
-                t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, a.id),
-                t.drawElements(t.TRIANGLES, a.size, t.UNSIGNED_SHORT, 0);
+              (worldMatrix[0] = n[0]),
+                (worldMatrix[1] = n[1]),
+                (worldMatrix[4] = n[2]),
+                (worldMatrix[5] = n[3]),
+                (worldMatrix[12] = n[4]),
+                (worldMatrix[13] = n[5]),
+                thisCanvas.bind(colorCodedSkinShader, i.id, r.id);
+              var c = colorCodedSkinShader.uniforms;
+              _gl.uniform1f(c.Opacity, l),
+                _gl.uniform4fv(c.BoneColors, s),
+                _gl.uniformMatrix4fv(c.WorldMatrix, false, worldMatrix),
+                _gl.uniformMatrix4fv(c.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, a.id),
+                _gl.drawElements(_gl.TRIANGLES, a.size, _gl.UNSIGNED_SHORT, 0);
             }),
             (this.drawColorCodedSkinDeformed = function (
               n,
@@ -87637,169 +87637,169 @@
               h,
               f
             ) {
-              (s[0] = n[0]),
-                (s[1] = n[1]),
-                (s[4] = n[2]),
-                (s[5] = n[3]),
-                (s[12] = n[4]),
-                (s[13] = n[5]),
-                (o[0] = i[0]),
-                (o[1] = i[1]),
-                (o[4] = i[2]),
-                (o[5] = i[3]),
-                (o[12] = i[4]),
-                (o[13] = i[5]),
-                e.bind(c, r.id, a.id, l.id);
-              var p = c.uniforms;
-              t.uniform1f(p.Opacity, f),
-                t.uniform3fv(p.BoneMatrices, d),
-                t.uniform4fv(p.BoneColors, h),
-                t.uniformMatrix4fv(p.WorldMatrix, false, o),
-                t.uniformMatrix4fv(p.ViewMatrix, false, s),
-                t.uniformMatrix4fv(p.ProjectionMatrix, false, e.projection),
-                t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, u.id),
-                t.drawElements(t.TRIANGLES, u.size, t.UNSIGNED_SHORT, 0);
+              (viewMatrix[0] = n[0]),
+                (viewMatrix[1] = n[1]),
+                (viewMatrix[4] = n[2]),
+                (viewMatrix[5] = n[3]),
+                (viewMatrix[12] = n[4]),
+                (viewMatrix[13] = n[5]),
+                (worldMatrix[0] = i[0]),
+                (worldMatrix[1] = i[1]),
+                (worldMatrix[4] = i[2]),
+                (worldMatrix[5] = i[3]),
+                (worldMatrix[12] = i[4]),
+                (worldMatrix[13] = i[5]),
+                thisCanvas.bind(colorCodedSkinDeformedShader, r.id, a.id, l.id);
+              var p = colorCodedSkinDeformedShader.uniforms;
+              _gl.uniform1f(p.Opacity, f),
+                _gl.uniform3fv(p.BoneMatrices, d),
+                _gl.uniform4fv(p.BoneColors, h),
+                _gl.uniformMatrix4fv(p.WorldMatrix, false, worldMatrix),
+                _gl.uniformMatrix4fv(p.ViewMatrix, false, viewMatrix),
+                _gl.uniformMatrix4fv(p.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, u.id),
+                _gl.drawElements(_gl.TRIANGLES, u.size, _gl.UNSIGNED_SHORT, 0);
             }),
-            (this.drawContouredSkin = function (n, r, a, l, u, c, d, h, p, y) {
-              (s[0] = n[0]),
-                (s[1] = n[1]),
-                (s[4] = n[2]),
-                (s[5] = n[3]),
-                (s[12] = n[4]),
-                (s[13] = n[5]),
-                (o[0] = r[0]),
-                (o[1] = r[1]),
-                (o[4] = r[2]),
-                (o[5] = r[3]),
-                (o[12] = r[4]),
-                (o[13] = r[5]),
-                e.bind(f, a.id, l.id);
-              var m = p[3] * h;
-              (i[0] = p[0] * m),
-                (i[1] = p[1] * m),
-                (i[2] = p[2] * m),
-                (i[3] = m);
-              var v = f.uniforms;
-              t.uniform1f(v.Opacity, h),
-                t.uniform1f(v.ContourScale, d),
-                t.uniform4fv(v.Color, i),
-                t.uniform3fv(v.BoneMatrices, c),
-                t.uniformMatrix4fv(v.WorldMatrix, false, o),
-                t.uniformMatrix4fv(v.ViewMatrix, false, s),
-                t.uniformMatrix4fv(v.ProjectionMatrix, false, e.projection),
-                t.activeTexture(t.TEXTURE0),
-                t.bindTexture(t.TEXTURE_2D, y),
-                t.uniform1i(v.TextureSampler, 0),
-                t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, u.id),
-                t.drawElements(t.TRIANGLES, u.size, t.UNSIGNED_SHORT, 0);
+            (this.drawContouredSkin = function (n, r, a, l, u, boneMatrices, contourScale, opacity, baseColor, texture2d) {
+              (viewMatrix[0] = n[0]),
+                (viewMatrix[1] = n[1]),
+                (viewMatrix[4] = n[2]),
+                (viewMatrix[5] = n[3]),
+                (viewMatrix[12] = n[4]),
+                (viewMatrix[13] = n[5]),
+                (worldMatrix[0] = r[0]),
+                (worldMatrix[1] = r[1]),
+                (worldMatrix[4] = r[2]),
+                (worldMatrix[5] = r[3]),
+                (worldMatrix[12] = r[4]),
+                (worldMatrix[13] = r[5]),
+                thisCanvas.bind(contouredSkinShader, a.id, l.id);
+              var colorAlpha = baseColor[3] * opacity;
+              (tintColor[0] = baseColor[0] * colorAlpha),
+                (tintColor[1] = baseColor[1] * colorAlpha),
+                (tintColor[2] = baseColor[2] * colorAlpha),
+                (tintColor[3] = colorAlpha);
+              var v = contouredSkinShader.uniforms;
+              _gl.uniform1f(v.Opacity, opacity),
+                _gl.uniform1f(v.ContourScale, contourScale),
+                _gl.uniform4fv(v.Color, tintColor),
+                _gl.uniform3fv(v.BoneMatrices, boneMatrices),
+                _gl.uniformMatrix4fv(v.WorldMatrix, false, worldMatrix),
+                _gl.uniformMatrix4fv(v.ViewMatrix, false, viewMatrix),
+                _gl.uniformMatrix4fv(v.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.activeTexture(_gl.TEXTURE0),
+                _gl.bindTexture(_gl.TEXTURE_2D, texture2d),
+                _gl.uniform1i(v.TextureSampler, 0),
+                _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, u.id),
+                _gl.drawElements(_gl.TRIANGLES, u.size, _gl.UNSIGNED_SHORT, 0);
             }),
             (this.drawTextured = function (n, r, a, s, l, u) {
-              (o[0] = n[0]),
-                (o[1] = n[1]),
-                (o[4] = n[2]),
-                (o[5] = n[3]),
-                (o[12] = n[4]),
-                (o[13] = n[5]),
-                e.bind(d, r.id);
+              (worldMatrix[0] = n[0]),
+                (worldMatrix[1] = n[1]),
+                (worldMatrix[4] = n[2]),
+                (worldMatrix[5] = n[3]),
+                (worldMatrix[12] = n[4]),
+                (worldMatrix[13] = n[5]),
+                thisCanvas.bind(texturedShader, r.id);
               var c = l[3] * s;
-              (i[0] = l[0] * c),
-                (i[1] = l[1] * c),
-                (i[2] = l[2] * c),
-                (i[3] = c);
-              var h = d.uniforms;
-              t.uniform1f(h.Opacity, s),
-                t.uniform4fv(h.Color, i),
-                t.uniformMatrix4fv(h.WorldMatrix, false, o),
-                t.uniformMatrix4fv(h.ProjectionMatrix, false, e.projection),
-                t.activeTexture(t.TEXTURE0),
-                t.bindTexture(t.TEXTURE_2D, u),
-                t.uniform1i(h.TextureSampler, 0),
-                t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, a.id),
-                t.drawElements(t.TRIANGLES, a.size, t.UNSIGNED_SHORT, 0);
+              (tintColor[0] = l[0] * c),
+                (tintColor[1] = l[1] * c),
+                (tintColor[2] = l[2] * c),
+                (tintColor[3] = c);
+              var h = texturedShader.uniforms;
+              _gl.uniform1f(h.Opacity, s),
+                _gl.uniform4fv(h.Color, tintColor),
+                _gl.uniformMatrix4fv(h.WorldMatrix, false, worldMatrix),
+                _gl.uniformMatrix4fv(h.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.activeTexture(_gl.TEXTURE0),
+                _gl.bindTexture(_gl.TEXTURE_2D, u),
+                _gl.uniform1i(h.TextureSampler, 0),
+                _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, a.id),
+                _gl.drawElements(_gl.TRIANGLES, a.size, _gl.UNSIGNED_SHORT, 0);
             }),
             (this.drawTexturedSkin = function (n, r, a, l, u, c, d, f, p) {
-              (s[0] = n[0]),
-                (s[1] = n[1]),
-                (s[4] = n[2]),
-                (s[5] = n[3]),
-                (s[12] = n[4]),
-                (s[13] = n[5]),
-                (o[0] = r[0]),
-                (o[1] = r[1]),
-                (o[4] = r[2]),
-                (o[5] = r[3]),
-                (o[12] = r[4]),
-                (o[13] = r[5]),
-                e.bind(h, a.id, l.id);
+              (viewMatrix[0] = n[0]),
+                (viewMatrix[1] = n[1]),
+                (viewMatrix[4] = n[2]),
+                (viewMatrix[5] = n[3]),
+                (viewMatrix[12] = n[4]),
+                (viewMatrix[13] = n[5]),
+                (worldMatrix[0] = r[0]),
+                (worldMatrix[1] = r[1]),
+                (worldMatrix[4] = r[2]),
+                (worldMatrix[5] = r[3]),
+                (worldMatrix[12] = r[4]),
+                (worldMatrix[13] = r[5]),
+                thisCanvas.bind(texturedSkinShader, a.id, l.id);
               var y = f[3] * d;
-              (i[0] = f[0] * y),
-                (i[1] = f[1] * y),
-                (i[2] = f[2] * y),
-                (i[3] = y);
-              var m = h.uniforms;
-              t.uniform1f(m.Opacity, d),
-                t.uniform4fv(m.Color, i),
-                t.uniform3fv(m.BoneMatrices, c),
-                t.uniformMatrix4fv(m.WorldMatrix, false, o),
-                t.uniformMatrix4fv(m.ViewMatrix, false, s),
-                t.uniformMatrix4fv(m.ProjectionMatrix, false, e.projection),
-                t.activeTexture(t.TEXTURE0),
-                t.bindTexture(t.TEXTURE_2D, p),
-                t.uniform1i(m.TextureSampler, 0),
-                t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, u.id),
-                t.drawElements(t.TRIANGLES, u.size, t.UNSIGNED_SHORT, 0);
+              (tintColor[0] = f[0] * y),
+                (tintColor[1] = f[1] * y),
+                (tintColor[2] = f[2] * y),
+                (tintColor[3] = y);
+              var m = texturedSkinShader.uniforms;
+              _gl.uniform1f(m.Opacity, d),
+                _gl.uniform4fv(m.Color, tintColor),
+                _gl.uniform3fv(m.BoneMatrices, c),
+                _gl.uniformMatrix4fv(m.WorldMatrix, false, worldMatrix),
+                _gl.uniformMatrix4fv(m.ViewMatrix, false, viewMatrix),
+                _gl.uniformMatrix4fv(m.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.activeTexture(_gl.TEXTURE0),
+                _gl.bindTexture(_gl.TEXTURE_2D, p),
+                _gl.uniform1i(m.TextureSampler, 0),
+                _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, u.id),
+                _gl.drawElements(_gl.TRIANGLES, u.size, _gl.UNSIGNED_SHORT, 0);
             }),
             (this.drawTexturedTint = function (n, r, a, s, l, u) {
-              (o[0] = n[0]),
-                (o[1] = n[1]),
-                (o[4] = n[2]),
-                (o[5] = n[3]),
-                (o[12] = n[4]),
-                (o[13] = n[5]),
-                e.bind(p, r.id);
+              (worldMatrix[0] = n[0]),
+                (worldMatrix[1] = n[1]),
+                (worldMatrix[4] = n[2]),
+                (worldMatrix[5] = n[3]),
+                (worldMatrix[12] = n[4]),
+                (worldMatrix[13] = n[5]),
+                thisCanvas.bind(texturedTintShader, r.id);
               var c = l[3] * s;
-              (i[0] = l[0] * c),
-                (i[1] = l[1] * c),
-                (i[2] = l[2] * c),
-                (i[3] = c);
-              var d = p.uniforms;
-              t.uniform1f(d.Opacity, s),
-                t.uniform4fv(d.Color, i),
-                t.uniformMatrix4fv(d.WorldMatrix, false, o),
-                t.uniformMatrix4fv(d.ProjectionMatrix, false, e.projection),
-                t.activeTexture(t.TEXTURE0),
-                t.bindTexture(t.TEXTURE_2D, u),
-                t.uniform1i(d.TextureSampler, 0),
-                t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, a.id),
-                t.drawElements(t.TRIANGLES, a.size, t.UNSIGNED_SHORT, 0);
+              (tintColor[0] = l[0] * c),
+                (tintColor[1] = l[1] * c),
+                (tintColor[2] = l[2] * c),
+                (tintColor[3] = c);
+              var d = texturedTintShader.uniforms;
+              _gl.uniform1f(d.Opacity, s),
+                _gl.uniform4fv(d.Color, tintColor),
+                _gl.uniformMatrix4fv(d.WorldMatrix, false, worldMatrix),
+                _gl.uniformMatrix4fv(d.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.activeTexture(_gl.TEXTURE0),
+                _gl.bindTexture(_gl.TEXTURE_2D, u),
+                _gl.uniform1i(d.TextureSampler, 0),
+                _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, a.id),
+                _gl.drawElements(_gl.TRIANGLES, a.size, _gl.UNSIGNED_SHORT, 0);
             }),
             (this.drawContoured = function (n, r, a, s, l, u, c) {
-              (o[0] = n[0]),
-                (o[1] = n[1]),
-                (o[4] = n[2]),
-                (o[5] = n[3]),
-                (o[12] = n[4]),
-                (o[13] = n[5]),
-                e.bind(y, r.id);
+              (worldMatrix[0] = n[0]),
+                (worldMatrix[1] = n[1]),
+                (worldMatrix[4] = n[2]),
+                (worldMatrix[5] = n[3]),
+                (worldMatrix[12] = n[4]),
+                (worldMatrix[13] = n[5]),
+                thisCanvas.bind(contouredShader, r.id);
               var d = u[3] * l;
-              (i[0] = u[0] * d),
-                (i[1] = u[1] * d),
-                (i[2] = u[2] * d),
-                (i[3] = d);
-              var h = y.uniforms;
-              t.uniform1f(h.Opacity, l),
-                t.uniform1f(h.ContourScale, s),
-                t.uniform4fv(h.Color, i),
-                t.uniformMatrix4fv(h.WorldMatrix, false, o),
-                t.uniformMatrix4fv(h.ProjectionMatrix, false, e.projection),
-                t.activeTexture(t.TEXTURE0),
-                t.bindTexture(t.TEXTURE_2D, c),
-                t.uniform1i(h.TextureSampler, 0),
-                t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, a.id),
-                t.drawElements(t.TRIANGLES, a.size, t.UNSIGNED_SHORT, 0);
+              (tintColor[0] = u[0] * d),
+                (tintColor[1] = u[1] * d),
+                (tintColor[2] = u[2] * d),
+                (tintColor[3] = d);
+              var h = contouredShader.uniforms;
+              _gl.uniform1f(h.Opacity, l),
+                _gl.uniform1f(h.ContourScale, s),
+                _gl.uniform4fv(h.Color, tintColor),
+                _gl.uniformMatrix4fv(h.WorldMatrix, false, worldMatrix),
+                _gl.uniformMatrix4fv(h.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.activeTexture(_gl.TEXTURE0),
+                _gl.bindTexture(_gl.TEXTURE_2D, c),
+                _gl.uniform1i(h.TextureSampler, 0),
+                _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, a.id),
+                _gl.drawElements(_gl.TRIANGLES, a.size, _gl.UNSIGNED_SHORT, 0);
             }),
             (this.loadBitmapTexture = function (e, n) {
-              var i = t.createTexture(),
+              var i = _gl.createTexture(),
                 r = 0 != (n & a.default.LinearFilter),
                 o = 0 != (n & a.default.ClampToEdge),
                 s = 0 != (n & a.default.MipMapped);
@@ -87810,77 +87810,77 @@
                 0 == e.height ||
                 e.height & (e.height - 1)
               );
-              t.bindTexture(t.TEXTURE_2D, i),
+              _gl.bindTexture(_gl.TEXTURE_2D, i),
                 0 != (n & a.default.MultiplyAlpha)
-                  ? t.pixelStorei(t.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true)
-                  : t.pixelStorei(t.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false),
-                t.pixelStorei(
-                  t.UNPACK_FLIP_Y_WEBGL,
+                  ? _gl.pixelStorei(_gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true)
+                  : _gl.pixelStorei(_gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false),
+                _gl.pixelStorei(
+                  _gl.UNPACK_FLIP_Y_WEBGL,
                   0 != (n & a.default.FlipY)
                 ),
-                t.pixelStorei(t.UNPACK_ALIGNMENT, 1);
-              var u = t.RGBA;
+                _gl.pixelStorei(_gl.UNPACK_ALIGNMENT, 1);
+              var u = _gl.RGBA;
               switch (e.channels) {
                 case 1:
-                  u = t.ALPHA;
+                  u = _gl.ALPHA;
                   break;
                 case 3:
-                  u = t.RGB;
+                  u = _gl.RGB;
               }
               return (
-                t.texImage2D(
-                  t.TEXTURE_2D,
+                _gl.texImage2D(
+                  _gl.TEXTURE_2D,
                   0,
                   u,
                   e.width,
                   e.height,
                   0,
                   u,
-                  t.UNSIGNED_BYTE,
+                  _gl.UNSIGNED_BYTE,
                   e.bytes
                 ),
-                t.texParameteri(
-                  t.TEXTURE_2D,
-                  t.TEXTURE_MAG_FILTER,
-                  r ? t.LINEAR : t.NEAREST
+                _gl.texParameteri(
+                  _gl.TEXTURE_2D,
+                  _gl.TEXTURE_MAG_FILTER,
+                  r ? _gl.LINEAR : _gl.NEAREST
                 ),
-                t.texParameteri(
-                  t.TEXTURE_2D,
-                  t.TEXTURE_MIN_FILTER,
-                  r ? (l && s ? t.LINEAR_MIPMAP_LINEAR : t.LINEAR) : t.NEAREST
+                _gl.texParameteri(
+                  _gl.TEXTURE_2D,
+                  _gl.TEXTURE_MIN_FILTER,
+                  r ? (l && s ? _gl.LINEAR_MIPMAP_LINEAR : _gl.LINEAR) : _gl.NEAREST
                 ),
-                t.texParameteri(
-                  t.TEXTURE_2D,
-                  t.TEXTURE_WRAP_S,
-                  l && !o ? t.REPEAT : t.CLAMP_TO_EDGE
+                _gl.texParameteri(
+                  _gl.TEXTURE_2D,
+                  _gl.TEXTURE_WRAP_S,
+                  l && !o ? _gl.REPEAT : _gl.CLAMP_TO_EDGE
                 ),
-                t.texParameteri(
-                  t.TEXTURE_2D,
-                  t.TEXTURE_WRAP_T,
-                  l && !o ? t.REPEAT : t.CLAMP_TO_EDGE
+                _gl.texParameteri(
+                  _gl.TEXTURE_2D,
+                  _gl.TEXTURE_WRAP_T,
+                  l && !o ? _gl.REPEAT : _gl.CLAMP_TO_EDGE
                 ),
-                r && l && s && t.generateMipmap(t.TEXTURE_2D),
-                t.bindTexture(t.TEXTURE_2D, null),
+                r && l && s && _gl.generateMipmap(_gl.TEXTURE_2D),
+                _gl.bindTexture(_gl.TEXTURE_2D, null),
                 i
               );
             }),
             (this.deleteTexture = function (e) {
-              t.deleteTexture(e);
+              _gl.deleteTexture(e);
             }),
             (this.drawPies = function (n, i, r, o) {
-              (s[0] = n[0]),
-                (s[1] = n[1]),
-                (s[4] = n[2]),
-                (s[5] = n[3]),
-                (s[12] = n[4]),
-                (s[13] = n[5]),
-                e.bind(l, i.id);
-              var a = l.uniforms;
-              t.uniform1f(a.Size, o),
-                t.uniform1f(a.Antialias, 0.75),
-                t.uniformMatrix4fv(a.ProjectionMatrix, false, e.projection),
-                t.uniformMatrix4fv(a.ViewMatrix, false, s),
-                t.drawArrays(t.POINTS, 0, r);
+              (viewMatrix[0] = n[0]),
+                (viewMatrix[1] = n[1]),
+                (viewMatrix[4] = n[2]),
+                (viewMatrix[5] = n[3]),
+                (viewMatrix[12] = n[4]),
+                (viewMatrix[13] = n[5]),
+                thisCanvas.bind(pieShader, i.id);
+              var a = pieShader.uniforms;
+              _gl.uniform1f(a.Size, o),
+                _gl.uniform1f(a.Antialias, 0.75),
+                _gl.uniformMatrix4fv(a.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(a.ViewMatrix, false, viewMatrix),
+                _gl.drawArrays(_gl.POINTS, 0, r);
             });
         });
       var i,
