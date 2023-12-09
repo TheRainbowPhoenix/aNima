@@ -83135,7 +83135,7 @@
       var z =
         (N(
           (i = (function (e) {
-            function t(e, n, i, r, o, a) {
+            function t(canvasElem, currentStage, user, preferences, buildNumber, fileData) {
               !(function (e, t) {
                 if (!(e instanceof t))
                   throw new TypeError("Cannot call a class as a function"); // this.nima component !!
@@ -83149,13 +83149,13 @@
                   ? e
                   : t;
               })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this));
-              (s._BuildNumber = o),
-                (s._Graphics = new l.default(e)),
-                (s._Canvas = e),
-                (s._EditorUI = n),
-                (s._UserPreferences = r || {}),
-                (s._User = i),
-                (s._Author = a.owner),
+              (s._BuildNumber = buildNumber),
+                (s._Graphics = new l.default(canvasElem)),
+                (s._Canvas = canvasElem),
+                (s._EditorUI = currentStage),
+                (s._UserPreferences = preferences || {}),
+                (s._User = user),
+                (s._Author = fileData.owner),
                 (s._Actor = null),
                 s._LastAdvanceTime,
                 s._AdvanceTimeout,
@@ -83168,7 +83168,7 @@
                 (s._IsAnimationEnabled = false),
                 (s._AutoKey = true),
                 (s._ErrorKey = null),
-                (s._File = a || null),
+                (s._File = fileData || null),
                 (s._ProjectPreferences = {}),
                 (s._LocalPreferences = {}),
                 (s._FilePreferences = {}),
@@ -83215,22 +83215,22 @@
                 }),
                 (s._ExpandedHierarchyItems = new Set());
               var c,
-                f = localStorage.getItem("preferences-" + s._User.id);
-              if (f)
+                userPreferences = localStorage.getItem("preferences-" + s._User.id);
+              if (userPreferences)
                 try {
-                  f = JSON.parse(f);
+                  userPreferences = JSON.parse(userPreferences);
                 } catch (e) {
                   console.warn("Failed to parse local preferences.");
                 }
-              for (var p in ((c = a.preferences || {}),
-              (f = f || {}),
+              for (var p in ((c = fileData.preferences || {}),
+              (userPreferences = userPreferences || {}),
               (s._FilePreferences = c || {}),
-              f))
-                s._LocalPreferences[p] = f[p];
+              userPreferences))
+                s._LocalPreferences[p] = userPreferences[p];
               "dev-build" !== s._BuildNumber &&
                 ((s._OldErrorHandler = window.onerror),
                 (window.onerror = s.onError)),
-                (s._Stage = new d.default(s, e, s._Graphics)),
+                (s._Stage = new d.default(s, canvasElem, s._Graphics)),
                 s._Stage.addEventListener(
                   "itemVisibilityChanged",
                   s.onStageItemVisibilityChanged
@@ -86222,15 +86222,15 @@
                   : C(e + " is not a valid shader program");
             return s;
           }
-          function j(e, t, n) {
-            var i = e.constructor === ArrayBuffer;
+          function j(elem, flags, preTexture) { // loadTexture
+            var i = elem.constructor === ArrayBuffer;
             if (!i) {
-              var r = u[e];
-              if (r) return r;
+              var texture = u[elem];
+              if (texture) return texture;
             }
-            ((r = n || gl.createTexture()).flags = t || 0),
-              i || (u[e] = r),
-              gl.bindTexture(gl.TEXTURE_2D, r),
+            ((texture = preTexture || gl.createTexture()).flags = flags || 0),
+              i || (u[elem] = texture),
+              gl.bindTexture(gl.TEXTURE_2D, texture),
               gl.texImage2D(
                 gl.TEXTURE_2D,
                 0,
@@ -86247,31 +86247,31 @@
               gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE),
               gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE),
               gl.bindTexture(gl.TEXTURE_2D, null),
-              (r.isLoaded = false),
-              (r.width = 0),
-              (r.height = 0);
+              (texture.isLoaded = false),
+              (texture.width = 0),
+              (texture.height = 0);
             var o,
-              a = new Image();
+              img = new Image();
             if (i) {
-              var l = new Blob([e], {
+              var l = new Blob([elem], {
                 type: "image/jpeg",
               });
-              e = (window.URL || window.webkitURL).createObjectURL(l);
+              elem = (window.URL || window.webkitURL).createObjectURL(l);
             }
             return (
-              (a.src = e),
+              (img.src = elem),
               T(),
-              (a.onload =
-                ((o = r),
+              (img.onload =
+                ((o = texture),
                 function () {
                   var e = 0 != (o.flags & s.default.ClampToEdge),
                     t = 0 != (o.flags & s.default.MipMapped);
-                  x(), (o.width = a.width), (o.height = a.height);
-                  var n = !(
-                    0 == a.width ||
-                    a.width & (a.width - 1) ||
-                    0 == a.height ||
-                    a.height & (a.height - 1)
+                  x(), (o.width = img.width), (o.height = img.height);
+                  var isEven = !(
+                    0 == img.width ||
+                    img.width & (img.width - 1) ||
+                    0 == img.height ||
+                    img.height & (img.height - 1)
                   );
                   gl.bindTexture(gl.TEXTURE_2D, o),
                     0 != (o.flags & s.default.MultiplyAlpha)
@@ -86293,27 +86293,27 @@
                     gl.texParameteri(
                       gl.TEXTURE_2D,
                       gl.TEXTURE_MIN_FILTER,
-                      n && t ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR
+                      isEven && t ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR
                     ),
                     gl.texParameteri(
                       gl.TEXTURE_2D,
                       gl.TEXTURE_WRAP_S,
-                      n && !e ? gl.REPEAT : gl.CLAMP_TO_EDGE
+                      isEven && !e ? gl.REPEAT : gl.CLAMP_TO_EDGE
                     ),
                     gl.texParameteri(
                       gl.TEXTURE_2D,
                       gl.TEXTURE_WRAP_T,
-                      n && !e ? gl.REPEAT : gl.CLAMP_TO_EDGE
+                      isEven && !e ? gl.REPEAT : gl.CLAMP_TO_EDGE
                     ),
-                    n && t && gl.generateMipmap(gl.TEXTURE_2D),
+                    isEven && t && gl.generateMipmap(gl.TEXTURE_2D),
                     gl.bindTexture(gl.TEXTURE_2D, null);
                 })),
-              (a.onerror = (function (e) {
+              (img.onerror = (function (e) {
                 return function () {
                   e.isLoaded = false;
                 };
-              })(r)),
-              r
+              })(texture)),
+              texture
             );
           }
           function L(e, t) {
@@ -88643,7 +88643,7 @@
         N = G(n(383)),
         z = G(n(583)),
         W = G(n(699)),
-        H = G(n(726)),
+        H = G(n(726)), // Interesting - drawing the grid - pie_shadow.png / vertex_paint_target.png
         U = G(n(584)),
         K = G(n(700));
       function G(e) {
@@ -88680,7 +88680,7 @@
       var J =
         (X(
           (i = (function (e) {
-            function t(e, n, i) {
+            function t(appCtx, canvasElem, appGraphics) {
               !(function (e, t) {
                 if (!(e instanceof t))
                   throw new TypeError("Cannot call a class as a function");
@@ -88694,8 +88694,8 @@
                   ? e
                   : t;
               })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this));
-              (r._AppContext = e),
-                (r._Graphics = i),
+              (r._AppContext = appCtx),
+                (r._Graphics = appGraphics),
                 (r._CursorElement = document.createElement("img")),
                 (r._CursorElement.style.position = "absolute"),
                 (r._CursorElement.style.pointerEvents = "none"),
@@ -88706,7 +88706,7 @@
                   contourThickness: 0.125,
                   showGridAxis: true,
                   showGridSubdivisions: true,
-                  disableImageContour: e.getPreference("disableImageContour"),
+                  disableImageContour: appCtx.getPreference("disableImageContour"),
                 }),
                 (r._Translation = a.vec2.create()),
                 (r._TranslationTarget = a.vec2.create()),
@@ -88742,7 +88742,7 @@
                 (r._LastClickedItem = null),
                 (r._QueuedRemove = []),
                 (r._QueuedAdd = []),
-                (r._SelectionLineBuffer = i.makeVertexBuffer([
+                (r._SelectionLineBuffer = appGraphics.makeVertexBuffer([
                   0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0,
                 ])),
                 (r._RenderTransform = a.mat2d.create()),
@@ -88761,10 +88761,10 @@
                 (r._MarqueeFillColor = [87 / 255, 165 / 255, 224 / 255, 0.3]),
                 (r._GuideBackgroundColor = [42 / 255, 42 / 255, 42 / 255, 0.9]),
                 (r._HighlightItems = []);
-              (r._MarqueeVertexBuffer = i.makeVertexBuffer([
+              (r._MarqueeVertexBuffer = appGraphics.makeVertexBuffer([
                 0, 0, 1, 0, 1, 1, 0, 1,
               ])),
-                (r._MarqueeIndexBuffer = i.makeIndexBuffer([0, 1, 2, 2, 3, 0])),
+                (r._MarqueeIndexBuffer = appGraphics.makeIndexBuffer([0, 1, 2, 2, 3, 0])),
                 (r._SelectionReRoute = null),
                 (r._SelectionReRouteCanMarquee = false),
                 (r._IsSmallSize = false),
@@ -88849,7 +88849,7 @@
                   r._ContextLookup.set(s.constructor, l),
                   r._RegisteredStageItems.push(l);
                 var u = l.constructor.initializeStageContext;
-                u && u.constructor === Function && u(i, l.context, r);
+                u && u.constructor === Function && u(appGraphics, l.context, r);
               }
               r._StageDrawLayers = [];
               for (var d = 0; d <= r._MaxDrawLayer; d++)

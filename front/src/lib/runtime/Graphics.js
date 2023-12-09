@@ -9,7 +9,7 @@ export default class Graphics
 			preserveDrawingBuffer: true
 		};
 
-		let _GL = glOrCanvas instanceof WebGLRenderingContext ? glOrCanvas : glOrCanvas.getContext("webgl", contextOptions) || glOrCanvas.getContext("experimental-webgl", contextOptions);
+		var _GL = this._GL = glOrCanvas instanceof WebGLRenderingContext ? glOrCanvas : glOrCanvas.getContext("webgl", contextOptions) || glOrCanvas.getContext("experimental-webgl", contextOptions);
 		let canvas = glOrCanvas instanceof WebGLRenderingContext ? null : glOrCanvas;
 
 		let _AnisotropyExtension = _GL.getExtension("EXT_texture_filter_anisotropic");

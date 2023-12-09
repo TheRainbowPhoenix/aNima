@@ -1,5 +1,6 @@
 <script lang="ts">
   import Nima from "$lib/nima/Nima";
+  import type { Rect } from "$lib/nima/common";
   import { onMount, onDestroy } from "svelte";
 
   export let user: any;
@@ -44,7 +45,9 @@
 
   onMount(() => {
     currentStage = {
+      // EditorUI
       todo: "props here",
+      getStageRect: (): Rect => canvas.getBoundingClientRect(), // TODo
     };
 
     ddid = 0;
@@ -96,7 +99,7 @@
       //     showFilesModal(window.location.hash.toString());
       //   }
     } catch (err) {
-      console.log("Nima boot error", err);
+      console.error("Nima boot error", err);
       //   if (err && err.constructor === M.default) {
       //     error = H.default.WebGLDisabled;
       //   } else {
