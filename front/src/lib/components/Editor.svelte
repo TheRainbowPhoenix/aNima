@@ -1,5 +1,7 @@
+<svelte:options accessors />
+
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy, setContext } from "svelte";
   import StageCanvas from "$lib/fragments/StageCanvas.svelte";
   import FilesModal from "./modals/FilesModal.svelte";
   import PropertiesModal from "./modals/PropertiesModal.svelte";
@@ -15,10 +17,18 @@
   import SettingsPanel from "./panels/SettingsPanel.svelte";
   import Tooltip from "./alerts/Tooltip.svelte";
   import ResizeGrabber from "./stage/ResizeGrabber.svelte";
+  import {
+    EditorUI,
+    appKey,
+    type EditorUIProps,
+    editorNodeKey,
+    stageRect,
+    type RenderableElement,
+  } from "./editor/EditorUI";
 
-  export let props: any = {};
+  export let props: EditorUIProps;
 
-  let editorUI: any;
+  let editorUI: EditorUI = new EditorUI();
 
   let dropDownPopupsDiv: HTMLDivElement;
 
@@ -45,18 +55,76 @@
 
   let toolbar: Toolbar;
 
+  let stagePanel: HTMLElement;
+
+  let verticalRuler: HTMLElement;
+  let horizontalRuler: HTMLElement;
+
+  setContext(appKey, editorUI);
+
+  const handleCanvasReady = (e: CustomEvent<{ canvas: HTMLCanvasElement }>) => {
+    const canvas = e.detail.canvas;
+
+    editorUI.onMount(canvas, props);
+    console.log("editorUI ", editorUI);
+  };
+
+  const horizontalRulerReady = (e: CustomEvent<RenderableElement>) => {
+    editorUI.horizontalRuler.set(e.detail);
+  };
+  const verticalRulerReady = (e: CustomEvent<RenderableElement>) => {
+    editorUI.verticalRuler.set(e.detail);
+  };
+
+  const updateStageRect = () => {
+    const { x, y, width, height } = stagePanel.getBoundingClientRect();
+
+    stageRect.set({
+      top: y,
+      bottom: y + height,
+      width: width /* + isMeshMode ? filePanelWidth : 0 */,
+      height: height,
+      left: x,
+    });
+  };
+
   onMount(async () => {
     // @ts-ignore
-    window.editor = {};
+    // window.editor = {};
     console.log(props);
-    console.log(editorUI);
+
+    if (editorUI) {
+      editorUI.setStagePanel(stagePanel);
+
+      updateStageRect();
+
+      editorUI.visibleStageResize();
+      // this.filePanel.setAnimationMode(
+      //     this.isAnimationOpen ? this.state.animation : null
+      //   ),
+      //   this.resizePanels();
+      // var e = this.props,
+      //   t = e.file;
+      // e.user.isPaid || t.isPublic
+      //   ? t.showProperties && this.showPropertiesModal()
+      //   : this.showPropertiesModal();
+
+      // TODO: load file and stuff first
+      editorUI.nima?.advance();
+    }
 
     // todo generate renderedContextMenus
     // todo generate exportScreen
   });
 </script>
 
-<StageCanvas {...props} bind:this={editorUI} />
+<svelte:window
+  on:resize={() => {
+    updateStageRect();
+  }}
+/>
+
+<StageCanvas on:ready={handleCanvasReady} />
 
 <div class="UIPanels">
   {#if isFilesModalOpen || isFilesModalClosing}
@@ -86,11 +154,11 @@
   <SelectionPanel />
   <!-- id="SelectionPanel"-->
 
-  <div class="StagePanel">
+  <div class="StagePanel" bind:this={stagePanel}>
     <AlertContainer />
-    <GuideRuler />
+    <GuideRuler on:ready={horizontalRulerReady} />
     <!-- class="TopGuideRuler" -->
-    <GuideRuler />
+    <GuideRuler vertical={true} on:ready={verticalRulerReady} />
     <!-- class="TopGuideRulerTicks" -->
   </div>
 

@@ -15,3 +15,7 @@ goal is to draw grid and bg stuff :
 if we can get the line to draw ==> "Big Win"
 
 TODO also : \_Brush = new <SomeThing> -> find the smth
+
+===
+
+Work on : EditorUI ? Class + draw() + types

@@ -1,12 +1,12 @@
 import type Graphics from "$lib/runtime/Graphics";
-import type { GraphicsWrapper } from "./Nima";
 
-import { mat2d, vec2 } from "gl-matrix";
+import { mat2d, vec2, vec4 } from "gl-matrix";
 import type Nima from "./Nima";
 import { PanModes, type Rect } from "./common";
 import { createEventDispatcher } from "svelte";
 import { PieItem } from "./stage/items/Pie";
 import { WeightsEditor } from "./stage/tools/WeightsEditor";
+import type { GraphicsWrapper } from "./graphics/wrapper";
 
 interface RegisteredItem {
   constructor: {
@@ -86,7 +86,7 @@ export class Stage {
   private _MarqueeStart: vec2;
   private _MarqueeEnd: vec2;
   private _PreMarqueeSelection: any[];
-  private _MarqueeStrokeColor: number[];
+  private _MarqueeStrokeColor: vec4;
   private _MarqueeFillColor: number[];
   private _GuideBackgroundColor: number[];
   private _HighlightItems: any[];
@@ -156,7 +156,7 @@ export class Stage {
     };
     this._Translation = vec2.create();
     this._TranslationTarget = vec2.create();
-    this._Scale = 0.01;
+    this._Scale = 1;
     this._ScaleTarget = 1;
     this._ViewTransform = mat2d.create();
     this._InverseViewTransform = mat2d.create();
@@ -1140,6 +1140,20 @@ export class Stage {
 
   updateCursorState() {
     // TODO
+  }
+
+  // Public getters
+
+  public get screenScale(): number {
+    return this._ScreenScale;
+  }
+
+  public get translation(): vec2 {
+    return this._Translation;
+  }
+
+  public get scale(): number {
+    return this._Scale;
   }
 }
 

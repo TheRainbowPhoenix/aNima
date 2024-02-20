@@ -27924,7 +27924,7 @@
         ResizeGrabber = U(n(605)), // ResizeGrabber
         SelectionPanel = U(n(348)), // SelectionPanel
         AlertContainer = U(n(472)), // AlertContainer
-        GuideRuler = U(n(1163)), // [Left|Right] GuideRuler 
+        GuideRuler = U(n(1163)), // [Left|Right] GuideRuler
         AnimationPanel = U(n(1164)), // AnimationPanel
         Toolbar = U(n(1178)), // Toolbar
         SettingsPanel = U(n(1188)), // SettingsPanel
@@ -27939,7 +27939,7 @@
         A = U(n(447)), // nima.stage.toolType = A.default
         j = U(n(201)), // getLayerOptions(j.default)
         L = U(n(243)), // getLayerOptions(L.default)
-        R = U(n(13)), // ContextMenu related 
+        R = U(n(13)), // ContextMenu related
         FilesModal = U(n(551)), // FilesModal
         PropertiesModal = U(n(730)), // PropertiesModal
         userProps = U(n(165)), // __props.user
@@ -27954,7 +27954,8 @@
               default: e,
             };
       }
-      function K(e, t, n, i, r) { // act like a message dipatch, e = react_component_instance, t = key ("sendMessage"), n = webpack_chunk[1] (empty object constructor ?), i = object instance (value), r = react_component_instance 
+      function K(e, t, n, i, r) {
+        // act like a message dipatch, e = react_component_instance, t = key ("sendMessage"), n = webpack_chunk[1] (empty object constructor ?), i = object instance (value), r = react_component_instance
         var o = {};
         return (
           Object.keys(i).forEach(function (e) {
@@ -27981,6 +27982,7 @@
 
       var G =
         (K(
+          // EditorUI
           (i = (function (e) {
             function t(e) {
               !(function (e, t) {
@@ -28059,7 +28061,10 @@
                       var stageCanvas = document.createElement("canvas");
                       (stageCanvas.style.display = "none"),
                         (stageCanvas.className = "Stage"),
-                        document.body.insertBefore(stageCanvas, document.body.firstChild),
+                        document.body.insertBefore(
+                          stageCanvas,
+                          document.body.firstChild
+                        ),
                         (this.nima = new NimaBase.default(
                           stageCanvas,
                           this,
@@ -28448,7 +28453,8 @@
                   key: "addDropDownPopup",
                   value: function (e) {
                     (e.id = this.ddid++), this.dropDownPopups.push(e);
-                    var t = o.default.createElement(DropDownPopup.default, { // react
+                    var t = o.default.createElement(DropDownPopup.default, {
+                        // react
                         data: e,
                         onHide: this.removeDropDownPopup,
                         onHiding: this.hidingDropDownPopup,
@@ -29446,10 +29452,18 @@
                           universal_ga.default.event("file", "export", "nima");
                           break;
                         case ProjectExportScreen.default:
-                          universal_ga.default.event("file", "export-project", "nima");
+                          universal_ga.default.event(
+                            "file",
+                            "export-project",
+                            "nima"
+                          );
                           break;
                         case ImageSeqExportScreen.default:
-                          universal_ga.default.event("file", "export-image-seq", "nima");
+                          universal_ga.default.event(
+                            "file",
+                            "export-image-seq",
+                            "nima"
+                          );
                       }
                     else {
                       var t = this;
@@ -29485,7 +29499,8 @@
                   key: "render",
                   value: function () {
                     if (this.state.error)
-                      return o.default.createElement(UnhandledError.default, { // react
+                      return o.default.createElement(UnhandledError.default, {
+                        // react
                         error: this.state.error,
                       });
                     for (
@@ -29495,7 +29510,8 @@
                     ) {
                       var n = this.state.contextMenus[t];
                       e.push(
-                        o.default.createElement(ContextMenu.default, { // react
+                        o.default.createElement(ContextMenu.default, {
+                          // react
                           key: "cx" + t,
                           data: n,
                           onHide: this.removeContextMenu,
@@ -29506,42 +29522,60 @@
                     if (this.state.showExportToEngine)
                       switch (this.exporter) {
                         case ProjectExportScreen.default:
-                          i = o.default.createElement(ProjectExportScreen.default, { // react
-                            ref: this.setExportScreen,
-                            onExportComplete: this.toggleShowExport,
-                          });
+                          i = o.default.createElement(
+                            ProjectExportScreen.default,
+                            {
+                              // react
+                              ref: this.setExportScreen,
+                              onExportComplete: this.toggleShowExport,
+                            }
+                          );
                           break;
                         case ToEngineExportScreen.default:
-                          i = o.default.createElement(ToEngineExportScreen.default, { // react
-                            ref: this.setExportScreen,
-                            onExportComplete: this.toggleShowExport,
-                          });
+                          i = o.default.createElement(
+                            ToEngineExportScreen.default,
+                            {
+                              // react
+                              ref: this.setExportScreen,
+                              onExportComplete: this.toggleShowExport,
+                            }
+                          );
                           break;
                         case ImageSeqExportScreen.default:
-                          i = o.default.createElement(ImageSeqExportScreen.default, { // react
-                            ref: this.setExportScreen,
-                            onExportComplete: this.toggleShowExport,
-                          });
+                          i = o.default.createElement(
+                            ImageSeqExportScreen.default,
+                            {
+                              // react
+                              ref: this.setExportScreen,
+                              onExportComplete: this.toggleShowExport,
+                            }
+                          );
                           break;
                         case ShotExportScreen.default:
-                          i = o.default.createElement(ShotExportScreen.default, { // react
-                            ref: this.setExportScreen,
-                            username: this.props.user.username,
-                            verified: this.props.isVerified,
-                            name: this.props.user.name,
-                            avatar: this.props.user.avatar,
-                            onExportComplete: this.toggleShowExport,
-                          });
+                          i = o.default.createElement(
+                            ShotExportScreen.default,
+                            {
+                              // react
+                              ref: this.setExportScreen,
+                              username: this.props.user.username,
+                              verified: this.props.isVerified,
+                              name: this.props.user.name,
+                              avatar: this.props.user.avatar,
+                              onExportComplete: this.toggleShowExport,
+                            }
+                          );
                       }
                     var r = this.props.file;
-                    return o.default.createElement( // react
+                    return o.default.createElement(
+                      // react
                       "div",
                       {
                         className: "UIPanels",
                       },
                       this.state.isFilesModalOpen ||
                         this.state.isFilesModalClosing
-                        ? o.default.createElement(FilesModal.default, { // react
+                        ? o.default.createElement(FilesModal.default, {
+                            // react
                             key: "files",
                             defaultFilename: r.title,
                             onChooseLocation: this.state.chooseLocation,
@@ -29553,7 +29587,8 @@
                         : null,
                       this.state.isPropertiesModalOpen ||
                         this.state.isPropertiesModalClosing
-                        ? o.default.createElement(PropertiesModal.default, { // react
+                        ? o.default.createElement(PropertiesModal.default, {
+                            // react
                             isOpen: this.state.isPropertiesModalOpen,
                             isClosing: this.state.isPropertiesModalClosing,
                             onClose: this.closePropertiesModal,
@@ -29564,12 +29599,14 @@
                         ? o.default.createElement(CrashError.default, null) // react
                         : null,
                       this.state.showBrowserWarning
-                        ? o.default.createElement(BrowserWarning.default, { // react
+                        ? o.default.createElement(BrowserWarning.default, {
+                            // react
                             onContinueAnyway:
                               this.continueUsingUnoptimizedBrowser,
                           })
                         : null,
-                      o.default.createElement(SiteMenu.default, { // react
+                      o.default.createElement(SiteMenu.default, {
+                        // react
                         ref: this.setMenu,
                         onClose: this.toggleSiteMenu,
                         onShowFilesModal: this.showFilesModal,
@@ -29580,7 +29617,8 @@
                         name: this.props.user.name,
                         avatar: this.props.user.avatar,
                       }),
-                      o.default.createElement(HierarchyPanel.default, { // react
+                      o.default.createElement(HierarchyPanel.default, {
+                        // react
                         ref: this.setFilePanel,
                         onShowPropertiesModal: this.showPropertiesModal,
                         onLogoHover: this.loadMenu,
@@ -29593,17 +29631,20 @@
                         selectionPanelWidth: this.selectionPanelWidth,
                         onHierarchyPanelsResized: this.onHierarchyPanelsResized,
                       }),
-                      o.default.createElement(ResizeGrabber.default, { // react
+                      o.default.createElement(ResizeGrabber.default, {
+                        // react
                         ref: this.setFilePanelResizer,
                         onMouseDown: this.startResizeFilePanel,
                         addClass: "HierarchyResizer",
                       }),
-                      o.default.createElement(ResizeGrabber.default, { // react
+                      o.default.createElement(ResizeGrabber.default, {
+                        // react
                         ref: this.setSelectionResizer,
                         onMouseDown: this.startResizeSelection,
                         addClass: "SelectionResizer",
                       }),
-                      o.default.createElement(SelectionPanel.default, { // react
+                      o.default.createElement(SelectionPanel.default, {
+                        // react
                         ref: this.setSelectionPanel,
                         filePanelWidth: this.filePanelWidth,
                         width: this.selectionPanelWidth,
@@ -29612,18 +29653,21 @@
                         onMeshMode: this.meshMode,
                         onWeightsMode: this.weightsMode,
                       }),
-                      o.default.createElement( // react
+                      o.default.createElement(
+                        // react
                         "div",
                         {
                           ref: this.setStagePanel,
                           className: "StagePanel",
                         },
-                        o.default.createElement(AlertContainer.default, { // react
+                        o.default.createElement(AlertContainer.default, {
+                          // react
                           ref: this.setAlertContainer,
                           showGuides: this.state.showGuides,
                           showModal: this.hasModalOpen,
                         }),
-                        o.default.createElement(GuideRuler.default, { // react
+                        o.default.createElement(GuideRuler.default, {
+                          // react
                           ref: this.setVerticalRuler,
                           isVertical: false,
                           isVisible:
@@ -29631,7 +29675,8 @@
                             !this.state.showExportToEngine &&
                             this.state.showGuides,
                         }),
-                        o.default.createElement(GuideRuler.default, { // react
+                        o.default.createElement(GuideRuler.default, {
+                          // react
                           ref: this.setHorizontalRuler,
                           isVertical: true,
                           isVisible:
@@ -29640,7 +29685,8 @@
                             this.state.showGuides,
                         })
                       ),
-                      o.default.createElement(AnimationPanel.default, { // react
+                      o.default.createElement(AnimationPanel.default, {
+                        // react
                         ref: this.setAnimationPanel,
                         onClickResizeGrabber: this.startResizeAnimation,
                         height: this.animationPanelHeight,
@@ -29650,23 +29696,27 @@
                         settingsOpen: this.state.settingsOpen,
                         filePanelWidth: this.filePanelWidth,
                       }),
-                      o.default.createElement(Toolbar.default, { // react
+                      o.default.createElement(Toolbar.default, {
+                        // react
                         ref: this.setToolbar,
                         onSettingsToggled: this.settingsToggled,
                         onGotoExport: this.showExportMenu,
                         settingsOpen: this.state.settingsOpen,
                       }),
-                      o.default.createElement(SettingsPanel.default, { // react
+                      o.default.createElement(SettingsPanel.default, {
+                        // react
                         ref: this.setSettingsPanel,
                         onSettingsToggled: this.settingsToggled,
                         isOpen: this.state.settingsOpen,
                       }),
                       i,
-                      o.default.createElement(Tooltip.default, { // react
+                      o.default.createElement(Tooltip.default, {
+                        // react
                         ref: this.setTooltip,
                       }),
                       e,
-                      o.default.createElement("div", { // react
+                      o.default.createElement("div", {
+                        // react
                         ref: this.setDropdownPopupsDiv,
                       })
                     );
@@ -41568,7 +41618,7 @@
     function (e, t, n) {
       "use strict";
       (function (e) {
-        var t = r(n(19)), // main.jsx 
+        var t = r(n(19)), // main.jsx
           i = r(n(690)); // Nima <App />
         function r(e) {
           return e && e.__esModule
@@ -83108,7 +83158,8 @@
         }
         return Array.from(e);
       }
-      function N(e, t, n, i, r) { // this.nima component !!
+      function N(e, t, n, i, r) {
+        // this.nima component !!
         var o = {};
         return (
           Object.keys(i).forEach(function (e) {
@@ -83135,7 +83186,14 @@
       var z =
         (N(
           (i = (function (e) {
-            function t(canvasElem, currentStage, user, preferences, buildNumber, fileData) {
+            function t(
+              canvasElem,
+              currentStage,
+              user,
+              preferences,
+              buildNumber,
+              fileData
+            ) {
               !(function (e, t) {
                 if (!(e instanceof t))
                   throw new TypeError("Cannot call a class as a function"); // this.nima component !!
@@ -83215,7 +83273,9 @@
                 }),
                 (s._ExpandedHierarchyItems = new Set());
               var c,
-                userPreferences = localStorage.getItem("preferences-" + s._User.id);
+                userPreferences = localStorage.getItem(
+                  "preferences-" + s._User.id
+                );
               if (userPreferences)
                 try {
                   userPreferences = JSON.parse(userPreferences);
@@ -86038,7 +86098,8 @@
               preserveDrawingBuffer: true,
             },
             gl =
-              canvasElem.getContext("webgl", d) || canvasElem.getContext("experimental-webgl", d);
+              canvasElem.getContext("webgl", d) ||
+              canvasElem.getContext("experimental-webgl", d);
           if (!gl) throw new i.default();
           gl.getExtension("OES_standard_derivatives");
           var f = new o.default(gl),
@@ -86063,14 +86124,16 @@
               i = n - g;
             (g = n),
               (loadError = e),
-              _this.advanceProgress && _this.advanceProgress.call(_this, m / y, i);
+              _this.advanceProgress &&
+                _this.advanceProgress.call(_this, m / y, i);
           }
           function x() {
             var e = Date.now(),
               n = e - g;
             (g = e),
               m++,
-              _this.advanceProgress && _this.advanceProgress.call(_this, m / y, n);
+              _this.advanceProgress &&
+                _this.advanceProgress.call(_this, m / y, n);
           }
           function I(e) {
             if (
@@ -86222,7 +86285,8 @@
                   : C(e + " is not a valid shader program");
             return s;
           }
-          function j(elem, flags, preTexture) { // loadTexture
+          function j(elem, flags, preTexture) {
+            // loadTexture
             var i = elem.constructor === ArrayBuffer;
             if (!i) {
               var texture = u[elem];
@@ -86244,8 +86308,16 @@
               ),
               gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR),
               gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR),
-              gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE),
-              gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE),
+              gl.texParameteri(
+                gl.TEXTURE_2D,
+                gl.TEXTURE_WRAP_S,
+                gl.CLAMP_TO_EDGE
+              ),
+              gl.texParameteri(
+                gl.TEXTURE_2D,
+                gl.TEXTURE_WRAP_T,
+                gl.CLAMP_TO_EDGE
+              ),
               gl.bindTexture(gl.TEXTURE_2D, null),
               (texture.isLoaded = false),
               (texture.width = 0),
@@ -86276,7 +86348,10 @@
                   gl.bindTexture(gl.TEXTURE_2D, o),
                     0 != (o.flags & s.default.MultiplyAlpha)
                       ? gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true)
-                      : gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false),
+                      : gl.pixelStorei(
+                          gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,
+                          false
+                        ),
                     gl.texImage2D(
                       gl.TEXTURE_2D,
                       0,
@@ -86338,7 +86413,8 @@
             if (o !== e || r !== t) {
               if (o)
                 for (
-                  var a = gl.getProgramParameter(o, gl.ACTIVE_ATTRIBUTES), s = 1;
+                  var a = gl.getProgramParameter(o, gl.ACTIVE_ATTRIBUTES),
+                    s = 1;
                   s < a;
                   s++
                 )
@@ -86496,7 +86572,15 @@
                 (canvasElem.height = n),
                 (viewportWidth = t),
                 (viewportHeight = n),
-                r.mat4.ortho(projection, 0, viewportWidth, 0, viewportHeight, 0, 1),
+                r.mat4.ortho(
+                  projection,
+                  0,
+                  viewportWidth,
+                  0,
+                  viewportHeight,
+                  0,
+                  1
+                ),
                 gl.viewport(0, 0, viewportWidth, viewportHeight),
                 true)
               );
@@ -86504,7 +86588,15 @@
             (this.setViewport = function (e, t) {
               (viewportWidth = e),
                 (viewportHeight = t),
-                r.mat4.ortho(projection, 0, viewportWidth, 0, viewportHeight, 0, 1),
+                r.mat4.ortho(
+                  projection,
+                  0,
+                  viewportWidth,
+                  0,
+                  viewportHeight,
+                  0,
+                  1
+                ),
                 gl.viewport(0, 0, viewportWidth, viewportHeight);
             }),
             (this.disableBlending = function () {
@@ -87102,7 +87194,7 @@
         });
       var i = n(2);
     },
-    function (e, t, n) {
+    function (e, t, n) { // SHADERS??
       "use strict";
       Object.defineProperty(t, "__esModule", {
         value: true,
@@ -87112,7 +87204,7 @@
             _gl = thisCanvas.gl;
           _gl.getExtension("OES_standard_derivatives");
           var n,
-            tintColor = new Float32Array([1, 1, 1, 1]), // color ? defaultTint 
+            tintColor = new Float32Array([1, 1, 1, 1]), // color ? defaultTint
             worldMatrix = r.mat4.create(), // mat4Tmp1 ?
             viewMatrix = r.mat4.create(), // mat4Tmp2 ?
             pieShader = thisCanvas.initializeShader({
@@ -87497,10 +87589,26 @@
             var r = _gl.createFramebuffer(),
               o = _gl.createTexture();
             _gl.bindTexture(_gl.TEXTURE_2D, o),
-              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_MAG_FILTER, _gl.NEAREST),
-              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_MIN_FILTER, _gl.NEAREST),
-              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_WRAP_S, _gl.CLAMP_TO_EDGE),
-              _gl.texParameteri(_gl.TEXTURE_2D, _gl.TEXTURE_WRAP_T, _gl.CLAMP_TO_EDGE);
+              _gl.texParameteri(
+                _gl.TEXTURE_2D,
+                _gl.TEXTURE_MAG_FILTER,
+                _gl.NEAREST
+              ),
+              _gl.texParameteri(
+                _gl.TEXTURE_2D,
+                _gl.TEXTURE_MIN_FILTER,
+                _gl.NEAREST
+              ),
+              _gl.texParameteri(
+                _gl.TEXTURE_2D,
+                _gl.TEXTURE_WRAP_S,
+                _gl.CLAMP_TO_EDGE
+              ),
+              _gl.texParameteri(
+                _gl.TEXTURE_2D,
+                _gl.TEXTURE_WRAP_T,
+                _gl.CLAMP_TO_EDGE
+              );
             var a = n || thisCanvas.viewportWidth,
               s = i || thisCanvas.viewportHeight;
             _gl.texImage2D(
@@ -87529,7 +87637,9 @@
               c = 0;
             (this.bind = function (n, i) {
               w !== r &&
-                ((l = w), (u = thisCanvas.viewportWidth), (c = thisCanvas.viewportHeight)),
+                ((l = w),
+                (u = thisCanvas.viewportWidth),
+                (c = thisCanvas.viewportHeight)),
                 n || (n = thisCanvas.viewportWidth),
                 i || (i = thisCanvas.viewportHeight),
                 (a == n && s == i) ||
@@ -87568,7 +87678,9 @@
               }),
               (this.read = function () {
                 var e = new Uint8Array(a * s * 4);
-                return _gl.readPixels(0, 0, a, s, _gl.RGBA, _gl.UNSIGNED_BYTE, e), e;
+                return (
+                  _gl.readPixels(0, 0, a, s, _gl.RGBA, _gl.UNSIGNED_BYTE, e), e
+                );
               });
           }
           (this.makeFrameBuffer = function (e, t) {
@@ -87607,7 +87719,11 @@
                 (b[12] = -o / s),
                 (b[13] = -a / l),
                 _gl.uniformMatrix4fv(y.WorldMatrix, false, b),
-                _gl.uniformMatrix4fv(y.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  y.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.drawArrays(_gl.TRIANGLE_STRIP, 0, 4);
             }),
             (this.drawColorCodedSkin = function (n, i, r, a, s, l) {
@@ -87622,7 +87738,11 @@
               _gl.uniform1f(c.Opacity, l),
                 _gl.uniform4fv(c.BoneColors, s),
                 _gl.uniformMatrix4fv(c.WorldMatrix, false, worldMatrix),
-                _gl.uniformMatrix4fv(c.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  c.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, a.id),
                 _gl.drawElements(_gl.TRIANGLES, a.size, _gl.UNSIGNED_SHORT, 0);
             }),
@@ -87656,11 +87776,26 @@
                 _gl.uniform4fv(p.BoneColors, h),
                 _gl.uniformMatrix4fv(p.WorldMatrix, false, worldMatrix),
                 _gl.uniformMatrix4fv(p.ViewMatrix, false, viewMatrix),
-                _gl.uniformMatrix4fv(p.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  p.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, u.id),
                 _gl.drawElements(_gl.TRIANGLES, u.size, _gl.UNSIGNED_SHORT, 0);
             }),
-            (this.drawContouredSkin = function (n, r, a, l, u, boneMatrices, contourScale, opacity, baseColor, texture2d) {
+            (this.drawContouredSkin = function (
+              n,
+              r,
+              a,
+              l,
+              u,
+              boneMatrices,
+              contourScale,
+              opacity,
+              baseColor,
+              texture2d
+            ) {
               (viewMatrix[0] = n[0]),
                 (viewMatrix[1] = n[1]),
                 (viewMatrix[4] = n[2]),
@@ -87686,7 +87821,11 @@
                 _gl.uniform3fv(v.BoneMatrices, boneMatrices),
                 _gl.uniformMatrix4fv(v.WorldMatrix, false, worldMatrix),
                 _gl.uniformMatrix4fv(v.ViewMatrix, false, viewMatrix),
-                _gl.uniformMatrix4fv(v.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  v.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.activeTexture(_gl.TEXTURE0),
                 _gl.bindTexture(_gl.TEXTURE_2D, texture2d),
                 _gl.uniform1i(v.TextureSampler, 0),
@@ -87710,7 +87849,11 @@
               _gl.uniform1f(h.Opacity, s),
                 _gl.uniform4fv(h.Color, tintColor),
                 _gl.uniformMatrix4fv(h.WorldMatrix, false, worldMatrix),
-                _gl.uniformMatrix4fv(h.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  h.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.activeTexture(_gl.TEXTURE0),
                 _gl.bindTexture(_gl.TEXTURE_2D, u),
                 _gl.uniform1i(h.TextureSampler, 0),
@@ -87742,7 +87885,11 @@
                 _gl.uniform3fv(m.BoneMatrices, c),
                 _gl.uniformMatrix4fv(m.WorldMatrix, false, worldMatrix),
                 _gl.uniformMatrix4fv(m.ViewMatrix, false, viewMatrix),
-                _gl.uniformMatrix4fv(m.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  m.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.activeTexture(_gl.TEXTURE0),
                 _gl.bindTexture(_gl.TEXTURE_2D, p),
                 _gl.uniform1i(m.TextureSampler, 0),
@@ -87766,7 +87913,11 @@
               _gl.uniform1f(d.Opacity, s),
                 _gl.uniform4fv(d.Color, tintColor),
                 _gl.uniformMatrix4fv(d.WorldMatrix, false, worldMatrix),
-                _gl.uniformMatrix4fv(d.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  d.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.activeTexture(_gl.TEXTURE0),
                 _gl.bindTexture(_gl.TEXTURE_2D, u),
                 _gl.uniform1i(d.TextureSampler, 0),
@@ -87791,7 +87942,11 @@
                 _gl.uniform1f(h.ContourScale, s),
                 _gl.uniform4fv(h.Color, tintColor),
                 _gl.uniformMatrix4fv(h.WorldMatrix, false, worldMatrix),
-                _gl.uniformMatrix4fv(h.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  h.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.activeTexture(_gl.TEXTURE0),
                 _gl.bindTexture(_gl.TEXTURE_2D, c),
                 _gl.uniform1i(h.TextureSampler, 0),
@@ -87847,7 +88002,11 @@
                 _gl.texParameteri(
                   _gl.TEXTURE_2D,
                   _gl.TEXTURE_MIN_FILTER,
-                  r ? (l && s ? _gl.LINEAR_MIPMAP_LINEAR : _gl.LINEAR) : _gl.NEAREST
+                  r
+                    ? l && s
+                      ? _gl.LINEAR_MIPMAP_LINEAR
+                      : _gl.LINEAR
+                    : _gl.NEAREST
                 ),
                 _gl.texParameteri(
                   _gl.TEXTURE_2D,
@@ -87878,7 +88037,11 @@
               var a = pieShader.uniforms;
               _gl.uniform1f(a.Size, o),
                 _gl.uniform1f(a.Antialias, 0.75),
-                _gl.uniformMatrix4fv(a.ProjectionMatrix, false, thisCanvas.projection),
+                _gl.uniformMatrix4fv(
+                  a.ProjectionMatrix,
+                  false,
+                  thisCanvas.projection
+                ),
                 _gl.uniformMatrix4fv(a.ViewMatrix, false, viewMatrix),
                 _gl.drawArrays(_gl.POINTS, 0, r);
             });
@@ -88706,7 +88869,9 @@
                   contourThickness: 0.125,
                   showGridAxis: true,
                   showGridSubdivisions: true,
-                  disableImageContour: appCtx.getPreference("disableImageContour"),
+                  disableImageContour: appCtx.getPreference(
+                    "disableImageContour"
+                  ),
                 }),
                 (r._Translation = a.vec2.create()),
                 (r._TranslationTarget = a.vec2.create()),
@@ -88764,7 +88929,9 @@
               (r._MarqueeVertexBuffer = appGraphics.makeVertexBuffer([
                 0, 0, 1, 0, 1, 1, 0, 1,
               ])),
-                (r._MarqueeIndexBuffer = appGraphics.makeIndexBuffer([0, 1, 2, 2, 3, 0])),
+                (r._MarqueeIndexBuffer = appGraphics.makeIndexBuffer([
+                  0, 1, 2, 2, 3, 0,
+                ])),
                 (r._SelectionReRoute = null),
                 (r._SelectionReRouteCanMarquee = false),
                 (r._IsSmallSize = false),

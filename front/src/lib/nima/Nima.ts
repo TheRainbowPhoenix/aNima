@@ -2,12 +2,14 @@ import Graphics from "$lib/runtime/Graphics";
 import type { Rect } from "./common";
 import { Stage } from "./Stage";
 import { TextureFilteringFlags } from "$lib/nima/common";
+import type { EditorUI } from "$lib/components/editor/EditorUI";
+import { GraphicsWrapper } from "./graphics/wrapper";
 
 export default class Nima {
   public _BuildNumber: string;
   public _Graphics: GraphicsWrapper;
   public _Canvas: HTMLCanvasElement;
-  public _EditorUI: any;
+  public _EditorUI: EditorUI;
   public _UserPreferences: any;
   public _User: any;
   public _Author: any;
@@ -60,7 +62,7 @@ export default class Nima {
 
   constructor(
     canvasElem: HTMLCanvasElement,
-    currentStage: any,
+    editorUI: EditorUI,
     user: any,
     preferences: any,
     buildNumber: string,
@@ -69,7 +71,7 @@ export default class Nima {
     this._BuildNumber = buildNumber;
     this._Graphics = new GraphicsWrapper(canvasElem);
     this._Canvas = canvasElem;
-    this._EditorUI = currentStage;
+    this._EditorUI = editorUI;
     this._UserPreferences = preferences || {};
     this._User = user;
     this._Author = fileData.owner;
@@ -114,6 +116,10 @@ export default class Nima {
 
     this._Stage = new Stage(this, canvasElem, this._Graphics);
     // TODO ! Continue code ...
+  }
+
+  public get stage(): Stage {
+    return this._Stage;
   }
 
   // Add your class methods here
@@ -182,190 +188,22 @@ export default class Nima {
   getStageRect(): Rect {
     return this._EditorUI.getStageRect();
   }
-}
 
-export type GraphicsTexture = WebGLTexture & {
-  flags: number;
-  isLoaded: boolean;
-  width: number;
-  height: number;
-};
-
-export class GraphicsWrapper extends Graphics {
-  viewportWidth: number = 0;
-  viewportHeight: number = 0;
-
-  constructor(canvas: HTMLCanvasElement) {
-    super(canvas);
-    // r.default.call(this); // defines PieShader and stuff, also drawGrid and Selection Shader
-    Object.assign(this, {
-      loadTexture: this._loadTexture,
-    });
+  // KV events
+  advance() {
+    // TODO
+    this.draw();
+    // this._EditorUI.resizePanels();
   }
 
-  _loadTexture(
-    elem: string | ArrayBuffer,
-    flags: TextureFilteringFlags,
-    preTexture: WebGLTexture
-  ) {
-    let gl: WebGLRenderingContext = this._GL;
-    let isArray = elem.constructor === ArrayBuffer;
-    // if (!isArray) {
-    //   var texture = u[elem]; // cache ?
-    //   if (texture) return texture;
-    // }
-    var texture: GraphicsTexture = Object.assign(
-      preTexture || gl.createTexture(),
-      {
-        flags: flags || 0,
-        isLoaded: false,
-        width: 0,
-        height: 0,
-      }
-    );
+  draw() {
+    // renamed from "draw"
+    this._Stage.draw();
+    this._EditorUI.drawRulers();
 
-    // isArray || (u[elem] = texture);
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.texImage2D(
-      gl.TEXTURE_2D,
-      0,
-      gl.RGBA,
-      1,
-      1,
-      0,
-      gl.RGBA,
-      gl.UNSIGNED_BYTE,
-      null
-    );
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.bindTexture(gl.TEXTURE_2D, null);
-
-    let img_tex: GraphicsTexture;
-    let img = new Image();
-
-    if (isArray) {
-      var blob = new Blob([elem], {
-        type: "image/jpeg",
-      });
-      elem = (window.URL || window.webkitURL).createObjectURL(l);
+    var guides = this._EditorUI.getGuides();
+    if (guides && guides.length) {
+      this._Stage.drawGuides(guides);
     }
-
-    img.src = elem as string;
-    // T() => y++
-    img.onload =
-      ((img_tex = texture),
-      function () {
-        let isNotClampEdge =
-          0 != (img_tex.flags & TextureFilteringFlags.ClampToEdge);
-        let isNotMipMapped =
-          0 != (img_tex.flags & TextureFilteringFlags.MipMapped);
-        // x(); =>  _this.advanceProgress...
-        img_tex.width = texture.width;
-        img_tex.height = texture.height;
-
-        var isEven = !(
-          0 == img.width ||
-          img.width & (img.width - 1) ||
-          0 == img.height ||
-          img.height & (img.height - 1)
-        );
-        gl.bindTexture(gl.TEXTURE_2D, img_tex);
-
-        if (img_tex.flags & TextureFilteringFlags.MultiplyAlpha) {
-          gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-        } else {
-          gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-        }
-
-        gl.texImage2D(
-          gl.TEXTURE_2D,
-          0,
-          gl.RGBA,
-          gl.RGBA,
-          gl.UNSIGNED_BYTE,
-          this as TexImageSource // TODO
-        );
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(
-          gl.TEXTURE_2D,
-          gl.TEXTURE_MIN_FILTER,
-          isEven && isNotMipMapped ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR
-        );
-
-        gl.texParameteri(
-          gl.TEXTURE_2D,
-          gl.TEXTURE_WRAP_S,
-          isEven && !isNotClampEdge ? gl.REPEAT : gl.CLAMP_TO_EDGE
-        );
-        gl.texParameteri(
-          gl.TEXTURE_2D,
-          gl.TEXTURE_WRAP_T,
-          isEven && !isNotClampEdge ? gl.REPEAT : gl.CLAMP_TO_EDGE
-        );
-        isEven && isNotMipMapped && gl.generateMipmap(gl.TEXTURE_2D),
-          gl.bindTexture(gl.TEXTURE_2D, null);
-      });
-    img.onerror = (e) => {
-      return function () {
-        texture.isLoaded = false;
-      };
-    };
-
-    console.log("_loadTexture");
-
-    return texture;
-  }
-
-  drawThickLine(
-    arg0: any,
-    M: void,
-    arg2: number,
-    arg3: number,
-    _MarqueeStrokeColor: number[]
-  ) {
-    throw new Error("Method not implemented.");
-  }
-  drawColor(
-    A: any,
-    _MarqueeVertexBuffer: any,
-    _MarqueeIndexBuffer: any,
-    arg3: number,
-    _MarqueeFillColor: number[]
-  ) {
-    throw new Error("Method not implemented.");
-  }
-  makeThickLine(arg0: number[][], arg1: boolean) {
-    throw new Error("Method not implemented.");
-  }
-  drawTextured(
-    _SoloTransform: any,
-    _SoloVertexBuffer: any,
-    _SoloIndexBuffer: any,
-    arg3: number,
-    arg4: number[],
-    texture: any
-  ) {
-    throw new Error("Method not implemented.");
-  }
-  drawGrid(
-    showGridAxis: boolean,
-    showGridSubdivisions: boolean,
-    arg2: number,
-    arg3: number,
-    arg4: number,
-    arg5: number,
-    arg6: number,
-    l: number,
-    u: number
-  ) {
-    throw new Error("Method not implemented.");
-  }
-
-  makeFrameBuffer(): any {
-    // TODO !!
-    throw new Error("Method not implemented.");
   }
 }
