@@ -9,28 +9,28 @@ import {
 //@ts-ignore
 // import * as OldSpinePlugin from "../plugins/spine/dist/SpinePlugin.js";
 
-import * as rive from "@rive-app/canvas-advanced-single";
-import { Rive, RuntimeLoader } from "@rive-app/webgl";
+// import * as rive from "@rive-app/canvas-advanced-single";
+// import { Rive, RuntimeLoader } from "@rive-app/webgl";
 
-import { RiveLoaderPlugin } from "../plugins/rive/RiveLoader";
+// import { RiveLoaderPlugin } from "../plugins/rive/RiveLoader";
 
-import "phaser/plugins/spine4.1/dist/SpinePlugin";
-import ScalinePostFX from "./scanLines";
+// import "phaser/plugins/spine4.1/dist/SpinePlugin";
+// import ScalinePostFX from "./scanLines";
 
 import GameConfig = Phaser.Types.Core.GameConfig;
-import ScenePreloadCallback = Phaser.Types.Scenes.ScenePreloadCallback;
-import SceneCreateCallback = Phaser.Types.Scenes.SceneCreateCallback;
-import SceneUpdateCallback = Phaser.Types.Scenes.SceneUpdateCallback;
-import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
-import registerRiveFactory from "../plugins/rive/registerRiveObjectFactory";
-import { RiveObject } from "../plugins/rive/RiveObject";
+// import ScenePreloadCallback = Phaser.Types.Scenes.ScenePreloadCallback;
+// import SceneCreateCallback = Phaser.Types.Scenes.SceneCreateCallback;
+// import SceneUpdateCallback = Phaser.Types.Scenes.SceneUpdateCallback;
+// import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
+// import registerRiveFactory from "../plugins/rive/registerRiveObjectFactory";
+// import { RiveObject } from "../plugins/rive/RiveObject";
 
-import Actor from "../plugins/nima/types/Actor";
-import { default as NimaActorLoader } from "../plugins/nima/ActorLoader.js";
-import Graphics from "../plugins/nima/Graphics.js";
-import type ActorLoader from "../plugins/nima/types/ActorLoader";
-import Archer from "./archer";
-import { NimaPlugin } from "./nimaPlugin";
+// import Actor from "../plugins/nima/types/Actor";
+// import { default as NimaActorLoader } from "../plugins/nima/ActorLoader.js";
+// import Graphics from "../plugins/nima/Graphics.js";
+// import type ActorLoader from "../plugins/nima/types/ActorLoader";
+// import Archer from "./archer";
+// import { NimaPlugin } from "./nimaPlugin";
 
 // Define a Phaser Scene
 class SpinePreviewScene extends Phaser.Scene {
@@ -43,8 +43,8 @@ class SpinePreviewScene extends Phaser.Scene {
   //   animationTime: number;
   // };
   // t_rive: Rive;
-  screen: HTMLCanvasElement;
-  archer: Archer | undefined;
+  // screen: HTMLCanvasElement;
+  // archer: Archer | undefined;
 
   texture: any;
   canvas: any;
@@ -64,18 +64,18 @@ class SpinePreviewScene extends Phaser.Scene {
       //     ],
       //   },
     });
-    this.screen = document.createElement("canvas");
-    this.screen.width = 400;
-    this.screen.height = 400;
-    this.screen.style.opacity = "0";
-    this.screen.style.position = "absolute";
-    this.screen.style.bottom = "0";
-    this.screen.style.right = "0";
-    this.screen.style.backgroundColor = "#f0f0f0";
-    this.screen.style.border = "1px solid #ccc";
-    document.body.appendChild(this.screen);
+    // this.screen = document.createElement("canvas");
+    // this.screen.width = 400;
+    // this.screen.height = 400;
+    // this.screen.style.opacity = "0";
+    // this.screen.style.position = "absolute";
+    // this.screen.style.bottom = "0";
+    // this.screen.style.right = "0";
+    // this.screen.style.backgroundColor = "#f0f0f0";
+    // this.screen.style.border = "1px solid #ccc";
+    // document.body.appendChild(this.screen);
 
-    const offscreen = new OffscreenCanvas(400, 400);
+    // const offscreen = new OffscreenCanvas(400, 400);
     // this.test_nima = {
     //   screen: canvas, // offscreen
     //   graphics: new Graphics(canvas),
@@ -85,7 +85,7 @@ class SpinePreviewScene extends Phaser.Scene {
     //   animationTime: 0,
     // };
 
-    RuntimeLoader.setWasmUrl("/rive/rive.wasm");
+    // RuntimeLoader.setWasmUrl("/rive/rive.wasm");
 
     // this.t_rive = new Rive({
     //   src: "/rive/marty.riv",
@@ -175,8 +175,8 @@ class SpinePreviewScene extends Phaser.Scene {
     this.load.spineAtlas("Spineboy", "spineboy-pma.atlas");
     this.load.spineJson("spineboy", "spineboy-pro.json");
 
-    this.load.setPath("/rive");
-    this.load.rive("boy", "boy.riv");
+    // this.load.setPath("/rive");
+    // this.load.rive("boy", "boy.riv");
     this.load.setPath("");
 
     // this.test_nima.loader = new NimaActorLoader() as ActorLoader;
@@ -260,18 +260,18 @@ class SpinePreviewScene extends Phaser.Scene {
     spineboy.setScale(0.75);
     spineboy.setPosition(220, 480);
 
-    const test = new RiveObject(this, "boy", 500, 500); // , artboard, stateMachine
-    console.log(test);
-    test.addToDisplayList();
-    test.addToUpdateList();
-    test.debug = true;
-    test.play("Strength40");
-    test.setInteractive();
+    // const test = new RiveObject(this, "boy", 500, 500); // , artboard, stateMachine
+    // console.log(test);
+    // test.addToDisplayList();
+    // test.addToUpdateList();
+    // test.debug = true;
+    // test.play("Strength40");
+    // test.setInteractive();
 
     // let riveElem = this.add.dom(100, 100, this.screen);
 
     // @ts-ignore
-    this.nima.create(400, 400, 200, 200);
+    // this.nima.create(400, 400, 200, 200);
 
     // let nimaElem = this.add.dom(100, 100, this.test_nima.screen);
 
@@ -387,18 +387,18 @@ const config = {
       //   plugin: window.SpinePlugin,
       //   mapping: "spine",
       // },
-      {
-        key: "RiveLoaderPlugin",
-        plugin: RiveLoaderPlugin,
-        mapping: "rive",
-        sceneKey: "rive",
-      },
-      {
-        key: "NimaPlugin",
-        plugin: NimaPlugin,
-        mapping: "nima",
-        sceneKey: "nima",
-      },
+      // {
+      //   key: "RiveLoaderPlugin",
+      //   plugin: RiveLoaderPlugin,
+      //   mapping: "rive",
+      //   sceneKey: "rive",
+      // },
+      // {
+      //   key: "NimaPlugin",
+      //   plugin: NimaPlugin,
+      //   mapping: "nima",
+      //   sceneKey: "nima",
+      // },
       //   {
       //     key: "SpinePlugin",
       //     plugin: "public/SpinePluginDebug.js",
