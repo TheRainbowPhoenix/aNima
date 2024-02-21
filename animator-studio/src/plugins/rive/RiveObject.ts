@@ -1,14 +1,40 @@
-import { Artboard, CanvasRenderer, RiveCanvas, StateMachineInstance, SMIInput, Fit, Alignment, LinearAnimationInstance } from "@rive-app/canvas-advanced-single";
+// import {
+//   Artboard,
+//   CanvasRenderer,
+//   RiveCanvas,
+//   StateMachineInstance,
+//   Fit,
+//   Alignment,
+//   LinearAnimationInstance,
+// } from "@rive-app/canvas-advanced-single";
+// import * as Rive from "@rive-app/canvas-advanced-single";
+
+import {
+  Artboard,
+  CanvasRenderer,
+  RiveCanvas,
+  StateMachineInstance,
+  Fit,
+  Alignment,
+  LinearAnimationInstance,
+  type WrappedRenderer,
+} from "@rive-app/webgl-advanced-single";
+
+import * as Rive from "@rive-app/webgl-advanced-single";
+
 import { RiveObjectFactory } from "./RiveObjectFactory";
+import { GameObjects } from "phaser";
+
+console.log(Rive);
 
 export enum RiveEvent {
   Play = "Play",
   Pause = "Pause",
   Loop = "Loop",
-  Stop = "Stop"
+  Stop = "Stop",
 }
 
-/** 
+/**
  * For guidance:
  *  https://codesandbox.io/s/rive-canvas-advanced-api-centaur-example-exh2os?file=/src/index.ts:3259-3269
  *  https://github.com/rive-app/rive-wasm/blob/744f0c1571ddc86ecaa48a2fa4c6b006396dbf1e/js/src/rive.ts
@@ -18,18 +44,25 @@ export class RiveObject extends Phaser.GameObjects.Extern {
   private delta = 0;
   private artboard?: Artboard;
   private rive: RiveCanvas;
-  private canvasRenderer?: CanvasRenderer;
-  private animate?: ((delta: number) => void);
+  private canvasRenderer?: WrappedRenderer;
+  private animate?: (delta: number) => void;
   private stateMachine?: StateMachineInstance;
   private loaded = false;
-  private canvasTexture?: Phaser.Textures.CanvasTexture;
+  private canvasTexture?: Phaser.Textures.CanvasTexture | null;
   private inputMap = new Map<string, SMIInput>();
   private fit: Fit;
   private alignment: Alignment;
   private factory: RiveObjectFactory;
   private animationName?: string;
 
-  constructor(scene: Phaser.Scene, key: string, x?: number, y?: number, artboard?: string, stateMachine?: string) {
+  constructor(
+    scene: Phaser.Scene,
+    key: string,
+    x?: number,
+    y?: number,
+    artboard?: string,
+    stateMachine?: string
+  ) {
     super(scene);
     this.setOrigin();
     this.x = x ?? 0;
@@ -96,10 +129,18 @@ export class RiveObject extends Phaser.GameObjects.Extern {
 
     const rive = RiveObjectFactory.getRuntime();
     const canvasKey = "RiveObjectCanvas-" + Math.random();
-    this.canvasTexture = this.scene.textures.createCanvas(canvasKey, this.width, this.height);
-    this.canvasRenderer = rive.makeRenderer(this.canvasTexture.canvas, false);
+    this.canvasTexture = this.scene.textures.createCanvas(
+      canvasKey,
+      this.width,
+      this.height
+    );
+    if (this.canvasTexture) {
+      this.canvasRenderer = rive.makeRenderer(this.canvasTexture.canvas, false);
 
-    this.loaded = true;
+      this.loaded = true;
+    } else {
+      throw new Error("Can't init canvasTexture");
+    }
   }
 
   get scaledHeight(): number {
@@ -142,7 +183,10 @@ export class RiveObject extends Phaser.GameObjects.Extern {
 
     if (stateMachine) {
       const rive = RiveObjectFactory.getRuntime();
-      const stateMachineInstance = new rive.StateMachineInstance(stateMachine, this.artboard);
+      const stateMachineInstance = new rive.StateMachineInstance(
+        stateMachine,
+        this.artboard
+      );
       this.setStateMachine(stateMachineInstance);
     } else if (stateMachineName) {
       console.warn("Unknown state machine", { stateMachineName });
@@ -160,13 +204,20 @@ export class RiveObject extends Phaser.GameObjects.Extern {
     }
 
     this.stateMachine = stateMachine;
-    for (let inputIndex = 0; inputIndex < stateMachine.inputCount(); inputIndex++) {
+    for (
+      let inputIndex = 0;
+      inputIndex < stateMachine.inputCount();
+      inputIndex++
+    ) {
       const input = stateMachine.input(inputIndex);
       this.inputMap.set(input.name, input);
     }
   }
 
-  private pointToArtboardSpace(globalX: number, globalY: number): Phaser.Math.Vector2 | undefined {
+  private pointToArtboardSpace(
+    globalX: number,
+    globalY: number
+  ): Phaser.Math.Vector2 | undefined {
     const rive = this.rive;
     if (!rive) {
       return;
@@ -199,14 +250,15 @@ export class RiveObject extends Phaser.GameObjects.Extern {
       canvasCoordinatesVector
     );
     // TODO: Remove when rive fixes the Vec2D type
-    const transformedX = <number><unknown>transformedVector.x();
-    const transformedY = <number><unknown>transformedVector.y();
+    const transformedX = <number>(<unknown>transformedVector.x());
+    const transformedY = <number>(<unknown>transformedVector.y());
 
     return new Phaser.Math.Vector2(transformedX, transformedY);
   }
 
   setInteractive(): typeof this {
-    super.setInteractive()
+    super
+      .setInteractive()
       .on(Phaser.Input.Events.POINTER_DOWN, (pointer: Phaser.Input.Pointer) => {
         const point = this.pointToArtboardSpace(pointer.x, pointer.y);
         if (point) {
@@ -329,8 +381,13 @@ export class RiveObject extends Phaser.GameObjects.Extern {
     this.delta = delta / 1000;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  renderCanvas(renderer: Phaser.Renderer.Canvas.CanvasRenderer, camera: Phaser.Cameras.Scene2D.Camera, calcMatrix: Phaser.Math.Matrix4): void {
+  renderWebGL(
+    renderer: Phaser.Renderer.WebGL.WebGLRenderer,
+    src: RiveObject,
+    interpolationPercentage: number,
+    camera: Phaser.Cameras.Scene2D.Camera,
+    parentMatrix: Phaser.GameObjects.Components.TransformMatrix
+  ): void {
     if (!this.loaded || this.delta === 0) {
       console.log("Not rendering", { loaded: this.loaded, delta: this.delta });
       return;
@@ -342,7 +399,171 @@ export class RiveObject extends Phaser.GameObjects.Extern {
     const activeAnimation = !!(animate || stateMachine);
     const canvas = this.canvasTexture?.canvas;
     if (!rive || !artboard || !canvas || !activeAnimation) {
-      console.log("Not rendering", { rive, artboard, canvasElement: canvas, activeAnimation });
+      console.log("Not rendering", {
+        rive,
+        artboard,
+        canvasElement: canvas,
+        activeAnimation,
+      });
+      return;
+    }
+
+    const riveRenderer = this.canvasRenderer;
+    if (!riveRenderer) {
+      console.log("Not rendering", { riveRenderer });
+      return;
+    }
+
+    if (renderer.newType) {
+      renderer.pipelines.clear();
+    }
+
+    // rive.makeRenderer(riveRenderer, true);
+
+    riveRenderer.clear();
+    this.stateMachine?.advance(this.delta);
+    animate?.(this.delta);
+    artboard.advance(this.delta);
+    this.delta = 0;
+    riveRenderer.save();
+    let fwdMatrix = rive.computeAlignment(
+      rive.Fit.contain,
+      rive.Alignment.bottomCenter,
+      {
+        minX: 0,
+        minY: 0,
+        maxX: canvas.width,
+        maxY: canvas.height,
+      },
+      {
+        minX: 0,
+        minY: 0,
+        maxX: canvas.width,
+        maxY: canvas.height,
+      }
+    );
+
+    // renderer.transform(fwdMatrix);
+
+    riveRenderer.align(
+      this.fit,
+      this.alignment,
+      {
+        minX: 0,
+        minY: 0,
+        maxX: this.scaledWidth,
+        maxY: this.scaledHeight,
+      },
+      artboard.bounds
+    );
+    artboard.draw(riveRenderer);
+
+    // const dctx = renderer.currentContext;
+    const pos = this.canvasPosition();
+    // dctx.drawImage(canvas, pos.x, pos.y);
+
+    var gl = renderer.gl;
+    // gl.clearColor(0, 0, 0, 0);
+    // gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // Create WebGL buffer for vertices
+    var vertexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
+    // Define the vertices for the line
+    var vertices = [
+      -0.5,
+      0.0, // Start point
+      0.5,
+      0.0, // End point
+    ];
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+    // Create and compile shaders
+    var vertexShaderSource = `
+    attribute vec2 aVertexPosition;
+
+    void main(void) {
+        gl_Position = vec4(aVertexPosition, 0.0, 1.0);
+    }
+`;
+
+    var fragmentShaderSource = `
+    precision mediump float;
+
+    void main(void) {
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red color
+    }
+`;
+
+    var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    if (vertexShader) {
+      gl.shaderSource(vertexShader, vertexShaderSource);
+      gl.compileShader(vertexShader);
+    }
+
+    var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    if (fragmentShader) {
+      gl.shaderSource(fragmentShader, fragmentShaderSource);
+      gl.compileShader(fragmentShader);
+    }
+
+    // Create shader program
+    var shaderProgram = gl.createProgram();
+    if (shaderProgram) {
+      vertexShader && gl.attachShader(shaderProgram, vertexShader);
+      fragmentShader && gl.attachShader(shaderProgram, fragmentShader);
+      gl.linkProgram(shaderProgram);
+      gl.useProgram(shaderProgram);
+
+      // Set up vertex attribute
+      var positionAttributeLocation = gl.getAttribLocation(
+        shaderProgram,
+        "aVertexPosition"
+      );
+      gl.enableVertexAttribArray(positionAttributeLocation);
+      gl.vertexAttribPointer(
+        positionAttributeLocation,
+        2,
+        gl.FLOAT,
+        false,
+        0,
+        0
+      );
+    }
+
+    // Draw the line
+    gl.drawArrays(gl.LINES, 0, 2);
+
+    renderer.setFramebuffer(null, true);
+
+    riveRenderer.restore();
+    riveRenderer.flush();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  renderCanvas(
+    renderer: Phaser.Renderer.Canvas.CanvasRenderer,
+    camera: Phaser.Cameras.Scene2D.Camera,
+    calcMatrix: Phaser.Math.Matrix4
+  ): void {
+    if (!this.loaded || this.delta === 0) {
+      console.log("Not rendering", { loaded: this.loaded, delta: this.delta });
+      return;
+    }
+    const rive = this.rive;
+    const artboard = this.artboard;
+    const animate = this.animate;
+    const stateMachine = this.stateMachine;
+    const activeAnimation = !!(animate || stateMachine);
+    const canvas = this.canvasTexture?.canvas;
+    if (!rive || !artboard || !canvas || !activeAnimation) {
+      console.log("Not rendering", {
+        rive,
+        artboard,
+        canvasElement: canvas,
+        activeAnimation,
+      });
       return;
     }
 
@@ -357,12 +578,39 @@ export class RiveObject extends Phaser.GameObjects.Extern {
     artboard.advance(this.delta);
     this.delta = 0;
     riveRenderer.save();
-    riveRenderer.align(this.fit, this.alignment, {
-      minX: 0,
-      minY: 0,
-      maxX: this.scaledWidth,
-      maxY: this.scaledHeight
-    }, artboard.bounds);
+    // Compute the view matrix so that we can invert it to go from screen
+    // space (like cursors) to character's artboard space.
+    let fwdMatrix = rive.computeAlignment(
+      rive.Fit.contain,
+      rive.Alignment.bottomCenter,
+      {
+        minX: 0,
+        minY: 0,
+        maxX: canvas.width,
+        maxY: canvas.height,
+      },
+      {
+        minX: 0,
+        minY: 0,
+        maxX: canvas.width,
+        maxY: canvas.height,
+      }
+    );
+
+    // Transform by the view matrix.
+    renderer.transform(fwdMatrix);
+
+    riveRenderer.align(
+      this.fit,
+      this.alignment,
+      {
+        minX: 0,
+        minY: 0,
+        maxX: this.scaledWidth,
+        maxY: this.scaledHeight,
+      },
+      artboard.bounds
+    );
     artboard.draw(riveRenderer);
     const dctx = renderer.currentContext;
     const pos = this.canvasPosition();

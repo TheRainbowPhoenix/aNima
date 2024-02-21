@@ -14,7 +14,16 @@ dependencies:
   '@phasereditor2d/scripts-simple-animations':
     specifier: ^1.0.12
     version: 1.0.12
+  '@rive-app/canvas':
+    specifier: ^2.10.1
+    version: 2.10.1
   '@rive-app/canvas-advanced-single':
+    specifier: ^2.10.1
+    version: 2.10.1
+  '@rive-app/webgl-advanced':
+    specifier: ^2.10.1
+    version: 2.10.1
+  '@rive-app/webgl-advanced-single':
     specifier: ^2.10.1
     version: 2.10.1
   phaser:
@@ -346,6 +355,18 @@ packages:
 
   /@rive-app/canvas-advanced-single@2.10.1:
     resolution: {integrity: sha512-4gqwYCDDwSmUvqYJMV0N2nz8LD034yzXw+OtmlOJ6VNUXu09D+i/wadFVBUB8M73oqdNSAedDvinX+bOaNXDLQ==}
+    dev: false
+
+  /@rive-app/canvas@2.10.1:
+    resolution: {integrity: sha512-zVEDQr+JjYYLR+G4iuJJecP5mG+RCix92I9+YcxE+YeDPUIMXJdiH7OAHj3rlRl634d9wi8SEeB0fay6/RUHpg==}
+    dev: false
+
+  /@rive-app/webgl-advanced-single@2.10.1:
+    resolution: {integrity: sha512-D57NvGJSOdz08Epl4n/nfI8m1YPbgwOebxD3rWWjhPjblQbw3NhSFsaqsjRu9l4eR6GzReOKG4MPVNVux3s85g==}
+    dev: false
+
+  /@rive-app/webgl-advanced@2.10.1:
+    resolution: {integrity: sha512-NIoIg6+5PfqXDmLuyQ6I8SPMW14pV1yCkpWSo9hTRh7sbPi2vLp87fbJfDlnz8PGRNavGBWNPwpnqrrb0ZtANg==}
     dev: false
 
   /@rollup/rollup-android-arm-eabi@4.12.0:

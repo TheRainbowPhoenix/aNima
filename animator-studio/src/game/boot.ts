@@ -9,6 +9,10 @@ import * as Phaser from "phaser";
 //@ts-ignore
 // import * as OldSpinePlugin from "../plugins/spine/dist/SpinePlugin.js";
 
+import * as rive from "@rive-app/canvas-advanced-single";
+
+import { RiveLoaderPlugin } from "../plugins/rive/RiveLoader";
+
 import "phaser/plugins/spine4.1/dist/SpinePlugin";
 import ScalinePostFX from "./scanLines";
 
@@ -17,6 +21,8 @@ import ScenePreloadCallback = Phaser.Types.Scenes.ScenePreloadCallback;
 import SceneCreateCallback = Phaser.Types.Scenes.SceneCreateCallback;
 import SceneUpdateCallback = Phaser.Types.Scenes.SceneUpdateCallback;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
+import registerRiveFactory from "../plugins/rive/registerRiveObjectFactory";
+import { RiveObject } from "../plugins/rive/RiveObject";
 
 // Define a Phaser Scene
 class SpinePreviewScene extends Phaser.Scene {
@@ -87,6 +93,9 @@ class SpinePreviewScene extends Phaser.Scene {
     // this.load.spineAtlas("laishen-atlas", "/spine/leiboss/leiboss.atlas");
 
     this.load.glsl("leiboss", "shaders/leiboss.glsl.js");
+
+    this.load.setPath("/rive");
+    this.load.rive("boy", "boy.riv");
   }
 
   create() {
@@ -137,6 +146,18 @@ class SpinePreviewScene extends Phaser.Scene {
     let spine = this.add.spine(400, 400, "laishen", "animation", true);
     spine.setScale(0.95);
     spine.setPosition(720, 480);
+
+    const test = new RiveObject(this, "boy", 500, 500); // , artboard, stateMachine
+    console.log(test);
+    test.addToDisplayList();
+    test.addToUpdateList();
+    test.debug = true;
+    test.play("Strength40");
+    test.setInteractive();
+    // this.add.dom(0, 0, test);
+    // this.add.existing(test);
+
+    // let boy = this.add.rive()
 
     // let girl = this.add.spine(400, 400, "girl", "Idle_HandGun", true);
     // girl.setSkin("Normal");
@@ -216,6 +237,14 @@ class SpinePreviewScene extends Phaser.Scene {
   }
 }
 
+class RivePreviewScene extends Phaser.Scene {
+  constructor() {
+    super("RiveDemo");
+  }
+
+  preload() {}
+}
+
 // Initialize Phaser game configuration
 const config = {
   type: Phaser.AUTO,
@@ -236,6 +265,12 @@ const config = {
         key: "SpinePlugin", // @ts-ignore
         plugin: window.SpinePlugin,
         mapping: "spine",
+      },
+      {
+        key: "RiveLoaderPlugin",
+        plugin: RiveLoaderPlugin,
+        mapping: "rive",
+        sceneKey: "rive",
       },
       //   {
       //     key: "SpinePlugin",
