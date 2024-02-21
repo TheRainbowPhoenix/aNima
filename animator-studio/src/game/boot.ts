@@ -14,7 +14,7 @@ import * as Phaser from "phaser";
 
 // import { RiveLoaderPlugin } from "../plugins/rive/RiveLoader";
 
-import "phaser/plugins/spine4.1/dist/SpinePlugin";
+import "phaser/plugins/spine4.1/dist/SpinePluginDebug";
 // import ScalinePostFX from "./scanLines";
 
 import GameConfig = Phaser.Types.Core.GameConfig;
@@ -117,6 +117,9 @@ class SpinePreviewScene extends Phaser.Scene {
 
     // Load any Spine assets you want to preview
 
+    this.load.setPath("/spine/hasumi/");
+    this.load.spine("hasumi", "hasumiTfront.json", "hasumiTfront.atlas");
+
     this.load.setPath("/spine/liya/");
     this.load.spine("liya", "Liya.json", "Liya.atlas");
     // this.load.spineAtlas("Liya", "Liya.atlas");
@@ -210,6 +213,7 @@ class SpinePreviewScene extends Phaser.Scene {
   }
 
   create() {
+    window.spine = this.spine;
     // Enable input for drag-and-drop
     this.input.dragTimeThreshold = 100;
     this.input.setTopOnly(false);
@@ -258,6 +262,18 @@ class SpinePreviewScene extends Phaser.Scene {
     // spineboy.setSkinByName("Normal");
     spineboy.setScale(0.75);
     spineboy.setPosition(220, 480);
+
+    let hasumi = this.add.spine(400, 400, "hasumi", "default", true);
+    // spineboy.setAnimation(0, "xxBeHit_Gun", true);
+    // spineboy.setSkinByName("Normal");
+    // @ts-ignore
+    window.hasumi = hasumi;
+    // @ts-ignore
+
+    // hasumi.drawDebug = true;
+    // setDebugBones
+    hasumi.setScale(3);
+    hasumi.setPosition(420, 480);
 
     // const test = new RiveObject(this, "boy", 500, 500); // , artboard, stateMachine
     // console.log(test);

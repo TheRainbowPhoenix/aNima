@@ -1,0 +1,1157 @@
+{
+  "root": {
+    "type": "node",
+    "id": 1000,
+    "name": "Hierarchy",
+    "displayType": "empty",
+    "children": [
+      {
+        "type": "rootBone",
+        "id": 1123,
+        "name": "Main",
+        "translation": [188.9564666748047, -1200.24853515625],
+        "size": 10,
+        "children": [
+          {
+            "type": "bone",
+            "id": 1124,
+            "name": "Body",
+            "rotation": 86.79050763340133,
+            "length": 702.6599818509584,
+            "size": 10,
+            "children": [
+              {
+                "type": "bone",
+                "id": 1125,
+                "name": "Main",
+                "translation": [702.6599731445312, 4.190223990008235e-7],
+                "rotation": 18.945615652194103,
+                "length": 1232.958882208777,
+                "size": 10,
+                "children": [
+                  {
+                    "type": "rootBone",
+                    "id": 1144,
+                    "name": "Arm_R",
+                    "translation": [1542.7950439453125, 390.77032470703125],
+                    "rotation": -105.73612272523958,
+                    "size": 10,
+                    "children": [
+                      {
+                        "type": "rootBone",
+                        "id": 1149,
+                        "name": "Item",
+                        "translation": [94.4283447265625, 143.4241943359375],
+                        "size": 10,
+                        "children": [
+                          {
+                            "type": "bone",
+                            "id": 1150,
+                            "name": "Bone",
+                            "rotation": -144.27260332014492,
+                            "length": 322.796558261899,
+                            "size": 10,
+                            "children": [
+                              {
+                                "type": "image",
+                                "id": 1110,
+                                "name": "Giap2",
+                                "translation": [
+                                  124.30853271484375, 185.11610412597656
+                                ],
+                                "rotation": 144.2726003180483,
+                                "drawOrder": 8,
+                                "sequence": 0,
+                                "useCustomMesh": false,
+                                "useVertexDeform": false,
+                                "asset": "14894-6-asset-34-gotham",
+                                "width": 643,
+                                "height": 598,
+                                "blendMode": "Normal",
+                                "locked": true
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "bone",
+                        "id": 1145,
+                        "name": "arm",
+                        "rotation": -86.06982362365389,
+                        "length": 577.1366606301937,
+                        "size": 10,
+                        "children": [
+                          {
+                            "type": "image",
+                            "id": 1105,
+                            "name": "R_hand",
+                            "translation": [
+                              390.1397705078125, -185.5680694580078
+                            ],
+                            "rotation": 86.06982387559394,
+                            "drawOrder": 3,
+                            "sequence": 0,
+                            "useCustomMesh": false,
+                            "useVertexDeform": false,
+                            "asset": "14894-6-asset-29-gotham",
+                            "width": 975,
+                            "height": 1229,
+                            "blendMode": "Normal",
+                            "locked": true
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "rootBone",
+                    "id": 1130,
+                    "name": "Arm_L",
+                    "translation": [1346.2042236328125, -663.4737548828125],
+                    "rotation": -105.73612272523958,
+                    "size": 10,
+                    "children": [
+                      {
+                        "type": "rootBone",
+                        "id": 1147,
+                        "name": "Item",
+                        "translation": [-232.948974609375, 61.5335693359375],
+                        "size": 10,
+                        "children": [
+                          {
+                            "type": "bone",
+                            "id": 1148,
+                            "name": "Bone",
+                            "rotation": 14.77455243101512,
+                            "length": 413.6453950799188,
+                            "size": 10,
+                            "children": [
+                              {
+                                "type": "image",
+                                "id": 1111,
+                                "name": "Giap1",
+                                "translation": [
+                                  317.5400085449219, -295.93316650390625
+                                ],
+                                "rotation": -14.774553178062506,
+                                "scale": [
+                                  0.9999999403953552, 0.9999999403953552
+                                ],
+                                "drawOrder": 9,
+                                "sequence": 0,
+                                "useCustomMesh": false,
+                                "useVertexDeform": false,
+                                "asset": "14894-6-asset-35-gotham",
+                                "width": 937,
+                                "height": 783,
+                                "blendMode": "Normal",
+                                "locked": true
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "bone",
+                        "id": 1131,
+                        "name": "Arm",
+                        "rotation": -38.227841029933366,
+                        "length": 1001.5221178799135,
+                        "size": 10,
+                        "children": [
+                          {
+                            "type": "image",
+                            "id": 1107,
+                            "name": "L_hand 1",
+                            "translation": [
+                              774.8922119140625, -77.8318862915039
+                            ],
+                            "rotation": 38.227841187918244,
+                            "scale": [0.9999999403953552, 0.9999999403953552],
+                            "drawOrder": 5,
+                            "sequence": 0,
+                            "useCustomMesh": false,
+                            "useVertexDeform": false,
+                            "asset": "14894-6-asset-32-gotham",
+                            "width": 1373,
+                            "height": 1309,
+                            "blendMode": "Normal",
+                            "locked": true
+                          },
+                          {
+                            "type": "bone",
+                            "id": 1132,
+                            "name": "arm 2",
+                            "translation": [
+                              1001.5220947265625, 0.00000827397161629051
+                            ],
+                            "rotation": 4.537775140353003,
+                            "length": 15.847343715893334,
+                            "size": 10,
+                            "children": [
+                              {
+                                "type": "bone",
+                                "id": 1133,
+                                "name": "Bone",
+                                "translation": [
+                                  15.847289085388184, 0.000005868670996278524
+                                ],
+                                "rotation": 10.172341822315012,
+                                "length": 517.6893284017087,
+                                "size": 10,
+                                "children": [
+                                  {
+                                    "type": "image",
+                                    "id": 1108,
+                                    "name": "L_hand 2",
+                                    "translation": [
+                                      396.0989074707031, -138.02267456054688
+                                    ],
+                                    "rotation": 23.517725367463804,
+                                    "scale": [
+                                      0.9999999403953552, 0.9999999403953552
+                                    ],
+                                    "drawOrder": 6,
+                                    "sequence": 0,
+                                    "useCustomMesh": false,
+                                    "useVertexDeform": false,
+                                    "asset": "14894-6-asset-33-gotham",
+                                    "width": 802,
+                                    "height": 788,
+                                    "blendMode": "Normal",
+                                    "locked": true
+                                  },
+                                  {
+                                    "type": "bone",
+                                    "id": 1134,
+                                    "name": "Hand",
+                                    "translation": [
+                                      517.6893310546875, -5.49469405086711e-7
+                                    ],
+                                    "rotation": 18.322963183277125,
+                                    "length": 388.3782664711368,
+                                    "size": 10,
+                                    "children": [
+                                      {
+                                        "type": "image",
+                                        "id": 1109,
+                                        "name": "L_hand 3",
+                                        "translation": [
+                                          411.783935546875, 119.73583984375
+                                        ],
+                                        "rotation": 5.194762096611985,
+                                        "scale": [
+                                          0.9999999403953552, 0.9999999403953552
+                                        ],
+                                        "drawOrder": 7,
+                                        "sequence": 0,
+                                        "useCustomMesh": false,
+                                        "useVertexDeform": false,
+                                        "asset": "14894-6-asset-31-gotham",
+                                        "width": 949,
+                                        "height": 1070,
+                                        "blendMode": "Normal",
+                                        "locked": true
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "rootBone",
+                    "id": 1128,
+                    "name": "Head",
+                    "translation": [1302.377685546875, -19.559938430786133],
+                    "rotation": -105.73612272523958,
+                    "size": 10,
+                    "children": [
+                      {
+                        "type": "image",
+                        "id": 1101,
+                        "name": "H_behind",
+                        "translation": [341.3633728027344, -815.8815307617188],
+                        "rotation": 102.87500186875565,
+                        "scale": [0.9999999403953552, 0.9999999403953552],
+                        "drawOrder": 13,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-26-gotham",
+                        "width": 105,
+                        "height": 653,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1100,
+                        "name": "H_behind2",
+                        "translation": [33.12757110595703, -757.5990600585938],
+                        "rotation": 102.87500194009635,
+                        "drawOrder": 12,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-25-gotham",
+                        "width": 138,
+                        "height": 298,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1113,
+                        "name": "H_main",
+                        "translation": [-16.664306640625, 721.6156005859375],
+                        "rotation": 0.000002734730074804385,
+                        "scale": [0.9999991059303284, 0.9999991059303284],
+                        "drawOrder": 14,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-37-gotham",
+                        "width": 328,
+                        "height": 555,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1114,
+                        "name": "H_7",
+                        "translation": [-207.8917999267578, 724.736572265625],
+                        "rotation": 9.036492218779334e-7,
+                        "drawOrder": 15,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-38-gotham",
+                        "width": 261,
+                        "height": 521,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1115,
+                        "name": "H_6",
+                        "translation": [-326.89111328125, 442.236572265625],
+                        "rotation": 1.4268142173667554e-7,
+                        "scale": [0.9999999403953552, 0.9999999403953552],
+                        "drawOrder": 16,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-39-gotham",
+                        "width": 125,
+                        "height": 98,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1116,
+                        "name": "H_5",
+                        "translation": [-283.8914794921875, 620.23681640625],
+                        "rotation": -7.609678086457332e-7,
+                        "drawOrder": 17,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-40-gotham",
+                        "width": 303,
+                        "height": 324,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1117,
+                        "name": "H_4",
+                        "translation": [153.10797119140625, 659.236328125],
+                        "rotation": -6.896271431346142e-7,
+                        "scale": [0.9999999403953552, 0.9999999403953552],
+                        "drawOrder": 18,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-41-gotham",
+                        "width": 105,
+                        "height": 334,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1120,
+                        "name": "H_1",
+                        "translation": [-107.5584716796875, 676.8538818359375],
+                        "rotation": -0.0000023542442728771927,
+                        "scale": [0.9999999403953552, 0.9999999403953552],
+                        "drawOrder": 21,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-44-gotham",
+                        "width": 257,
+                        "height": 428,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1119,
+                        "name": "H_2",
+                        "translation": [8.270109176635742, 719.6551513671875],
+                        "rotation": 9.036492218779334e-7,
+                        "drawOrder": 20,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-43-gotham",
+                        "width": 285,
+                        "height": 576,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "image",
+                        "id": 1118,
+                        "name": "H_3",
+                        "translation": [-85.39227294921875, 732.236572265625],
+                        "rotation": -7.609678086457332e-7,
+                        "drawOrder": 19,
+                        "sequence": 0,
+                        "useCustomMesh": false,
+                        "useVertexDeform": false,
+                        "asset": "14894-6-asset-42-gotham",
+                        "width": 232,
+                        "height": 538,
+                        "blendMode": "Normal"
+                      },
+                      {
+                        "type": "bone",
+                        "id": 1129,
+                        "name": "Face",
+                        "rotation": 102.8750018958091,
+                        "length": 470.79980666148737,
+                        "size": 10,
+                        "children": [
+                          {
+                            "type": "image",
+                            "id": 1112,
+                            "name": "Face",
+                            "translation": [
+                              355.5641784667969, -29.422649383544922
+                            ],
+                            "rotation": -102.87500186875565,
+                            "scale": [0.9999999403953552, 0.9999999403953552],
+                            "drawOrder": 10,
+                            "sequence": 0,
+                            "useCustomMesh": false,
+                            "useVertexDeform": false,
+                            "asset": "14894-6-asset-36-gotham",
+                            "width": 555,
+                            "height": 785,
+                            "blendMode": "Normal",
+                            "locked": true
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "image",
+                    "id": 1106,
+                    "name": "Body",
+                    "translation": [512.6724853515625, -1036.45263671875],
+                    "rotation": -105.73612272523958,
+                    "drawOrder": 4,
+                    "sequence": 0,
+                    "useCustomMesh": false,
+                    "useVertexDeform": false,
+                    "asset": "14894-6-asset-45-gotham",
+                    "width": 3516,
+                    "height": 3032,
+                    "blendMode": "Normal",
+                    "locked": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rootBone",
+        "id": 1201,
+        "name": "IT1",
+        "translation": [-39.96327209472656, -493.44940185546875],
+        "size": 10,
+        "children": [
+          {
+            "type": "bone",
+            "id": 1202,
+            "name": "Bone",
+            "rotation": -160.13295423108244,
+            "length": 544.1764046438924,
+            "size": 10,
+            "children": [
+              {
+                "type": "bone",
+                "id": 1203,
+                "name": "Bone",
+                "translation": [544.1763916015625, 0.00001973217149497941],
+                "rotation": 36.87858792846687,
+                "length": 627.4377147366386,
+                "size": 10,
+                "children": [
+                  {
+                    "type": "image",
+                    "id": 1103,
+                    "name": "2",
+                    "translation": [34.2050666809082, 174.43702697753906],
+                    "rotation": 123.25436484247302,
+                    "drawOrder": 1,
+                    "sequence": 0,
+                    "useCustomMesh": false,
+                    "useVertexDeform": false,
+                    "asset": "14894-6-asset-28-gotham",
+                    "width": 1217,
+                    "height": 1075,
+                    "blendMode": "Normal",
+                    "locked": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "rootBone",
+        "id": 1205,
+        "name": "It2",
+        "translation": [811.5848999023438, -540.7576293945312],
+        "size": 10,
+        "children": [
+          {
+            "type": "bone",
+            "id": 1206,
+            "name": "Bone",
+            "rotation": -52.16723545649231,
+            "length": 511.8613271651067,
+            "size": 10,
+            "children": [
+              {
+                "type": "image",
+                "id": 1104,
+                "name": "3",
+                "translation": [310.9785461425781, -37.93752670288086],
+                "rotation": 52.16723600256873,
+                "drawOrder": 2,
+                "sequence": 0,
+                "useCustomMesh": false,
+                "useVertexDeform": false,
+                "asset": "14894-6-asset-30-gotham",
+                "width": 543,
+                "height": 861,
+                "blendMode": "Normal",
+                "locked": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "assets": [
+    {
+      "name": "Tulen-AOV",
+      "id": "14894-6-asset-46-gotham",
+      "type": "image/layered",
+      "children": [
+        {
+          "name": "H_behind3",
+          "id": "14894-6-asset-24-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 35,
+          "height": 91,
+          "left": -540.5,
+          "top": 1292.5
+        },
+        {
+          "name": "H_behind2",
+          "id": "14894-6-asset-25-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 138,
+          "height": 298,
+          "left": -904,
+          "top": 1315
+        },
+        {
+          "name": "H_behind",
+          "id": "14894-6-asset-26-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 105,
+          "height": 653,
+          "left": -1029.5,
+          "top": 1027.5
+        },
+        {
+          "name": "1",
+          "id": "14894-6-asset-27-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 673,
+          "height": 754,
+          "left": -1026.5,
+          "top": -1128
+        },
+        {
+          "name": "2",
+          "id": "14894-6-asset-28-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 1217,
+          "height": 1075,
+          "left": -1016.5,
+          "top": -1079.5
+        },
+        {
+          "name": "3",
+          "id": "14894-6-asset-30-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 543,
+          "height": 861,
+          "left": 380.5,
+          "top": -1086.5
+        },
+        {
+          "name": "R_hand",
+          "id": "14894-6-asset-29-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 975,
+          "height": 1229,
+          "left": -1316.5,
+          "top": 201.5
+        },
+        {
+          "name": "Layer 1",
+          "id": "14894-6-asset-45-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 3516,
+          "height": 3032,
+          "left": 495,
+          "top": -1
+        },
+        {
+          "name": "L_hand 1",
+          "id": "14894-6-asset-32-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 1373,
+          "height": 1309,
+          "left": 470.5,
+          "top": 159.5
+        },
+        {
+          "name": "L_hand 2",
+          "id": "14894-6-asset-33-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 802,
+          "height": 788,
+          "left": 1018,
+          "top": -213
+        },
+        {
+          "name": "L_hand 3",
+          "id": "14894-6-asset-31-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 949,
+          "height": 1070,
+          "left": 1605.5,
+          "top": -53
+        },
+        {
+          "name": "Giap2",
+          "id": "14894-6-asset-34-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 643,
+          "height": 598,
+          "left": -1056.5,
+          "top": 524
+        },
+        {
+          "name": "Giap1",
+          "id": "14894-6-asset-35-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 937,
+          "height": 783,
+          "left": 59.5,
+          "top": 556.5
+        },
+        {
+          "name": "Face",
+          "id": "14894-6-asset-36-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 555,
+          "height": 785,
+          "left": -748.5,
+          "top": 836.5
+        },
+        {
+          "name": "H_main",
+          "id": "14894-6-asset-37-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 328,
+          "height": 555,
+          "left": -734,
+          "top": 1198.5
+        },
+        {
+          "name": "H_7",
+          "id": "14894-6-asset-38-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 261,
+          "height": 521,
+          "left": -911.5,
+          "top": 1197.5
+        },
+        {
+          "name": "H_6",
+          "id": "14894-6-asset-39-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 125,
+          "height": 98,
+          "left": -1030.5,
+          "top": 915
+        },
+        {
+          "name": "H_5",
+          "id": "14894-6-asset-40-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 303,
+          "height": 324,
+          "left": -987.5,
+          "top": 1093
+        },
+        {
+          "name": "H_4",
+          "id": "14894-6-asset-41-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 105,
+          "height": 334,
+          "left": -550.5,
+          "top": 1132
+        },
+        {
+          "name": "H_3",
+          "id": "14894-6-asset-42-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 232,
+          "height": 538,
+          "left": -789,
+          "top": 1205
+        },
+        {
+          "name": "H_2",
+          "id": "14894-6-asset-43-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 285,
+          "height": 576,
+          "left": -700.5,
+          "top": 1195
+        },
+        {
+          "name": "H_1",
+          "id": "14894-6-asset-44-gotham",
+          "type": "image/layer",
+          "isFilteringEnabled": true,
+          "showBorder": true,
+          "width": 257,
+          "height": 428,
+          "left": -740.5,
+          "top": 1135
+        }
+      ]
+    }
+  ],
+  "animations": [
+    {
+      "displayEnd": 4.202604920405195,
+      "displayStart": 0,
+      "duration": 10,
+      "fps": 60,
+      "id": 9000,
+      "isWorkAreaActive": true,
+      "loop": true,
+      "name": "Untitled",
+      "order": 0,
+      "nodes": {
+        "1123": {
+          "framePosX": [{ "t": 0, "v": 178.52186584472656, "i": 1 }],
+          "framePosY": [{ "t": 0, "v": -1386.3297119140625, "i": 1 }],
+          "frameRotation": [{ "t": 0, "v": 0, "i": 1 }],
+          "frameScaleX": [{ "t": 0, "v": 1, "i": 1 }],
+          "frameScaleY": [{ "t": 0, "v": 1, "i": 1 }]
+        },
+        "1124": {
+          "frameLength": [
+            {
+              "t": 0,
+              "v": 702.6599818509584,
+              "i": 4,
+              "if": 0.001,
+              "iv": 702.6599818509584,
+              "of": 0.2,
+              "ov": 702.6599818509584
+            },
+            {
+              "t": 2.0166666666666666,
+              "v": 749.99998162227,
+              "i": 3,
+              "if": 0.2,
+              "iv": 749.99998162227,
+              "of": 0.2,
+              "ov": 749.99998162227
+            },
+            {
+              "t": 4,
+              "v": 702.6599818509584,
+              "i": 4,
+              "if": 0.2,
+              "iv": 702.6599818509584,
+              "of": 0.001,
+              "ov": 702.6599818509584
+            }
+          ]
+        },
+        "1125": {
+          "frameLength": [
+            { "t": 2.0166666666666666, "v": 1232.958882208777, "i": 1 }
+          ]
+        },
+        "1128": {
+          "framePosX": [
+            { "t": 0, "v": 1315.2720947265625, "i": 1 },
+            { "t": 2.0166666666666666, "v": 1302.377685546875, "i": 1 },
+            { "t": 4, "v": 1315.2720947265625, "i": 1 }
+          ],
+          "framePosY": [
+            { "t": 0, "v": -23.19316291809082, "i": 1 },
+            { "t": 2.0166666666666666, "v": -19.559938430786133, "i": 1 },
+            { "t": 4, "v": -23.19316291809082, "i": 1 }
+          ],
+          "frameRotation": [{ "t": 0, "v": -1.8454434798482302, "i": 1 }]
+        },
+        "1129": {
+          "frameRotation": [{ "t": 0, "v": 1.7955075010772774, "i": 1 }]
+        },
+        "1130": {
+          "framePosX": [{ "t": 4, "v": 1346.2042236328125, "i": 1 }],
+          "framePosY": [{ "t": 4, "v": -663.4737548828125, "i": 1 }]
+        },
+        "1131": {
+          "frameRotation": [
+            {
+              "t": 0,
+              "v": -0.6981317007977318,
+              "i": 3,
+              "if": 0.2,
+              "iv": -0.6981317007977318,
+              "of": 0.5046190785579995,
+              "ov": -0.6981317007977318
+            },
+            {
+              "t": 2.0166666666666666,
+              "v": -0.6283185307179586,
+              "i": 3,
+              "if": 0.4135180848543761,
+              "iv": -0.6283185307179586,
+              "of": 0.3501140303530936,
+              "ov": -0.6283185307179586
+            },
+            {
+              "t": 4,
+              "v": -0.6981317007977318,
+              "i": 3,
+              "if": 0.47373739339537535,
+              "iv": -0.6981317007977318,
+              "of": 0.2,
+              "ov": -0.6981317007977318
+            }
+          ]
+        },
+        "1133": {
+          "frameRotation": [
+            {
+              "t": 0,
+              "v": 0.17754085743771694,
+              "i": 3,
+              "if": 0.2,
+              "iv": 0.17754085743771694,
+              "of": 0.42490570271601447,
+              "ov": 0.17754085743771694
+            },
+            {
+              "t": 2.0166666666666666,
+              "v": 0.2443460952792061,
+              "i": 3,
+              "if": 0.5387819946789351,
+              "iv": 0.2443460952792061,
+              "of": 0.47373737723140397,
+              "ov": 0.2443460952792061
+            },
+            {
+              "t": 4,
+              "v": 0.17754085743771694,
+              "i": 3,
+              "if": 0.4178126383635957,
+              "iv": 0.17754085743771694,
+              "of": 0.2,
+              "ov": 0.17754085743771694
+            }
+          ]
+        },
+        "1134": {
+          "frameRotation": [
+            {
+              "t": 0,
+              "v": 0.3197960455432138,
+              "i": 3,
+              "if": 0.2,
+              "iv": 0.3197960455432138,
+              "of": 0.23675748705863953,
+              "ov": 0.2709268231584212
+            },
+            {
+              "t": 1,
+              "v": 0.24434609527920614,
+              "i": 3,
+              "if": 0.22450494766235352,
+              "iv": 0.24609143118910318,
+              "of": 0.19970281182444458,
+              "ov": 0.24276769964047257
+            },
+            {
+              "t": 2.0166666666666666,
+              "v": 0.3141592653589793,
+              "i": 3,
+              "if": 0.16987079088805146,
+              "iv": 0.29667091898118786,
+              "of": 0.16317852246700063,
+              "ov": 0.3304078377888046
+            },
+            {
+              "t": 3,
+              "v": 0.40142572795869574,
+              "i": 3,
+              "if": 0.2,
+              "iv": 0.40142572795869574,
+              "of": 0.2,
+              "ov": 0.40142572795869574
+            },
+            {
+              "t": 4,
+              "v": 0.31979603626988706,
+              "i": 3,
+              "if": 0.2980198860168457,
+              "iv": 0.3660572842067622,
+              "of": 0.2,
+              "ov": 0.31979603626988706
+            }
+          ]
+        },
+        "1144": {
+          "framePosY": [
+            { "t": 0, "v": 390.77032470703125, "i": 1 },
+            { "t": 4, "v": 390.77032470703125, "i": 1 }
+          ],
+          "frameRotation": [
+            {
+              "t": 0,
+              "v": -1.8454434798482302,
+              "i": 4,
+              "if": 0.001,
+              "iv": -1.8454434798482302,
+              "of": 0.2,
+              "ov": -1.8454434798482302
+            },
+            {
+              "t": 2.0166666666666666,
+              "v": -1.9198621771937625,
+              "i": 3,
+              "if": 0.2,
+              "iv": -1.9198621771937625,
+              "of": 0.2,
+              "ov": -1.9198621771937625
+            },
+            {
+              "t": 4,
+              "v": -1.8454434798482302,
+              "i": 4,
+              "if": 0.2,
+              "iv": -1.8454434798482302,
+              "of": 0.001,
+              "ov": -1.8454434798482302
+            }
+          ]
+        },
+        "1148": {
+          "frameRotation": [
+            { "t": 0, "v": 0.2435938484172956, "i": 1 },
+            {
+              "t": 2,
+              "v": 0.2876956347251727,
+              "i": 3,
+              "if": 0.2,
+              "iv": 0.2876956347251727,
+              "of": 0.2,
+              "ov": 0.2876956347251727
+            },
+            { "t": 3.9833333333333334, "v": 0.2435938484172956, "i": 1 }
+          ]
+        },
+        "1201": {
+          "frameRotation": [
+            {
+              "t": 0,
+              "v": 0,
+              "i": 4,
+              "if": 0.001,
+              "iv": 0,
+              "of": 0.2,
+              "ov": 0
+            },
+            {
+              "t": 0.5,
+              "v": 0.012110535723026587,
+              "i": 3,
+              "if": 0.3470299243927002,
+              "iv": 0.01437140240361144,
+              "of": 0.19888744387944915,
+              "ov": 0.008223337846584362
+            },
+            {
+              "t": 2,
+              "v": -0.05235987755982989,
+              "i": 3,
+              "if": 0.5732486794206427,
+              "iv": -0.02757140654909175,
+              "of": 0.6041226387023926,
+              "ov": -0.06106771940579206
+            },
+            {
+              "t": 2.5,
+              "v": -0.059388246798604015,
+              "i": 3,
+              "if": 0.2,
+              "iv": -0.059388246798604015,
+              "of": 0.2,
+              "ov": -0.059388246798604015
+            },
+            {
+              "t": 3.966666666666667,
+              "v": 0,
+              "i": 4,
+              "if": 0.2,
+              "iv": 0,
+              "of": 0.001,
+              "ov": 0
+            }
+          ],
+          "framePosX": [{ "t": 0, "v": -39.96327209472656, "i": 1 }],
+          "framePosY": [{ "t": 0, "v": -493.44940185546875, "i": 1 }],
+          "frameScaleX": [{ "t": 0, "v": 1, "i": 1 }],
+          "frameScaleY": [{ "t": 0, "v": 1, "i": 1 }]
+        },
+        "1205": {
+          "framePosX": [
+            { "t": 0, "v": 811.5848999023438, "i": 1 },
+            { "t": 3.9833333333333334, "v": 811.5848999023438, "i": 1 }
+          ],
+          "framePosY": [
+            { "t": 0, "v": -540.7576293945312, "i": 1 },
+            { "t": 3.9833333333333334, "v": -540.7576293945312, "i": 1 }
+          ],
+          "frameRotation": [
+            { "t": 0, "v": 0, "i": 1 },
+            { "t": 2, "v": -0.10177042505318223, "i": 1 },
+            { "t": 3.9833333333333334, "v": 0, "i": 1 }
+          ],
+          "frameScaleX": [
+            { "t": 0, "v": 1, "i": 1 },
+            { "t": 3.9833333333333334, "v": 1, "i": 1 }
+          ],
+          "frameScaleY": [
+            { "t": 0, "v": 1, "i": 1 },
+            { "t": 3.9833333333333334, "v": 1, "i": 1 }
+          ]
+        },
+        "1206": {
+          "frameRotation": [{ "t": 0, "v": -0.6340578391358275, "i": 1 }]
+        },
+        "ORDER": {
+          "frameDrawOrder": [
+            {
+              "t": 4,
+              "v": {
+                "1106": 6,
+                "1107": 7,
+                "1108": 8,
+                "1109": 9,
+                "1110": 10,
+                "1111": 11,
+                "1112": 12
+              },
+              "i": 0,
+              "if": 0
+            }
+          ]
+        }
+      },
+      "position": 0,
+      "workAreaEnd": 3.9833333333333334,
+      "workAreaStart": 0
+    }
+  ],
+  "settings": {}
+}

@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "srv": "deno run --allow-net  --watch --allow-read srv.ts"
+  }
+}

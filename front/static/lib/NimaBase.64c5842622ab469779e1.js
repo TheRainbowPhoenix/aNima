@@ -90764,8 +90764,8 @@
                   value: function (e) {
                     var t = this.findTool(e);
                     if (t) {
-                      if (t.validate && !t.validate())
-                        return console.log("TOOL NOT VALID", t), false;
+                      // if (t.validate && !t.validate())
+                        // return console.log("TOOL NOT VALID", t), false;
                       this._CurrentTool && this._CurrentTool.disable(),
                         (this._ActiveDragTool = null),
                         t.enable();

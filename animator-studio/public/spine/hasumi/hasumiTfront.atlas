@@ -1,0 +1,229 @@
+hasumiTfront.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+image_hasumiTfront_1
+  rotate: false
+  xy: 37, 472
+  size: 22, 23
+  orig: 22, 23
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_2
+  rotate: false
+  xy: 1, 253
+  size: 65, 104
+  orig: 65, 104
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_15
+  rotate: false
+  xy: 262, 454
+  size: 36, 55
+  orig: 36, 55
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_18
+  rotate: false
+  xy: 158, 334
+  size: 42, 65
+  orig: 42, 65
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_27
+  rotate: false
+  xy: 207, 409
+  size: 35, 65
+  orig: 35, 65
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_24
+  rotate: false
+  xy: 118, 253
+  size: 43, 79
+  orig: 43, 79
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_22
+  rotate: false
+  xy: 68, 253
+  size: 48, 80
+  orig: 48, 80
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_12
+  rotate: false
+  xy: 1, 359
+  size: 58, 111
+  orig: 58, 111
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_9
+  rotate: false
+  xy: 156, 424
+  size: 49, 58
+  orig: 49, 58
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_8
+  rotate: false
+  xy: 158, 401
+  size: 25, 21
+  orig: 25, 21
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_6
+  rotate: false
+  xy: 156, 484
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_29
+  rotate: false
+  xy: 179, 484
+  size: 17, 16
+  orig: 17, 16
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_31
+  rotate: false
+  xy: 68, 335
+  size: 27, 22
+  orig: 27, 22
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_30
+  rotate: false
+  xy: 286, 349
+  size: 27, 15
+  orig: 27, 15
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_16
+  rotate: false
+  xy: 244, 409
+  size: 52, 43
+  orig: 52, 43
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_13
+  rotate: false
+  xy: 207, 476
+  size: 42, 32
+  orig: 42, 32
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_3
+  rotate: false
+  xy: 202, 300
+  size: 42, 61
+  orig: 42, 61
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_7
+  rotate: false
+  xy: 1, 472
+  size: 34, 35
+  orig: 34, 35
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_4
+  rotate: false
+  xy: 61, 359
+  size: 52, 74
+  orig: 52, 74
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_0
+  rotate: false
+  xy: 163, 300
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_20
+  rotate: false
+  xy: 262, 349
+  size: 22, 55
+  orig: 22, 55
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_23
+  rotate: false
+  xy: 115, 424
+  size: 39, 79
+  orig: 39, 79
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_21
+  rotate: false
+  xy: 115, 335
+  size: 41, 87
+  orig: 41, 87
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_25
+  rotate: false
+  xy: 246, 300
+  size: 54, 47
+  orig: 54, 47
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_26
+  rotate: false
+  xy: 300, 409
+  size: 30, 64
+  orig: 30, 64
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_19
+  rotate: false
+  xy: 61, 435
+  size: 52, 65
+  orig: 52, 65
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_14
+  rotate: false
+  xy: 332, 454
+  size: 42, 45
+  orig: 42, 45
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_17
+  rotate: false
+  xy: 163, 253
+  size: 59, 45
+  orig: 59, 45
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_28
+  rotate: false
+  xy: 202, 363
+  size: 58, 44
+  orig: 58, 44
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_5
+  rotate: false
+  xy: 300, 475
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_10
+  rotate: false
+  xy: 244, 454
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+image_hasumiTfront_11
+  rotate: false
+  xy: 1, 1
+  size: 191, 250
+  orig: 191, 250
+  offset: 0, 0
+  index: -1
