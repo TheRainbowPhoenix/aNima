@@ -1,0 +1,1323 @@
+{
+  "geometries": {},
+  "shaderMap": {
+    "BASIC": {
+      "vertexShader": "basic_vert",
+      "fragmentShader": "basic_frag",
+      "transparent": true,
+      "uniforms": [
+        { "type": "f", "key": "opacity", "value": 1 },
+        { "type": "t", "key": "diffuse", "value": "DEFAULT" },
+        { "type": "c", "key": "color", "value": 16712000 }
+      ],
+      "defines": { "USE_TEXTURE": 1, "ALPHA_TEST": 0 }
+    },
+    "SPINE": {
+      "vertexShader": "spine_vert",
+      "fragmentShader": "spine_frag",
+      "transparent": true,
+      "depthTest": false,
+      "depthWrite": false,
+      "side": 2,
+      "uniforms": [{ "type": "f", "key": "opacity", "value": 1 }],
+      "defines": { "ALPHA_TEST": 0 }
+    },
+    "LOADING_BAR": {
+      "vertexShader": "loading_bar_vert",
+      "fragmentShader": "loading_bar_frag",
+      "transparent": true,
+      "uniforms": [
+        { "type": "t", "key": "diffuse1", "value": "loading_i" },
+        { "type": "t", "key": "diffuse2", "value": "loading_i_c" },
+        { "type": "f", "key": "progress", "value": 0 }
+      ]
+    },
+    "BEZIER_PARTICLE": {
+      "vertexShader": "bezier_particle_vert",
+      "fragmentShader": "bezier_particle_frag",
+      "transparent": true,
+      "depthWrite": false,
+      "side": 2,
+      "uniforms": [
+        { "type": "t", "key": "diffuse", "value": "DEFAULT" },
+        { "type": "f", "key": "opacity", "value": 1 },
+        { "type": "f", "key": "lifeCurve", "value": 1 },
+        { "type": "v2", "key": "size", "value": [20, 30] },
+        { "type": "v2", "key": "speed", "value": [0.5, 1] },
+        { "type": "v2", "key": "alpha", "value": [0.5, 1] },
+        { "type": "v3", "key": "startMin", "value": [-500, -500, -500] },
+        { "type": "v3", "key": "startMax", "value": [500, 500, 500] },
+        { "type": "v3", "key": "ctrMin", "value": [0, 0, 0] },
+        { "type": "v3", "key": "ctrMax", "value": [0, 0, 0] },
+        { "type": "v3", "key": "endMin", "value": [0, 0, 0] },
+        { "type": "v3", "key": "endMax", "value": [0, 0, 0] },
+        { "type": "v3", "key": "freqMin", "value": [1, 1, 1] },
+        { "type": "v3", "key": "freqMax", "value": [1, 1, 1] },
+        { "type": "v3", "key": "ampMin", "value": [0, 0, 0] },
+        { "type": "v3", "key": "ampMax", "value": [0, 0, 0] },
+        { "type": "v3", "key": "delayMin", "value": [0, 0, 0] },
+        { "type": "v3", "key": "delayMax", "value": [6.28, 6.28, 6.28] },
+        { "type": "f", "key": "tailLen", "value": 1 },
+        { "type": "v2", "key": "scale", "value": [1, 1] },
+        { "type": "v3", "key": "rotMin", "value": [0, 0, 0] },
+        { "type": "v3", "key": "rotMax", "value": [1, 0, 0] },
+        { "type": "v3", "key": "gravityMin", "value": [0, -200, 0] },
+        { "type": "v3", "key": "gravityMax", "value": [0, -500, 0] },
+        { "type": "v3", "key": "blink", "value": [0.2, 0.8, 5] },
+        { "type": "f", "key": "imgNum", "value": 1 },
+        { "type": "u", "key": "time", "value": "time" }
+      ],
+      "defines": {
+        "DELTA_OFFSET": 0,
+        "USE_BEZIER": 2,
+        "USE_WIGGLE": 0,
+        "FOLLOW_PATH": 0,
+        "FOLLOW_SIZE": 0,
+        "USE_ROTATE": 0,
+        "USE_FADE": 0,
+        "USE_BLINK": 0,
+        "USE_GRAVITY": 0,
+        "USE_SCALE": 0,
+        "MULTI_IMGS": 0,
+        "LOOP_COUNT": 0
+      }
+    },
+    "SPINE_clone": {
+      "vertexShader": "spine_clone_vert",
+      "fragmentShader": "spine_clone_frag",
+      "transparent": true,
+      "depthTest": false,
+      "depthWrite": false,
+      "side": 2,
+      "uniforms": [{ "type": "f", "key": "opacity", "value": 1 }],
+      "defines": { "ALPHA_TEST": 0 }
+    },
+    "SPINE_clone2": {
+      "vertexShader": "spine_clone2_vert",
+      "fragmentShader": "spine_clone2_frag",
+      "transparent": true,
+      "depthTest": false,
+      "depthWrite": false,
+      "side": 2,
+      "uniforms": [{ "type": "f", "key": "opacity", "value": 1 }],
+      "defines": { "ALPHA_TEST": 0 }
+    }
+  },
+  "sceneList": [
+    {
+      "id": "scene_main",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 100,
+            "far": 2000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 1,
+          "name": "scene_zhu",
+          "uuid": "8a334c8b-1f17-407b-aaf1-40d046ba84c3",
+          "visible": false,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_zhu" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "scene_a_1",
+          "uuid": "4faff22a-ab20-4fa6-848a-db84d083bba7",
+          "visible": false,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_a_1" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "scene_a_2",
+          "uuid": "66c87699-f7a2-4b77-886f-f3215146388f",
+          "visible": false,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_a_2" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "scene_a_3",
+          "uuid": "c02f946c-b6e7-477e-812c-9461be0b6793",
+          "visible": false,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_a_3" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "scene_boss",
+          "uuid": "5f2748c8-1b58-4f15-bb5c-5d9dd0146899",
+          "visible": false,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_boss" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "scene_ac",
+          "uuid": "d26f1d5a-1018-4c21-914c-3fc09f396587",
+          "visible": false,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_ac" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "scene_wu",
+          "uuid": "5a090e2f-97ba-4b9b-81ee-d3847578231a",
+          "visible": false,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_wu" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 0,
+          "name": "par_wrap",
+          "uuid": "0c0e4791-84ef-49e6-85cd-c184a6d48bc4",
+          "visible": true,
+          "renderOrder": 0,
+          "children": [
+            {
+              "type": 4,
+              "name": "bezier_particle_r",
+              "uuid": "9f6df46b-4f96-4684-af7b-c5714d941f4f",
+              "visible": true,
+              "renderOrder": 30,
+              "material": [
+                {
+                  "id": "BEZIER_PARTICLE",
+                  "blending": 2,
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "par_c" },
+                    { "type": "v2", "key": "size", "value": [30, 70] },
+                    { "type": "v2", "key": "speed", "value": [0.05, 0.12] },
+                    { "type": "v2", "key": "alpha", "value": [0.7, 1] },
+                    { "type": "v3", "key": "startMin", "value": [0, -600, 0] },
+                    {
+                      "type": "v3",
+                      "key": "startMax",
+                      "value": [1200, -500, 0]
+                    },
+                    { "type": "v3", "key": "ctrMin", "value": [500, -300, 0] },
+                    { "type": "v3", "key": "ctrMax", "value": [700, -400, 0] },
+                    { "type": "v3", "key": "endMin", "value": [550, -200, 0] },
+                    { "type": "v3", "key": "endMax", "value": [1000, 200, 0] },
+                    { "type": "v3", "key": "freqMin", "value": [1, 1, 1] },
+                    { "type": "v3", "key": "freqMax", "value": [1, 1, 1] },
+                    { "type": "v3", "key": "ampMin", "value": [0, 0, 0] },
+                    { "type": "v3", "key": "ampMax", "value": [0, 0, 0] },
+                    { "type": "v3", "key": "delayMin", "value": [0, 0, 0] },
+                    {
+                      "type": "v3",
+                      "key": "delayMax",
+                      "value": [6.28, 6.28, 6.28]
+                    },
+                    { "type": "v2", "key": "scale", "value": [1, 1] },
+                    { "type": "v3", "key": "rotMin", "value": [0, 0, 0] },
+                    { "type": "v3", "key": "rotMax", "value": [1, 0, 0] },
+                    {
+                      "type": "v3",
+                      "key": "gravityMin",
+                      "value": [0, -200, 0]
+                    },
+                    {
+                      "type": "v3",
+                      "key": "gravityMax",
+                      "value": [0, -500, 0]
+                    },
+                    { "type": "v3", "key": "blink", "value": [0.2, 0.8, 5] },
+                    { "type": "u", "key": "time", "value": "time" }
+                  ],
+                  "defines": { "USE_FADE": 1, "USE_BLINK": 1 }
+                }
+              ],
+              "position": [0, -95, 0],
+              "pluginId": "BEZIER_PARTICLE"
+            },
+            {
+              "type": 4,
+              "name": "bezier_particle_l",
+              "uuid": "7bb4f4ac-954e-4183-ba32-046753ab31ae",
+              "visible": true,
+              "renderOrder": 30,
+              "frustumCulled": false,
+              "material": [
+                {
+                  "id": "BEZIER_PARTICLE",
+                  "blending": 2,
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "par_c" },
+                    { "type": "v2", "key": "size", "value": [30, 70] },
+                    { "type": "v2", "key": "speed", "value": [0.05, 0.12] },
+                    { "type": "v2", "key": "alpha", "value": [0.7, 1] },
+                    { "type": "v3", "key": "startMin", "value": [0, -600, 0] },
+                    {
+                      "type": "v3",
+                      "key": "startMax",
+                      "value": [1400, -500, 0]
+                    },
+                    { "type": "v3", "key": "ctrMin", "value": [300, -300, 0] },
+                    { "type": "v3", "key": "ctrMax", "value": [700, -400, 0] },
+                    { "type": "v3", "key": "endMin", "value": [400, -200, 0] },
+                    { "type": "v3", "key": "endMax", "value": [1000, 200, 0] },
+                    { "type": "v3", "key": "freqMin", "value": [1, 1, 1] },
+                    { "type": "v3", "key": "freqMax", "value": [1, 1, 1] },
+                    { "type": "v3", "key": "ampMin", "value": [0, 0, 0] },
+                    { "type": "v3", "key": "ampMax", "value": [0, 0, 0] },
+                    { "type": "v3", "key": "delayMin", "value": [0, 0, 0] },
+                    {
+                      "type": "v3",
+                      "key": "delayMax",
+                      "value": [6.28, 6.28, 6.28]
+                    },
+                    { "type": "v2", "key": "scale", "value": [1, 1] },
+                    { "type": "v3", "key": "rotMin", "value": [0, 0, 0] },
+                    { "type": "v3", "key": "rotMax", "value": [1, 0, 0] },
+                    {
+                      "type": "v3",
+                      "key": "gravityMin",
+                      "value": [0, -200, 0]
+                    },
+                    {
+                      "type": "v3",
+                      "key": "gravityMax",
+                      "value": [0, -500, 0]
+                    },
+                    { "type": "v3", "key": "blink", "value": [0.2, 0.8, 5] },
+                    { "type": "u", "key": "time", "value": "time" }
+                  ],
+                  "defines": { "USE_FADE": 1, "USE_BLINK": 1 }
+                }
+              ],
+              "position": [-1616, -293, 0],
+              "pluginId": "BEZIER_PARTICLE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene_loading",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 1,
+            "far": 10000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 1,
+          "name": "plane",
+          "uuid": "eb5f0ea0-6a50-4ba7-ba83-c6e45095e51f",
+          "visible": true,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "t", "key": "diffuse", "value": "loading_bg" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "loading_i",
+          "uuid": "0ae2a7d1-4efb-4883-a735-ebcb9f343760",
+          "visible": true,
+          "renderOrder": 0,
+          "geometry": { "type": 2, "config": { "width": 211, "height": 267 } },
+          "material": [
+            {
+              "id": "LOADING_BAR",
+              "uniforms": [
+                { "type": "t", "key": "diffuse1", "value": "loading_i" },
+                { "type": "t", "key": "diffuse2", "value": "loading_i_c" }
+              ]
+            }
+          ],
+          "position": [9, 105, 0]
+        }
+      ]
+    },
+    {
+      "id": "scene_ui",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1800],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 2,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 0.01,
+            "far": 10000
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 1,
+          "name": "scene_loading",
+          "uuid": "870e7bee-1f53-49c1-ab2e-0bea459edfd4",
+          "visible": true,
+          "renderOrder": 10,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_loading" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "scene_main",
+          "uuid": "c8b428f0-e1c0-408b-bce9-1da271127885",
+          "visible": true,
+          "renderOrder": 20,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "b", "key": "diffuse", "value": "scene_main" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene_a_1",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 1,
+            "far": 10000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 3,
+          "name": "spine",
+          "uuid": "2a604df0-76b4-4294-b1f2-64f6cf075974",
+          "visible": true,
+          "renderOrder": 10,
+          "material": [
+            {
+              "id": "SPINE",
+              "depthTest": true,
+              "depthWrite": true,
+              "defines": { "ALPHA_TEST": 1 }
+            }
+          ],
+          "spine": { "id": "leishen" }
+        },
+        {
+          "type": 3,
+          "name": "spine",
+          "uuid": "447c1789-d228-4af5-a860-f9896e1a7b38",
+          "visible": true,
+          "renderOrder": 30,
+          "material": [{ "id": "SPINE" }],
+          "spine": { "id": "hand" }
+        },
+        {
+          "type": 1,
+          "name": "plane",
+          "uuid": "54dde1f9-bf55-47d2-94ab-ae2a9818101b",
+          "visible": true,
+          "renderOrder": -1,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [{ "type": "t", "key": "diffuse", "value": "bg_a_2" }]
+            }
+          ]
+        },
+        {
+          "type": 4,
+          "name": "bezier_particle",
+          "uuid": "18607af9-35ca-45f6-b513-6ec0d2348881",
+          "visible": true,
+          "renderOrder": 20,
+          "material": [
+            {
+              "id": "BEZIER_PARTICLE",
+              "depthWrite": true,
+              "blending": 2,
+              "uniforms": [
+                { "type": "t", "key": "diffuse", "value": "par_z" },
+                { "type": "v2", "key": "size", "value": [20, 30] },
+                { "type": "v2", "key": "speed", "value": [0.5, 1] },
+                { "type": "v2", "key": "alpha", "value": [0.2, 0.4] },
+                { "type": "v3", "key": "startMin", "value": [-5, 0, 0] },
+                { "type": "v3", "key": "startMax", "value": [5, 0, 0] },
+                { "type": "v3", "key": "ctrMin", "value": [0, 0, 0] },
+                { "type": "v3", "key": "ctrMax", "value": [0, 100, 0] },
+                { "type": "v3", "key": "endMin", "value": [-80, 100, 0] },
+                { "type": "v3", "key": "endMax", "value": [80, 150, 0] },
+                { "type": "v3", "key": "freqMin", "value": [1, 1, 1] },
+                { "type": "v3", "key": "freqMax", "value": [1, 1, 1] },
+                { "type": "v3", "key": "ampMin", "value": [0, 0, 0] },
+                { "type": "v3", "key": "ampMax", "value": [0, 0, 0] },
+                { "type": "v3", "key": "delayMin", "value": [0, 0, 0] },
+                {
+                  "type": "v3",
+                  "key": "delayMax",
+                  "value": [6.28, 6.28, 6.28]
+                },
+                { "type": "v2", "key": "scale", "value": [1, 1] },
+                { "type": "v3", "key": "rotMin", "value": [0, 0, 0] },
+                { "type": "v3", "key": "rotMax", "value": [1, 0, 0] },
+                { "type": "v3", "key": "gravityMin", "value": [0, -200, 0] },
+                { "type": "v3", "key": "gravityMax", "value": [0, -500, 0] },
+                { "type": "v3", "key": "blink", "value": [0.2, 0.8, 5] },
+                { "type": "u", "key": "time", "value": "time" }
+              ],
+              "defines": { "USE_FADE": 1 }
+            }
+          ],
+          "position": [288, 77, 17],
+          "rotation": [0, 0, 0.192],
+          "pluginId": "BEZIER_PARTICLE_clone2"
+        }
+      ]
+    },
+    {
+      "id": "scene_a_2",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 10,
+            "far": 2000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 3,
+          "name": "spine",
+          "uuid": "cd7fd512-27f9-4c66-9720-1375d5dac895",
+          "visible": true,
+          "renderOrder": 10,
+          "material": [
+            {
+              "id": "SPINE_clone",
+              "depthTest": true,
+              "depthWrite": true,
+              "defines": { "ALPHA_TEST": 1 }
+            }
+          ],
+          "spine": { "id": "bachong" }
+        },
+        {
+          "type": 1,
+          "name": "plane",
+          "uuid": "3fb9b58d-469d-4044-aed8-31d1377a99f7",
+          "visible": true,
+          "renderOrder": 0,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [{ "type": "t", "key": "diffuse", "value": "bg_a_1" }]
+            }
+          ]
+        },
+        {
+          "type": 1,
+          "name": "plane",
+          "uuid": "51882d88-2e79-48b3-8657-ba0ee02c3741",
+          "visible": true,
+          "renderOrder": 20,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "f", "key": "opacity", "value": 0.6 },
+                { "type": "t", "key": "diffuse", "value": "shengzibg" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 4,
+          "name": "bezier_particle",
+          "uuid": "66640380-54e5-42fa-84e4-2992ff1f1224",
+          "visible": false,
+          "renderOrder": 30,
+          "material": [
+            {
+              "id": "BEZIER_PARTICLE",
+              "blending": 2,
+              "uniforms": [
+                { "type": "t", "key": "diffuse", "value": "par_z" },
+                { "type": "v2", "key": "size", "value": [40, 60] },
+                { "type": "v2", "key": "speed", "value": [0.1, 0.2] },
+                { "type": "v2", "key": "alpha", "value": [0.7, 1] },
+                { "type": "v3", "key": "startMin", "value": [200, -600, 0] },
+                { "type": "v3", "key": "startMax", "value": [1400, -500, 0] },
+                { "type": "v3", "key": "ctrMin", "value": [300, -300, 0] },
+                { "type": "v3", "key": "ctrMax", "value": [700, -400, 0] },
+                { "type": "v3", "key": "endMin", "value": [400, -200, 0] },
+                { "type": "v3", "key": "endMax", "value": [1000, 200, 0] },
+                { "type": "v3", "key": "freqMin", "value": [1, 1, 1] },
+                { "type": "v3", "key": "freqMax", "value": [1, 1, 1] },
+                { "type": "v3", "key": "ampMin", "value": [0, 0, 0] },
+                { "type": "v3", "key": "ampMax", "value": [0, 0, 0] },
+                { "type": "v3", "key": "delayMin", "value": [0, 0, 0] },
+                {
+                  "type": "v3",
+                  "key": "delayMax",
+                  "value": [6.28, 6.28, 6.28]
+                },
+                { "type": "v2", "key": "scale", "value": [1, 1] },
+                { "type": "v3", "key": "rotMin", "value": [0, 0, 0] },
+                { "type": "v3", "key": "rotMax", "value": [1, 0, 0] },
+                { "type": "v3", "key": "gravityMin", "value": [0, -200, 0] },
+                { "type": "v3", "key": "gravityMax", "value": [0, -500, 0] },
+                { "type": "v3", "key": "blink", "value": [0.2, 0.8, 5] },
+                { "type": "u", "key": "time", "value": "time" }
+              ],
+              "defines": { "USE_FADE": 1, "USE_BLINK": 1 }
+            }
+          ],
+          "pluginId": "BEZIER_PARTICLE"
+        }
+      ]
+    },
+    {
+      "id": "scene_a_3",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 1,
+            "far": 10000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 3,
+          "name": "spine",
+          "uuid": "33076442-75ac-4ba6-bb58-56d860cd8fc5",
+          "visible": true,
+          "renderOrder": 0,
+          "material": [
+            { "id": "SPINE", "depthTest": true, "depthWrite": true }
+          ],
+          "spine": { "id": "xinhai", "defaultAnimation": "A" }
+        },
+        {
+          "type": 1,
+          "name": "plane",
+          "uuid": "b8bbf7ac-7086-43d3-8737-4e796cd8034a",
+          "visible": true,
+          "renderOrder": -1,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [{ "type": "t", "key": "diffuse", "value": "bg_a_3" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene_boss",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 1,
+            "far": 10000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 3,
+          "name": "boss",
+          "uuid": "45afa9c8-010d-4b07-964b-d6c054c7cf8c",
+          "visible": false,
+          "renderOrder": 10,
+          "material": [{ "id": "SPINE" }],
+          "spine": { "id": "leiboss" },
+          "autoMatrix": true
+        },
+        {
+          "type": 3,
+          "name": "bgb",
+          "uuid": "f85ed39b-b72c-485d-98b5-b5ec9c911d34",
+          "visible": false,
+          "renderOrder": 0,
+          "material": [{ "id": "SPINE" }],
+          "spine": { "id": "bg" }
+        },
+        {
+          "type": 1,
+          "name": "bg",
+          "uuid": "e375554f-b834-4638-ab17-053c59c1cb5f",
+          "visible": false,
+          "renderOrder": -1,
+          "geometry": {
+            "type": 2,
+            "config": { "width": 2500, "height": 1080 }
+          },
+          "material": [
+            {
+              "id": "BASIC",
+              "uniforms": [
+                { "type": "t", "key": "diffuse", "value": "bg_boss" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": 3,
+          "name": "guang",
+          "uuid": "695ce73b-4e36-4594-8757-ad1c936f41dd",
+          "visible": false,
+          "renderOrder": 20,
+          "material": [{ "id": "SPINE" }],
+          "spine": { "id": "huchang" }
+        }
+      ]
+    },
+    {
+      "id": "scene_zhu",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 1,
+            "far": 10000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 3,
+          "name": "spine",
+          "uuid": "02524e7d-9d05-4caa-b74a-4b4fb3122d3f",
+          "visible": true,
+          "renderOrder": 0,
+          "material": [
+            { "id": "SPINE_clone2", "depthTest": true, "depthWrite": true }
+          ],
+          "spine": { "id": "shouye" }
+        },
+        {
+          "type": 3,
+          "name": "spine",
+          "uuid": "fc22dfd8-a8b9-4aa6-9a41-8f3487ee88d9",
+          "visible": true,
+          "renderOrder": 40,
+          "material": [{ "id": "SPINE" }],
+          "spine": { "id": "shouyeren" }
+        },
+        {
+          "type": 3,
+          "name": "spine",
+          "uuid": "f2e515f3-4873-422a-8e7a-243b7ec43116",
+          "visible": true,
+          "renderOrder": 40,
+          "material": [{ "id": "SPINE" }],
+          "spine": { "id": "shouyeqj" }
+        },
+        {
+          "type": 1,
+          "name": "main_title",
+          "uuid": "aea5542f-e0e1-47cc-98ba-7909197f19da",
+          "visible": true,
+          "renderOrder": 30,
+          "geometry": { "type": 2, "config": { "width": 1200, "height": 300 } },
+          "material": [
+            {
+              "id": "BASIC",
+              "depthTest": false,
+              "depthWrite": false,
+              "uniforms": [
+                { "type": "t", "key": "diffuse", "value": "main_title" }
+              ]
+            }
+          ],
+          "position": [544, 102, 0]
+        },
+        {
+          "type": 4,
+          "name": "bezier_particle",
+          "uuid": "b94eae14-cfc4-4a22-88de-ad65e9c01ab6",
+          "visible": true,
+          "renderOrder": 20,
+          "material": [
+            {
+              "id": "BEZIER_PARTICLE",
+              "uniforms": [
+                { "type": "t", "key": "diffuse", "value": "par_list" },
+                { "type": "v2", "key": "size", "value": [20, 110] },
+                { "type": "v2", "key": "speed", "value": [0.05, 0.08] },
+                { "type": "v2", "key": "alpha", "value": [0.9, 1] },
+                {
+                  "type": "v3",
+                  "key": "startMin",
+                  "value": [-1600, 600, -500]
+                },
+                { "type": "v3", "key": "startMax", "value": [-1500, 800, 500] },
+                { "type": "v3", "key": "ctrMin", "value": [0, -1300, 0] },
+                { "type": "v3", "key": "ctrMax", "value": [0, -1200, 0] },
+                { "type": "v3", "key": "endMin", "value": [1500, 300, 0] },
+                { "type": "v3", "key": "endMax", "value": [1600, 600, 0] },
+                { "type": "v3", "key": "freqMin", "value": [1, 1, 1] },
+                { "type": "v3", "key": "freqMax", "value": [1, 1, 1] },
+                { "type": "v3", "key": "ampMin", "value": [0, 0, 0] },
+                { "type": "v3", "key": "ampMax", "value": [0, 0, 0] },
+                { "type": "v3", "key": "delayMin", "value": [0, 0, 0] },
+                {
+                  "type": "v3",
+                  "key": "delayMax",
+                  "value": [6.28, 6.28, 6.28]
+                },
+                { "type": "v2", "key": "scale", "value": [1, 1] },
+                { "type": "v3", "key": "rotMin", "value": [0, 0, 0] },
+                { "type": "v3", "key": "rotMax", "value": [0, 0, 20] },
+                { "type": "v3", "key": "gravityMin", "value": [0, -200, 0] },
+                { "type": "v3", "key": "gravityMax", "value": [0, -500, 0] },
+                { "type": "v3", "key": "blink", "value": [0.2, 0.8, 5] },
+                { "type": "f", "key": "imgNum", "value": 8 },
+                { "type": "u", "key": "time", "value": "time" }
+              ],
+              "defines": {
+                "USE_BEZIER": 1,
+                "USE_ROTATE": 1,
+                "USE_FADE": 1,
+                "MULTI_IMGS": 1
+              }
+            }
+          ],
+          "pluginId": "BEZIER_PARTICLE_clone"
+        }
+      ]
+    },
+    {
+      "id": "scene_ac",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 1,
+            "far": 10000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 0,
+          "name": "ac_1",
+          "uuid": "4cdb1dbb-c3c4-4dac-a6c1-a03437feabb4",
+          "visible": true,
+          "renderOrder": 0,
+          "children": [
+            {
+              "type": 1,
+              "name": "bg",
+              "uuid": "2a09fa38-10d3-483b-83f2-064c90630e8f",
+              "visible": true,
+              "renderOrder": 10,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 2500, "height": 1080 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "bg_ac_1" }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "name": "item",
+              "uuid": "f6f9d933-f418-40b2-bab2-20782c048d6e",
+              "visible": true,
+              "renderOrder": 12,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 1316, "height": 894 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "wu_ac_1" }
+                  ]
+                }
+              ],
+              "position": [493, 77, 0],
+              "scale": [0.8, 0.8, 0.8],
+              "autoMatrix": true
+            }
+          ]
+        },
+        {
+          "type": 0,
+          "name": "ac_4",
+          "uuid": "55213b75-1367-4c61-b09d-d3557ee048e8",
+          "visible": false,
+          "renderOrder": 0,
+          "children": [
+            {
+              "type": 1,
+              "name": "bg",
+              "uuid": "36b21a73-182e-421e-8838-d494fd8928a8",
+              "visible": true,
+              "renderOrder": 10,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 2500, "height": 1080 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "bg_ac_2" }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "name": "item",
+              "uuid": "0ed3dd76-7988-4fc9-b9d4-678fef0f5288",
+              "visible": true,
+              "renderOrder": 12,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 1316, "height": 894 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "wu_ac_2" }
+                  ]
+                }
+              ],
+              "position": [493, 77, 0],
+              "scale": [0.8, 0.8, 0.8],
+              "autoMatrix": true
+            }
+          ]
+        },
+        {
+          "type": 0,
+          "name": "ac_3",
+          "uuid": "75b7e3a5-62b5-47a1-ac50-36f57255cc6c",
+          "visible": false,
+          "renderOrder": 0,
+          "children": [
+            {
+              "type": 1,
+              "name": "bg",
+              "uuid": "96c8e555-14db-4d4f-a1fb-8b3510bc73f3",
+              "visible": true,
+              "renderOrder": 10,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 2500, "height": 1080 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "bg_ac_3" }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "name": "item",
+              "uuid": "1794e867-142c-4cd3-b9aa-055d982e2874",
+              "visible": true,
+              "renderOrder": 12,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 1316, "height": 894 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "wu_ac_3" }
+                  ]
+                }
+              ],
+              "position": [493, 77, 0],
+              "scale": [0.8, 0.8, 0.8],
+              "autoMatrix": true
+            }
+          ]
+        },
+        {
+          "type": 0,
+          "name": "ac_2",
+          "uuid": "44a142e6-68b1-4fe1-85e6-37e1b0d7bd68",
+          "visible": false,
+          "renderOrder": 0,
+          "children": [
+            {
+              "type": 1,
+              "name": "bg",
+              "uuid": "3dabe0bc-979b-4630-92e6-f5a01fb2f07c",
+              "visible": true,
+              "renderOrder": 10,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 2500, "height": 1080 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "bg_ac_4" }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "name": "item",
+              "uuid": "5ac1dd1c-db8e-481c-917e-f2401264bc2f",
+              "visible": true,
+              "renderOrder": 12,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 1316, "height": 894 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "wu_ac_4" }
+                  ]
+                }
+              ],
+              "position": [493, 77, 0],
+              "scale": [0.8, 0.8, 0.8],
+              "autoMatrix": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene_wu",
+      "sceneConfig": { "uiWidth": 2500, "uiHeight": 1080 },
+      "camera": [
+        {
+          "id": "camera_default",
+          "isDefault": true,
+          "position": [0, 0, 1880],
+          "rotation": [0, 0, 0],
+          "camera": {
+            "type": 1,
+            "left": -1,
+            "right": 1,
+            "top": 1,
+            "bottom": -1,
+            "near": 1,
+            "far": 10000,
+            "fov": 32,
+            "aspect": 1
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": 0,
+          "name": "wuwrap",
+          "uuid": "35499838-11c6-43ab-8432-0a78f0cadeee",
+          "visible": true,
+          "renderOrder": 0,
+          "children": [
+            {
+              "type": 1,
+              "name": "plane",
+              "uuid": "4191ea06-5f38-4553-8ad6-f032fbdaf624",
+              "visible": true,
+              "renderOrder": 10,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 2500, "height": 1080 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "bg_wu" }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "name": "wu_1",
+              "uuid": "b02f508c-e6bc-40b5-83e1-ff676d2b468a",
+              "visible": true,
+              "renderOrder": 12,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 531, "height": 610 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "wu_1" }
+                  ]
+                }
+              ],
+              "position": [424, 4, 0],
+              "hooksFunc": { "init": "", "render": "onWuRender" },
+              "autoMatrix": true
+            },
+            {
+              "type": 1,
+              "name": "wu_2",
+              "uuid": "ef61e5d4-d9e9-4c48-b268-eb5c132cfc3c",
+              "visible": false,
+              "renderOrder": 12,
+              "geometry": {
+                "type": 2,
+                "config": { "width": 434, "height": 464 }
+              },
+              "material": [
+                {
+                  "id": "BASIC",
+                  "uniforms": [
+                    { "type": "t", "key": "diffuse", "value": "wu_2" }
+                  ]
+                }
+              ],
+              "position": [424, 4, 0],
+              "hooksFunc": { "init": "", "render": "onWuRender" },
+              "autoMatrix": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textureParameterMap": {}
+}

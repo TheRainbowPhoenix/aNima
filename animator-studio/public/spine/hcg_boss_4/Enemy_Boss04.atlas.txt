@@ -1,0 +1,90 @@
+
+Enemy_Boss04.png
+size: 1035,1035
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm2
+  rotate: false
+  xy: 2, 233
+  size: 469, 545
+  orig: 469, 545
+  offset: 0, 0
+  index: -1
+BodyD
+  rotate: true
+  xy: 2, 44
+  size: 187, 315
+  orig: 187, 315
+  offset: 0, 0
+  index: -1
+BodyU
+  rotate: true
+  xy: 473, 466
+  size: 312, 544
+  orig: 312, 544
+  offset: 0, 0
+  index: -1
+CS1
+  rotate: false
+  xy: 2, 905
+  size: 957, 128
+  orig: 957, 128
+  offset: 0, 0
+  index: -1
+CS3
+  rotate: false
+  xy: 2, 780
+  size: 926, 123
+  orig: 926, 123
+  offset: 0, 0
+  index: -1
+Ear
+  rotate: true
+  xy: 961, 978
+  size: 55, 61
+  orig: 55, 61
+  offset: 0, 0
+  index: -1
+Eyes
+  rotate: true
+  xy: 1024, 1022
+  size: 11, 9
+  orig: 11, 11
+  offset: 0, 1
+  index: -1
+EyesB
+  rotate: false
+  xy: 961, 884
+  size: 48, 92
+  orig: 48, 94
+  offset: 0, 1
+  index: -1
+GG
+  rotate: false
+  xy: 1024, 1010
+  size: 9, 10
+  orig: 9, 12
+  offset: 0, 1
+  index: -1
+Houijiao
+  rotate: true
+  xy: 763, 170
+  size: 294, 269
+  orig: 294, 295
+  offset: 0, 20
+  index: -1
+Leg1
+  rotate: false
+  xy: 605, 18
+  size: 156, 446
+  orig: 156, 446
+  offset: 0, 0
+  index: -1
+Leg2
+  rotate: false
+  xy: 473, 11
+  size: 130, 453
+  orig: 130, 453
+  offset: 0, 0
+  index: -1

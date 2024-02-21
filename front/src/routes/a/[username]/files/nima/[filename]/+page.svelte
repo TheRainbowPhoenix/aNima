@@ -22,6 +22,7 @@
   let scriptContent = `var __props = ${JSON.stringify(scriptData)}`;
 
   let scriptsSrc = [
+    "/nimaSpine.js",
     "/lib/vendor.35e6000e3adc89a87857.js",
     "/lib/Components.3babdd1411e10d21748a.js",
     "/lib/NimaBase.64c5842622ab469779e1.js",

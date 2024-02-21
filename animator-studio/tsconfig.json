@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
+    "types": ["vite/client", "Phaser"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "typeRoots": [
+      "@types",
+      "node_modules/@types",
+      "node_module/phaser/types",
+      "node_modules/@esotericsoftware/spine-phaser/dist"
+    ]
+  },
+  "include": ["./src"]
+}

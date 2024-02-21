@@ -1,0 +1,22 @@
+{
+  "scene": {
+    "children": [
+      {
+        "children": [],
+        "type": 4,
+        "shader": [{ "opacity": 1, "shader": "BASIC" }],
+        "scale": [1, 1, 1],
+        "position": [0, 0, 0],
+        "id": "SPINE",
+        "quaternion": [0, 0, 0, 1],
+        "spine": "hx"
+      }
+    ],
+    "type": 0,
+    "scale": [1, 1, 1],
+    "position": [0, 0, 0],
+    "id": "SCENE",
+    "quaternion": [0, 0, 0, 1]
+  },
+  "geometry": []
+}

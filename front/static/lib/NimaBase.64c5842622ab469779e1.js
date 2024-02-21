@@ -34950,7 +34950,7 @@
                   w = this.options;
                 e.root.eachChildRecursive(function (e) {
                   switch (e.constructor) {
-                    case c.default:
+                    case c.default: // image
                       if (
                         (i.set(e, n.length), n.push(e), e.isVisible && e.asset)
                       )
@@ -34961,21 +34961,21 @@
                           }
                         else e.bitmap && _.addExportAsset(e.asset, e);
                       break;
-                    case o.default:
-                    case k.default:
-                    case l.default:
-                    case C.default:
-                    case d.default:
-                    case r.default:
-                    case p.default:
-                    case h.default:
-                    case f.default:
-                    case u.default:
-                    case s.default:
-                    case g.default:
-                    case m.default:
-                    case y.default:
-                    case v.default:
+                    case o.default: // collider
+                    case k.default: // customProperty
+                    case l.default: // event
+                    case C.default: // jelly
+                    case d.default: // jellyBone
+                    case r.default: // bone
+                    case p.default: // rootBone
+                    case h.default: // node
+                    case f.default: // solo
+                    case u.default: // ikConstraint
+                    case s.default: // distanceContraint
+                    case g.default: // translationConstraint
+                    case m.default: // scaleConstraint
+                    case y.default: // stageConstraint
+                    case v.default: // transformConstraint
                       i.set(e, n.length), n.push(e);
                   }
                 });
@@ -79488,6 +79488,12 @@
                       tutorial:
                         "https://www.2dimensions.com/b/56-quick-tips-to-get-you-started",
                     },
+                    {
+                      label: "Spine",
+                      extension: ".json",
+                      tutorial:
+                        "https://www.2dimensions.com/b/56-quick-tips-to-get-you-started",
+                    },
                   ],
                   selectedEngineIndex: 0,
                   selectedExportFormat: f.WRITER_FORMATS.BINARY,
@@ -79537,7 +79543,7 @@
                       var t = e.file.name || "character",
                         n = this.state.engines[this.state.selectedEngineIndex],
                         i = this.state.selectedExportFormat,
-                        r = new p.default({
+                        r = n.label === "Spine" ? new SpineExporter(this.context.nima, this.state) : new p.default({
                           animations: e.actor.animations,
                           characterName: t,
                           multiplyAlpha: true === n.multiplyAlpha,
