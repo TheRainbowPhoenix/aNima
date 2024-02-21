@@ -29,6 +29,7 @@ export class NimaPlugin extends Phaser.Plugins.ScenePlugin {
   }
 
   create(x: number, y: number, w: number, h: number) {
+    return; // TODO
     if (this.scene) {
       this.canvas = document.createElement("canvas");
 

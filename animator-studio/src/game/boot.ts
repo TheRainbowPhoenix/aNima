@@ -1,10 +1,10 @@
 import * as Phaser from "phaser";
-// import {
-//   Skin,
-//   SkinsAndAnimationBoundsProvider,
-//   SpineGameObject,
-//   SpinePlugin,
-// } from "@esotericsoftware/spine-phaser";
+import {
+  Skin,
+  SkinsAndAnimationBoundsProvider,
+  SpineGameObject,
+  SpinePlugin,
+} from "@esotericsoftware/spine-phaser";
 
 //@ts-ignore
 // import * as OldSpinePlugin from "../plugins/spine/dist/SpinePlugin.js";
@@ -118,13 +118,15 @@ class SpinePreviewScene extends Phaser.Scene {
     // Load any Spine assets you want to preview
 
     this.load.setPath("/spine/liya/");
-    this.load.spine("liya", "Liya.json", "Liya.atlas");
+    // this.load.spine("liya", "Liya.json", "Liya.atlas");
+    this.load.spineAtlas("Liya", "Liya.atlas");
+    this.load.spineJson("liya", "Liya.json");
 
     this.load.setPath("/spine/girl/");
-    this.load.spine("girl", "Girl.json", "Girl.atlas");
+    // this.load.spine("girl", "Girl.json", "Girl.atlas");
 
-    // this.load.spineAtlas("Girl", "/spine/girl/Girl.atlas");
-    // this.load.spineJson("girl", "/spine/girl/Girl.json");
+    this.load.spineAtlas("Girl", "Girl.atlas");
+    this.load.spineJson("girl", "Girl.json");
     // this.load.spineAtlas("seele-atlas", "/spine/seele/seele.atlas");
     // this.load.spineJson("seele", "/spine/seele/seele.json");
     // this.load.spineAtlas("goblins-atlas", "/spine/goblins/goblins-pma.atlas");
@@ -139,7 +141,10 @@ class SpinePreviewScene extends Phaser.Scene {
     // this.load.setPath("/spine/leiboss/");
 
     this.load.setPath("/spine/leiboss/");
-    this.load.spine("laishen", "leiboss.json", "leiboss.atlas");
+    // this.load.spine("laishen", "leiboss.json", "leiboss.atlas");
+
+    this.load.spineAtlas("Laishen", "leiboss.atlas");
+    this.load.spineJson("laishen", "leiboss.json");
 
     // this.load.spineJson("hcg_boss_4", "/spine/hcg_boss_4/HCG_Boss4.json");
     // this.load.spineAtlas(
@@ -151,7 +156,11 @@ class SpinePreviewScene extends Phaser.Scene {
     // this.load.spineAtlas("seele-atlas", "/spine/seele/seele.atlas");
 
     this.load.image("bg_boss", "bg_boss.png");
-    this.load.spine("bg", "bg.json", "bg.atlas", true);
+
+    this.load.spineAtlas("Bg", "bg.atlas");
+    this.load.spineJson("bg", "bg.json");
+
+    // this.load.spine("bg", "bg.json", "bg.atlas", true);
 
     // this.load.spineJson("bg", "/spine/leiboss/bg.json");
     // this.load.spineAtlas("bg-atlas", "/spine/leiboss/bg.atlas");
@@ -162,10 +171,13 @@ class SpinePreviewScene extends Phaser.Scene {
     this.load.glsl("leiboss", "shaders/leiboss.glsl.js");
 
     this.load.setPath("/spine/spineboy/");
-    this.load.spine("spineboy", "spineboy-pro.json", "spineboy-pma.atlas");
+    // this.load.spine("spineboy", "spineboy-pro.json", "spineboy-pma.atlas");
+    this.load.spineAtlas("Spineboy", "spineboy-pma.atlas");
+    this.load.spineJson("spineboy", "spineboy-pro.json");
 
     this.load.setPath("/rive");
     this.load.rive("boy", "boy.riv");
+    this.load.setPath("");
 
     // this.test_nima.loader = new NimaActorLoader() as ActorLoader;
     // this.test_nima.loader.load("/nima/Archer.nma", (actor: Actor) => {
@@ -208,34 +220,43 @@ class SpinePreviewScene extends Phaser.Scene {
 
     // Create Spine GameObject for background
     // const bgSpine = this.add.spine(0, 0, "bg", "animation_name", true);
-    // const bgSpine = this.add.spine(
-    //   0,
-    //   0,
-    //   "bg",
-    //   "bg-atlas",
-    //   new SkinsAndAnimationBoundsProvider(null, ["animation"])
-    // );
-    const bgSpine = this.add.spine(0, 0, "bg", "animation_name", true);
+    const bgSpine = this.add.spine(
+      0,
+      0,
+      "bg",
+      "Bg",
+      new SkinsAndAnimationBoundsProvider(null, ["animation"])
+    );
+    // const bgSpine = this.add.spine(0, 0, "bg", "animation_name", true);
     bgSpine.setPosition(750, 550);
     bgSpine.setScale(1);
 
     // let spine = this.add.spine(400, 400, "seele", "animation", true);
     // let spine = this.add.spine(400, 400, "laishen", "animation", true);
-    // let spine = this.add.spine(
-    //   1500,
-    //   1500,
-    //   "hcg_boss_4",
-    //   "hcg_boss_4-atlas",
-    //   new SkinsAndAnimationBoundsProvider(null, ["G_3"])
-    // );
-    // spine.animationState.setAnimation(0, "G_3", true);
-    let spine = this.add.spine(400, 400, "laishen", "animation", true);
+    let spine = this.add.spine(
+      1500,
+      1500,
+      "laishen",
+      "Laishen",
+      new SkinsAndAnimationBoundsProvider(null, ["animation"])
+    );
+    spine.animationState.setAnimation(0, "animation", true);
+    // let spine = this.add.spine(400, 400, "laishen", "animation", true);
     spine.setScale(0.95);
     spine.setPosition(720, 480);
 
-    let spineboy = this.add.spine(200, 400, "girl", "idle", true);
-    spineboy.setAnimation(0, "xxBeHit_Gun", true);
-    spineboy.setSkinByName("Normal");
+    let spineboy = this.add.spine(
+      200,
+      400,
+      "spineboy",
+      "Spineboy",
+      new SkinsAndAnimationBoundsProvider("idle", ["default"])
+    );
+    spineboy.animationState.setAnimation(0, "idle", true);
+
+    // let spineboy = this.add.spine(200, 400, "girl", "idle", true);
+    // spineboy.setAnimation(0, "xxBeHit_Gun", true);
+    // spineboy.setSkinByName("Normal");
     spineboy.setScale(0.75);
     spineboy.setPosition(220, 480);
 
@@ -361,11 +382,11 @@ const config = {
   },
   plugins: {
     scene: [
-      {
-        key: "SpinePlugin", // @ts-ignore
-        plugin: window.SpinePlugin,
-        mapping: "spine",
-      },
+      // {
+      //   key: "SpinePlugin", // @ts-ignore
+      //   plugin: window.SpinePlugin,
+      //   mapping: "spine",
+      // },
       {
         key: "RiveLoaderPlugin",
         plugin: RiveLoaderPlugin,
@@ -385,12 +406,12 @@ const config = {
       //     mapping: "spine",
       //     sceneKey: "spine",
       //   },
-      //   {
-      //     key: "SpineLatestPlugin",
-      //     plugin: SpinePlugin,
-      //     mapping: "spineLatest",
-      //     sceneKey: "spineLatest",
-      //   },
+      {
+        key: "SpineLatestPlugin",
+        plugin: SpinePlugin,
+        mapping: "spineLatest",
+        sceneKey: "spineLatest",
+      },
     ],
   },
   //   pipeline: { ScalinePostFX },
