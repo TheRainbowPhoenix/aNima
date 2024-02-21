@@ -1,15 +1,15 @@
 import * as Phaser from "phaser";
-import {
-  Skin,
-  SkinsAndAnimationBoundsProvider,
-  SpineGameObject,
-  SpinePlugin,
-} from "@esotericsoftware/spine-phaser";
+// import {
+//   Skin,
+//   SkinsAndAnimationBoundsProvider,
+//   SpineGameObject,
+//   SpinePlugin,
+// } from "@esotericsoftware/spine-phaser";
 
 //@ts-ignore
 // import * as OldSpinePlugin from "../plugins/spine/dist/SpinePlugin.js";
 
-// import "phaser/plugins/spine4.1/dist/SpinePlugin";
+import "phaser/plugins/spine4.1/dist/SpinePlugin";
 import ScalinePostFX from "./scanLines";
 
 import GameConfig = Phaser.Types.Core.GameConfig;
@@ -38,7 +38,7 @@ class SpinePreviewScene extends Phaser.Scene {
 
   preload() {
     // Load the Spine plugin
-    this.load.scenePlugin("SpinePlugin", SpinePlugin, "spinePlugin", "spine");
+    // this.load.scenePlugin("SpinePlugin", SpinePlugin, "spinePlugin", "spine");
     // this.load.scenePlugin(
     //   "SpinePlugin",
     //   "/plugins/Spine3.8Plugin.js",
@@ -47,6 +47,10 @@ class SpinePreviewScene extends Phaser.Scene {
     // );
 
     // Load any Spine assets you want to preview
+
+    this.load.setPath("/spine/girl/");
+    this.load.spine("girl", "Girl.json", "Girl.atlas");
+
     // this.load.spineAtlas("Girl", "/spine/girl/Girl.atlas");
     // this.load.spineJson("girl", "/spine/girl/Girl.json");
     // this.load.spineAtlas("seele-atlas", "/spine/seele/seele.atlas");
@@ -62,13 +66,25 @@ class SpinePreviewScene extends Phaser.Scene {
 
     // this.load.setPath("/spine/leiboss/");
 
-    this.load.image("bg_boss", "/spine/leiboss/bg_boss.png");
-    // this.load.spine("bg", "bg.json", "bg.atlas", true);
-    this.load.spineJson("bg", "/spine/leiboss/bg.json");
-    this.load.spineAtlas("bg-atlas", "/spine/leiboss/bg.atlas");
-    // this.load.spine("laishen", "leiboss.json", "leiboss.atlas", true);
-    this.load.spineJson("laishen", "/spine/leiboss/leiboss.json");
-    this.load.spineAtlas("laishen-atlas", "/spine/leiboss/leiboss.atlas");
+    this.load.setPath("/spine/leiboss/");
+    this.load.spine("laishen", "leiboss.json", "leiboss.atlas");
+
+    // this.load.spineJson("hcg_boss_4", "/spine/hcg_boss_4/HCG_Boss4.json");
+    // this.load.spineAtlas(
+    //   "hcg_boss_4-atlas",
+    //   "/spine/hcg_boss_4/HCG_Boss4.atlas"
+    // );
+
+    // this.load.spineJson("seele", "/spine/seele/seele.json");
+    // this.load.spineAtlas("seele-atlas", "/spine/seele/seele.atlas");
+
+    this.load.image("bg_boss", "bg_boss.png");
+    this.load.spine("bg", "bg.json", "bg.atlas", true);
+    // this.load.spineJson("bg", "/spine/leiboss/bg.json");
+    // this.load.spineAtlas("bg-atlas", "/spine/leiboss/bg.atlas");
+    // // this.load.spine("laishen", "leiboss.json", "leiboss.atlas", true);
+    // this.load.spineJson("laishen", "/spine/leiboss/leiboss.json");
+    // this.load.spineAtlas("laishen-atlas", "/spine/leiboss/leiboss.atlas");
 
     this.load.glsl("leiboss", "shaders/leiboss.glsl.js");
   }
@@ -97,28 +113,37 @@ class SpinePreviewScene extends Phaser.Scene {
 
     // Create Spine GameObject for background
     // const bgSpine = this.add.spine(0, 0, "bg", "animation_name", true);
-    const bgSpine = this.add.spine(
-      0,
-      0,
-      "bg",
-      "bg-atlas",
-      new SkinsAndAnimationBoundsProvider(null, ["animation"])
-    );
+    // const bgSpine = this.add.spine(
+    //   0,
+    //   0,
+    //   "bg",
+    //   "bg-atlas",
+    //   new SkinsAndAnimationBoundsProvider(null, ["animation"])
+    // );
+    const bgSpine = this.add.spine(0, 0, "bg", "animation_name", true);
     bgSpine.setPosition(750, 550);
     bgSpine.setScale(1);
 
     // let spine = this.add.spine(400, 400, "seele", "animation", true);
     // let spine = this.add.spine(400, 400, "laishen", "animation", true);
-    let spine = this.add.spine(
-      400,
-      400,
-      "laishen",
-      "laishen-atlas",
-      new SkinsAndAnimationBoundsProvider(null, ["animation"])
-    );
-    spine.animationState.setAnimation(0, "animation", true);
+    // let spine = this.add.spine(
+    //   1500,
+    //   1500,
+    //   "hcg_boss_4",
+    //   "hcg_boss_4-atlas",
+    //   new SkinsAndAnimationBoundsProvider(null, ["G_3"])
+    // );
+    // spine.animationState.setAnimation(0, "G_3", true);
+    let spine = this.add.spine(400, 400, "laishen", "animation", true);
     spine.setScale(0.95);
     spine.setPosition(720, 480);
+
+    // let girl = this.add.spine(400, 400, "girl", "Idle_HandGun", true);
+    // girl.setSkin("Normal");
+    // girl.setScale(0.95);
+    // girl.setPosition(720, 480);
+
+    // spine.animationState.setAnimation(0, "animation", true);
 
     // this.cameras.main.setPostPipeline(ScalinePostFX);
 
@@ -207,11 +232,11 @@ const config = {
   },
   plugins: {
     scene: [
-      //   {
-      //     key: "SpinePlugin", // @ts-ignore
-      //     plugin: window.SpinePlugin,
-      //     mapping: "spine",
-      //   },
+      {
+        key: "SpinePlugin", // @ts-ignore
+        plugin: window.SpinePlugin,
+        mapping: "spine",
+      },
       //   {
       //     key: "SpinePlugin",
       //     plugin: "public/SpinePluginDebug.js",
@@ -219,12 +244,12 @@ const config = {
       //     mapping: "spine",
       //     sceneKey: "spine",
       //   },
-      {
-        key: "SpineLatestPlugin",
-        plugin: SpinePlugin,
-        mapping: "spineLatest",
-        sceneKey: "spineLatest",
-      },
+      //   {
+      //     key: "SpineLatestPlugin",
+      //     plugin: SpinePlugin,
+      //     mapping: "spineLatest",
+      //     sceneKey: "spineLatest",
+      //   },
     ],
   },
   //   pipeline: { ScalinePostFX },
