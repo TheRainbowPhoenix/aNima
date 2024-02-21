@@ -1,0 +1,139 @@
+
+Liya.png
+size: 330,534
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm1
+  rotate: false
+  xy: 168, 231
+  size: 86, 133
+  orig: 86, 133
+  offset: 0, 0
+  index: -1
+Arm2
+  rotate: false
+  xy: 2, 20
+  size: 83, 132
+  orig: 83, 132
+  offset: 0, 0
+  index: -1
+Body
+  rotate: false
+  xy: 62, 210
+  size: 104, 154
+  orig: 104, 154
+  offset: 0, 0
+  index: -1
+Body2
+  rotate: true
+  xy: 248, 130
+  size: 78, 58
+  orig: 78, 58
+  offset: 0, 0
+  index: -1
+Ear1
+  rotate: true
+  xy: 211, 42
+  size: 62, 48
+  orig: 62, 48
+  offset: 0, 0
+  index: -1
+Ear2
+  rotate: false
+  xy: 261, 15
+  size: 61, 49
+  orig: 61, 49
+  offset: 0, 0
+  index: -1
+Eye_1
+  rotate: false
+  xy: 2, 2
+  size: 14, 16
+  orig: 14, 16
+  offset: 0, 0
+  index: -1
+Eye_2
+  rotate: false
+  xy: 248, 113
+  size: 11, 15
+  orig: 11, 15
+  offset: 0, 0
+  index: -1
+Face
+  rotate: false
+  xy: 256, 210
+  size: 65, 77
+  orig: 65, 77
+  offset: 0, 0
+  index: -1
+HCB
+  rotate: false
+  xy: 290, 467
+  size: 29, 65
+  orig: 29, 65
+  offset: 0, 0
+  index: -1
+Hair_L
+  rotate: false
+  xy: 149, 106
+  size: 97, 102
+  orig: 97, 102
+  offset: 0, 0
+  index: -1
+KIatana2
+  rotate: false
+  xy: 2, 450
+  size: 286, 82
+  orig: 286, 82
+  offset: 0, 0
+  index: -1
+Katana1
+  rotate: false
+  xy: 2, 366
+  size: 284, 82
+  orig: 284, 82
+  offset: 0, 0
+  index: -1
+Leg1
+  rotate: false
+  xy: 87, 10
+  size: 60, 198
+  orig: 60, 198
+  offset: 0, 0
+  index: -1
+Leg2
+  rotate: false
+  xy: 2, 154
+  size: 58, 210
+  orig: 58, 210
+  offset: 0, 0
+  index: -1
+SHengzi_L1
+  rotate: true
+  xy: 256, 289
+  size: 75, 72
+  orig: 75, 72
+  offset: 0, 0
+  index: -1
+Shengzi_L2
+  rotate: false
+  xy: 261, 66
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+Shenzi_R
+  rotate: false
+  xy: 149, 21
+  size: 60, 83
+  orig: 60, 83
+  offset: 0, 0
+  index: -1
+Yanbai
+  rotate: true
+  xy: 308, 160
+  size: 48, 20
+  orig: 48, 20
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,34 @@
+export default class Actor extends Dispatcher {
+    _Components: ActorNode[];
+    _NestedActorAssets: any[];
+    _Nodes: any[];
+    _Drawables: any[];
+    _Atlases: any[];
+    _RootNode: ActorNode;
+    _Animations: any[];
+    _IsInstance: boolean;
+    _IsImageSortDirty: boolean;
+    _Order: any[];
+    _IsDirty: boolean;
+    _DirtDepth: number;
+    get animations(): any[];
+    addDependency(a: any, b: any): boolean;
+    sortDependencies(): boolean;
+    addDirt(component: any, value: any, recurse: any): boolean;
+    update(): boolean;
+    get root(): ActorNode;
+    resolveHierarchy(graphics: any): void;
+    dispose(graphics: any): void;
+    initialize(graphics: any): void;
+    advance(seconds: any): void;
+    draw(graphics: any): void;
+    getNode(name: any): any;
+    getAnimation(name: any): any;
+    getAnimationInstance(name: any): AnimationInstance;
+    makeInstance(): Actor;
+    computeAABB(): Float32Array;
+    copy(actor: any): void;
+}
+import Dispatcher from "./Dispatcher.js";
+import ActorNode from "./ActorNode.js";
+import AnimationInstance from "./AnimationInstance.js";
