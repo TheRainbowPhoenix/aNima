@@ -624,10 +624,11 @@ export const exportJSON = (g: SpineGameObject) => {
                   }
                   anMap.bones[bone.name].rotate = [];
                   for (const frame of Object.entries(rotateTL.frames)) {
-                    if (frame[0] === "0" && frame[1] === 0) continue;
-                    anMap.bones[bone.name].rotate.push({
-                      value: roundFloat(frame[1]),
-                    });
+                    // /!\  two per two items, first is time and second is value ??
+                    // if (frame[0] === "0" && frame[1] === 0) continue;
+                    // anMap.bones[bone.name].rotate.push({
+                    //   value: roundFloat(frame[1]),
+                    // });
                   }
                 }
               }
