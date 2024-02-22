@@ -1,4 +1,5 @@
 import {
+  CurveTimeline,
   MeshAttachment,
   PathConstraintSpacingTimeline,
 } from "@esotericsoftware/spine-phaser";
@@ -6,7 +7,10 @@ import {
   BoundingBoxAttachment,
   ClippingAttachment,
   Color,
+  PathAttachment,
+  PointAttachment,
   RegionAttachment,
+  RotateTimeline,
 } from "../plugins/spine-core";
 
 interface SpineSkeletonHeader {
@@ -53,8 +57,8 @@ interface SpineJSON {
   transform?: SpineTransform[];
   path?: SpinePath[];
   skins: SpineSkin[];
-  events: {};
-  animations: {};
+  events: Record<string, SpineEvent>;
+  animations: Record<string, SpineAnimation>;
 }
 
 interface SpineBone {
@@ -99,6 +103,8 @@ interface SpineBone {
 
 interface SpineSlot {}
 interface SpinePath {}
+interface SpineEvent {}
+interface SpineAnimation {}
 
 interface SkinAttachment {
   type?: string;
@@ -126,6 +132,29 @@ const PositionMode = ["fixed", "percent"];
 const SpacingMode = ["length", "fixed", "percent", "proportional"];
 
 const RotateMode = ["tangent", "chain", "chainScale"];
+
+const Property = {
+  rotate: 0,
+  x: 1,
+  y: 2,
+  scaleX: 3,
+  scaleY: 4,
+  shearX: 5,
+  shearY: 6,
+  rgb: 7,
+  alpha: 8,
+  rgb2: 9,
+  attachment: 10,
+  deform: 11,
+  event: 12,
+  drawOrder: 13,
+  ikConstraint: 14,
+  transformConstraint: 15,
+  pathConstraintPosition: 16,
+  pathConstraintSpacing: 17,
+  pathConstraintMix: 18,
+  sequence: 19,
+};
 
 function toHex(color: Color): string {
   // Convert each channel value to its hexadecimal representation
@@ -162,6 +191,8 @@ const readSequence = (sequence: any) => {
 
 const roundFloats = (verticles: any) =>
   [...verticles].map((x) => Math.round(x * 10000) / 10000);
+
+const roundFloat = (v: number) => Math.round(v * 10000) / 10000;
 
 // const readVertices = () => {}
 
@@ -474,10 +505,45 @@ export const exportJSON = (g: SpineGameObject) => {
                       break;
                     case "PathAttachment":
                       rebuildElem.type = "path";
+                      const pa = attachElem as PathAttachment;
+
+                      if (pa.closed) {
+                        rebuildElem.closed = true;
+                      }
+                      if (!pa.constantSpeed) {
+                        rebuildElem.constantSpeed = false;
+                      }
+
+                      if (pa.lengths) {
+                        rebuildElem.lengths = roundFloats(
+                          pa.lengths.map((x) => x / scale)
+                        );
+                        rebuildElem.vertexCount = pa.lengths.length * 3;
+                      }
+
+                      if (pa.vertices) {
+                        if ((pa as any)._base_vertices) {
+                          rebuildElem.vertices = roundFloats(
+                            (pa as any)._base_vertices
+                          );
+                        } else {
+                          rebuildElem.vertices = roundFloats(pa.vertices);
+                        }
+                      }
 
                       break;
                     case "PointAttachment":
                       rebuildElem.type = "point";
+                      const pp = attachElem as PointAttachment;
+
+                      if (isNDef(pp.x, 0)) rebuildElem.x = pp.x;
+                      if (isNDef(pp.y, 0)) rebuildElem.y = pp.y;
+                      if (isNDef(pp.rotation, 0))
+                        rebuildElem.rotation = pp.rotation;
+
+                      if (isNCol(pp.color, defBoxColor)) {
+                        rebuildElem.color = toHex(pp.color);
+                      }
 
                       break;
                   }
@@ -491,6 +557,91 @@ export const exportJSON = (g: SpineGameObject) => {
       }
 
       root.skins.push(skinMap);
+    }
+  }
+
+  // Events
+
+  if (g.skeleton.data.events) {
+    root.events = {};
+    for (let i = 0; i < g.skeleton.data.events.length; i++) {
+      let evData = g.skeleton.data.events[i];
+      let evName: string = evData.name;
+      let evMap: any = {};
+
+      if (isNDef(evData.intValue, 0)) evMap.int = evData.intValue;
+      if (isNDef(evData.floatValue, 0)) evMap.float = evData.floatValue;
+      if (evData.stringValue && evData.stringValue !== "") {
+        evMap.string = evData.stringValue;
+      }
+      if (evData.audioPath) {
+        evMap.audio = {};
+        if (isNDef(evData.volume, 1)) {
+          evMap.audio.volume = evData.volume;
+        }
+        if (isNDef(evData.balance, 0)) {
+          evMap.audio.balance = evData.balance;
+        }
+      }
+      root.events[evName] = evMap;
+    }
+  }
+
+  // Animtions
+
+  if (g.skeleton.data.animations) {
+    root.animations = {};
+    for (let i = 0; i < g.skeleton.data.animations.length; i++) {
+      let anData = g.skeleton.data.animations[i];
+      let anName: string = anData.name;
+      let anMap: any = {};
+
+      // TODO: each anData.timelines, using anData.timelineIds
+      // anData.timelines are sorted by file position
+
+      for (const tl of anData.timelines) {
+        const propertyIds = (tl as any).propertyIds || []; // can be array (x, y) !!
+        for (const prop of propertyIds) {
+          const parts = prop.split("|");
+          switch (parts[0]) {
+            case `${Property.rotate}`:
+              if (!anMap.bones) anMap.bones = {};
+
+              // @ts-ignore
+              const rotateTL = tl as RotateTimeline;
+
+              const boneIndex = rotateTL.boneIndex
+                ? (rotateTL as any).boneIndex
+                : parts[1]
+                ? parseInt(parts[1])
+                : null;
+              if (boneIndex) {
+                const bone = g.skeleton.data.bones[boneIndex];
+                if (bone) {
+                  if (!anMap.bones[bone.name]) anMap.bones[bone.name] = {};
+                  if ((tl as any).curves && (tl as any).curves.length > 1) {
+                    // TODO ??
+                  }
+                  anMap.bones[bone.name].rotate = [];
+                  for (const frame of Object.entries(rotateTL.frames)) {
+                    if (frame[0] === "0" && frame[1] === 0) continue;
+                    anMap.bones[bone.name].rotate.push({
+                      value: roundFloat(frame[1]),
+                    });
+                  }
+                }
+              }
+
+              break;
+          }
+        }
+
+        // timelineIds use window.spineboy.skeleton.data.slots[<ID>].name
+        // ID is getPropertyIds
+        // Property ID | slotID/boneIndex ...  => 0|32 = Property0 (rotate), skeleton.data.bones[32] ("front-bracer")
+      }
+
+      root.animations[anName] = anMap;
     }
   }
 
