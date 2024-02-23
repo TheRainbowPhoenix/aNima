@@ -38,8 +38,12 @@
     }}>+</button
   >
 
-  <button on:click={doPlay}>Play</button>
-  <button on:click={doPause}>Pause</button>
+  <button on:click={doPlay}>⏵</button>
+  <button on:click={doPause}>⏸</button>
+  <p>TODO: ⏪, ⏩ ⏮ ⏭ ⏺ ⏹</p>
+  <p>TODO: animation "loader" picker (convert Spine to TheatreJS)</p>
+  <p>TODO: create new anim</p>
+  <p>TODO: export only current anim to spine ?</p>
 </div>
 
 {@html `

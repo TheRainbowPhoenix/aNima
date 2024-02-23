@@ -269,7 +269,7 @@ class SpinePreviewScene extends Phaser.Scene {
 
     // @ts-ignore
     window.spineboy = spineboy;
-    spineboy.animationState.setAnimation(0, "idle", true);
+    // spineboy.animationState.setAnimation(0, "idle", true);
 
     // let spineboy = this.add.spine(200, 400, "spineboy", "idle", true);
     // spineboy.setAnimation(0, "xxBeHit_Gun", true);
@@ -296,7 +296,7 @@ class SpinePreviewScene extends Phaser.Scene {
     hasumi.setScale(3);
     hasumi.setPosition(420, 480);
 
-    wrap("Hasumi", hasumi);
+    wrap("Hasumi", spineboy);
 
     // const test = new RiveObject(this, "boy", 500, 500); // , artboard, stateMachine
     // console.log(test);
