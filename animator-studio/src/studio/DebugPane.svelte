@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { IProject } from "@theatre/core";
+  import { IProject, val } from "@theatre/core";
   import { IStudio } from "@theatre/studio";
   import { onMount } from "svelte";
   import { currentProject } from ".";
@@ -17,12 +17,11 @@
   });
 
   const doPlay = () => {
-    project
-      .sheet("Hasumi")
-      .sequence.play({
-        iterationCount: Infinity,
-        range: [0, parseInt(duration) || 6],
-      });
+    const seq = project.sheet("Hasumi").sequence;
+    seq.play({
+      iterationCount: Infinity,
+      range: [0, parseInt(duration) || val(seq.pointer.length)],
+    });
   };
   const doPause = () => {
     project.sheet("Hasumi").sequence.pause();
