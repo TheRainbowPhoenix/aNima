@@ -1,6 +1,12 @@
 <script lang="ts">
+  import "./app.css";
+
   import { onMount } from "svelte";
   import { type Writable, writable } from "svelte/store";
+
+  import studio from "@theatre/studio";
+  import { types, getProject, IProject } from "@theatre/core";
+
   import {
     DEBUG_BONES,
     DEBUG_REGION_ATTACHMENTS,
@@ -12,6 +18,8 @@
     DEBUG_CLIPPING,
   } from "./plugins/spine-webgl";
   import { exportJSON } from "./spines/exporter";
+  import { initialize } from "./studio";
+  import { extensionConfig } from "./studio/extends";
 
   export let game: () => Phaser.Game;
 
@@ -27,6 +35,8 @@
     );
   };
 
+  let project: IProject;
+
   onMount(async () => {
     const g = game();
     gameInstance.set(g);
@@ -34,6 +44,10 @@
     window.game = g;
     // @ts-ignore
     window.exportJSON = exportJSON;
+
+    studio.extend(extensionConfig);
+    studio.initialize();
+    project = initialize();
 
     /* Export anything :
       

@@ -6,6 +6,8 @@ import {
   SpinePlugin,
 } from "../plugins/spine-phaser41";
 
+import { getProject, IProject, types } from "@theatre/core";
+
 //@ts-ignore
 // import * as OldSpinePlugin from "../plugins/spine/dist/SpinePlugin.js";
 
@@ -18,6 +20,8 @@ import {
 // import ScalinePostFX from "./scanLines";
 
 import GameConfig = Phaser.Types.Core.GameConfig;
+import { currentProject } from "../studio";
+import { get } from "svelte/store";
 // import ScenePreloadCallback = Phaser.Types.Scenes.ScenePreloadCallback;
 // import SceneCreateCallback = Phaser.Types.Scenes.SceneCreateCallback;
 // import SceneUpdateCallback = Phaser.Types.Scenes.SceneUpdateCallback;
@@ -216,6 +220,7 @@ class SpinePreviewScene extends Phaser.Scene {
   }
 
   create() {
+    // @ts-ignore
     window.spine = this.spine;
     // Enable input for drag-and-drop
     this.input.dragTimeThreshold = 100;
@@ -289,6 +294,22 @@ class SpinePreviewScene extends Phaser.Scene {
     // setDebugBones
     hasumi.setScale(3);
     hasumi.setPosition(420, 480);
+
+    let tlPrj = get(currentProject);
+    let tlHasumi = tlPrj.sheet("Hasumi");
+
+    hasumi.scaleX;
+    const obj = tlHasumi.object("Spine", {
+      scale: types.compound({
+        x: types.number(hasumi.scaleX, { range: [0, 5] }),
+        y: types.number(hasumi.scaleY, { range: [0, 5] }),
+      }),
+    });
+
+    obj.onValuesChange((obj) => {
+      hasumi.scaleX = obj.scale.x;
+      hasumi.scaleY = obj.scale.y;
+    });
 
     // const test = new RiveObject(this, "boy", 500, 500); // , artboard, stateMachine
     // console.log(test);

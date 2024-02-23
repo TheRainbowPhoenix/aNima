@@ -28,6 +28,8 @@
     "@rive-app/webgl": "^2.10.1",
     "@rive-app/webgl-advanced": "^2.10.1",
     "@rive-app/webgl-advanced-single": "^2.10.1",
+    "@theatre/core": "^0.7.0",
+    "@theatre/studio": "^0.7.0",
     "gl-matrix": "^3.4.3",
     "phaser": "^3.70.0"
   }
