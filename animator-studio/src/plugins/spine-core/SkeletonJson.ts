@@ -1748,6 +1748,7 @@ function readCurve(
   value2: number,
   scale: number
 ) {
+  timeline._curves[frame] = curve;
   if (curve == "stepped") {
     timeline.setStepped(frame);
     return bezier;

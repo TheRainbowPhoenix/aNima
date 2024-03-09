@@ -5,10 +5,16 @@ import { projectState } from "./state";
 export const currentProject = writable<IProject>();
 
 export const initialize = (): IProject => {
+  // @ts-ignore
+  window.getProject = getProject;
+
   let project = getProject("Spine", {
     state: get(projectState),
   });
   currentProject.set(project);
+  console.log(project);
+  //@ts-ignore
+  window.project = project;
 
   const sheet1 = project.sheet("Sheet 1");
   const sheet3 = project.sheet("Sheet (Animation) 3");

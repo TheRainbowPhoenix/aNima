@@ -5,7 +5,7 @@
   import { type Writable, writable } from "svelte/store";
 
   import studio from "@theatre/studio";
-  import { types, getProject, IProject } from "@theatre/core";
+  import { IProject } from "@theatre/core";
 
   import {
     DEBUG_BONES,
@@ -45,6 +45,11 @@
     // @ts-ignore
     window.exportJSON = exportJSON;
 
+    console.log(studio);
+
+    // @ts-ignore
+    window.studio = studio;
+
     studio.extend(extensionConfig);
     studio.initialize();
     project = initialize();
@@ -60,6 +65,8 @@
   });
 
   const exportSpine = () => {
+    console.log(studio.createContentOfSaveFile("Spine"));
+
     // @ts-ignore
     const g: SpineGameObject = window.hasumi;
     exportJSON(g);

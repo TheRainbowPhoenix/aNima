@@ -4,13 +4,19 @@ import {
   PathConstraintSpacingTimeline,
 } from "@esotericsoftware/spine-phaser";
 import {
+  AttachmentTimeline,
   BoundingBoxAttachment,
   ClippingAttachment,
   Color,
+  IkConstraintTimeline,
   PathAttachment,
   PointAttachment,
   RegionAttachment,
   RotateTimeline,
+  ScaleTimeline,
+  ShearTimeline,
+  TransformConstraintTimeline,
+  TranslateTimeline,
 } from "../plugins/spine-core";
 
 interface SpineSkeletonHeader {
@@ -115,6 +121,23 @@ interface SkinAttachment {
 interface SpineSkin {
   name: string;
   attachments: Record<string, Record<string, SkinAttachment>>;
+}
+
+type TQuad = [number, number, number, number];
+
+interface BoneKeyFrame {
+  time?: number;
+  curve?: any | "stepped" | TQuad; // def is linear, TQad is [cx1,cy1,cx2,cy2]
+}
+
+interface RotateBoneKeyFrame extends BoneKeyFrame {
+  value?: number;
+  rotate?: number; // def 0
+}
+
+interface ScaleBoneKeyFrame extends BoneKeyFrame {
+  x?: number; // def 1
+  y?: number; // def 1
 }
 
 const TransformMode = [
@@ -603,37 +626,333 @@ export const exportJSON = (g: SpineGameObject) => {
         const propertyIds = (tl as any).propertyIds || []; // can be array (x, y) !!
         for (const prop of propertyIds) {
           const parts = prop.split("|");
-          switch (parts[0]) {
-            case `${Property.rotate}`:
-              if (!anMap.bones) anMap.bones = {};
+          // switch (parts[0]) {
+          let boneIndex = null;
 
-              // @ts-ignore
-              const rotateTL = tl as RotateTimeline;
+          const name = tl.constructor.name;
 
-              const boneIndex = rotateTL.boneIndex
-                ? (rotateTL as any).boneIndex
-                : parts[1]
-                ? parseInt(parts[1])
-                : null;
-              if (boneIndex) {
-                const bone = g.skeleton.data.bones[boneIndex];
-                if (bone) {
-                  if (!anMap.bones[bone.name]) anMap.bones[bone.name] = {};
-                  if ((tl as any).curves && (tl as any).curves.length > 1) {
-                    // TODO ??
+          if (name === `RotateTimeline`) {
+            if (!anMap.bones) anMap.bones = {};
+
+            // @ts-ignore
+            const rotateTL = tl as RotateTimeline;
+
+            boneIndex = rotateTL.boneIndex
+              ? (rotateTL as any).boneIndex
+              : parts[1]
+              ? parseInt(parts[1])
+              : null;
+            if (boneIndex) {
+              const bone = g.skeleton.data.bones[boneIndex];
+              if (bone) {
+                if (!anMap.bones[bone.name]) anMap.bones[bone.name] = {};
+
+                // HACK: disabled because of bézier curves are computed and not easily reversed
+                /*
+                  const curves: any[] = (tl as any).curves;
+                  if (curves && curves.length > 0 && curves[0] !== 1) {
+                    // console.warn(
+                    //   "More than 1 curve for ",
+                    //   anName,
+                    //   bone.name,
+                    //   curves
+                    // );
+                    // curves object is an array, first element is 2 + getFrameCount()
+
+                    // TODO - Curve parsing, could be 0.35, "stepped", [u,v,w,x]
                   }
-                  anMap.bones[bone.name].rotate = [];
-                  for (const frame of Object.entries(rotateTL.frames)) {
-                    // /!\  two per two items, first is time and second is value ??
-                    // if (frame[0] === "0" && frame[1] === 0) continue;
-                    // anMap.bones[bone.name].rotate.push({
-                    //   value: roundFloat(frame[1]),
-                    // });
+                  */
+                anMap.bones[bone.name].rotate = [];
+                if (rotateTL.frames.length % 2 == 0) {
+                  // /!\  two per two items, first is time and second is value ??
+                  for (let i = 0; i < rotateTL.frames.length; i += 2) {
+                    let obj: RotateBoneKeyFrame = {};
+
+                    // HACK: loads the cached curves. Please update them when doing keyframe stuff
+                    if (rotateTL._curves[i / 2]) {
+                      obj.curve = rotateTL._curves[i / 2];
+                    }
+
+                    let time = rotateTL.frames[i];
+                    let value = rotateTL.frames[i + 1];
+
+                    if (value !== 0) {
+                      obj.value = roundFloat(value);
+                    }
+
+                    if (time !== 0) {
+                      obj.time = roundFloat(time);
+                    }
+                    anMap.bones[bone.name].rotate.push(obj);
                   }
                 }
               }
+            }
+          } else if (name === `TranslateTimeline`) {
+            if (!anMap.bones) anMap.bones = {};
 
-              break;
+            //@ts-ignore
+            const transTL = tl as TranslateTimeline;
+
+            boneIndex = transTL.boneIndex ? (transTL as any).boneIndex : null;
+            if (boneIndex) {
+              const bone = g.skeleton.data.bones[boneIndex];
+              if (bone) {
+                if (!anMap.bones[bone.name]) anMap.bones[bone.name] = {};
+
+                anMap.bones[bone.name].translate = [];
+                if (transTL.frames.length % 3 == 0) {
+                  // /!\  3 per 3 items, first is time and transX, transY
+                  for (let i = 0; i < transTL.frames.length; i += 3) {
+                    let obj: ScaleBoneKeyFrame = {};
+
+                    // HACK: loads the cached curves. Please update them when doing keyframe stuff
+                    if (transTL._curves[i / 3]) {
+                      obj.curve = transTL._curves[i / 3];
+                    }
+
+                    let time = transTL.frames[i];
+                    let x = transTL.frames[i + 1];
+                    let y = transTL.frames[i + 2];
+
+                    if (time !== 0) {
+                      obj.time = roundFloat(time);
+                    }
+                    if (x !== 0) {
+                      obj.x = roundFloat(x);
+                    }
+                    if (y !== 0) {
+                      obj.y = roundFloat(y);
+                    }
+                    anMap.bones[bone.name].translate.push(obj);
+                  }
+                }
+              }
+            }
+          } else if (name === `ShearTimeline`) {
+            if (!anMap.bones) anMap.bones = {};
+            //@ts-ignore
+            const shearTL = tl as ShearTimeline;
+
+            boneIndex = shearTL.boneIndex;
+            if (boneIndex !== undefined && boneIndex !== null) {
+              const bone = g.skeleton.data.bones[boneIndex];
+              if (bone) {
+                if (!anMap.bones[bone.name]) anMap.bones[bone.name] = {};
+
+                 anMap.bones[bone.name].shear = [];
+                if (shearTL.frames.length % 3 == 0) {
+                  // /!\  3 per 3 items, first is time and x, y
+                  for (let i = 0; i < shearTL.frames.length; i += 3) {
+                    let obj: ScaleBoneKeyFrame = {};
+
+                    // HACK: loads the cached curves. Please update them when doing keyframe stuff
+                    if (shearTL._curves[i / 3]) {
+                      obj.curve = shearTL._curves[i / 3];
+                    }
+
+                    let time = shearTL.frames[i];
+                    let x = shearTL.frames[i + 1];
+                    let y = shearTL.frames[i + 2];
+
+                    if (time !== 0) {
+                      obj.time = roundFloat(time);
+                    }
+                    if (x !== 0) {
+                      obj.x = roundFloat(x);
+                    }
+                    if (y !== 0) {
+                      obj.y = roundFloat(y);
+                    }
+                    anMap.bones[bone.name].shear.push(obj);
+                  }
+                }
+
+              }
+
+            }
+
+
+
+          } else if (name === `ScaleTimeline`) {
+            if (!anMap.bones) anMap.bones = {};
+
+            //@ts-ignore
+            const scaleTL = tl as ScaleTimeline;
+
+            boneIndex = scaleTL.boneIndex ? (scaleTL as any).boneIndex : null;
+            if (boneIndex) {
+              const bone = g.skeleton.data.bones[boneIndex];
+              if (bone) {
+                if (!anMap.bones[bone.name]) anMap.bones[bone.name] = {};
+
+                anMap.bones[bone.name].scale = [];
+                if (scaleTL.frames.length % 3 == 0) {
+                  // /!\  3 per 3 items, first is time and scaleX, scaleY
+                  for (let i = 0; i < scaleTL.frames.length; i += 3) {
+                    let obj: ScaleBoneKeyFrame = {};
+
+                    // HACK: loads the cached curves. Please update them when doing keyframe stuff
+                    if (scaleTL._curves[i / 3]) {
+                      obj.curve = scaleTL._curves[i / 3];
+                    }
+
+                    let time = scaleTL.frames[i];
+                    let x = scaleTL.frames[i + 1];
+                    let y = scaleTL.frames[i + 2];
+
+                    if (time !== 0) {
+                      obj.time = roundFloat(time);
+                    }
+                    if (x !== 1) {
+                      obj.x = roundFloat(x);
+                    }
+                    if (y !== 1) {
+                      obj.y = roundFloat(y);
+                    }
+                    anMap.bones[bone.name].scale.push(obj);
+                  }
+                }
+              }
+            }
+          } else if (name === "AttachmentTimeline") {
+            if (!anMap.slots) anMap.slots = {};
+
+            // @ts-ignore
+            const attTL = tl as AttachmentTimeline;
+
+            const slotIndex = attTL.slotIndex ? (attTL as any).slotIndex : null;
+            if (slotIndex) {
+              const slot = g.skeleton.data.slots[slotIndex];
+              if (slot) {
+                if (!anMap.slots[slot.name])
+                  anMap.slots[slot.name] = { attachment: [] };
+
+                for (let index = 0; index < attTL.frames.length; index++) {
+                  const attName = attTL.attachmentNames[index];
+                  const time = attTL.frames[index];
+
+          
+                    if (attName) {
+                      let att: any = {
+                        name: attName,
+                      };
+
+                      if (attTL.frames[index]) {
+                        att.time = roundFloat(time);
+                      }
+
+                      anMap.slots[slot.name].attachment.push(att);
+                    } else if (time !== 0) {
+                      
+                      anMap.slots[slot.name].attachment.push({
+                        time: roundFloat(time),
+                      });
+                    }
+                }
+              }
+            }
+          } else if (name === "IkConstraintTimeline") {
+            if (!anMap.ik) anMap.ik = {};
+
+            // @ts-ignore
+            const ikTL = tl as IkConstraintTimeline;
+
+            const ikConstraintIndex = ikTL.ikConstraintIndex;
+            if (ikConstraintIndex !== undefined && ikConstraintIndex !== null) {
+              const ikConst = g.skeleton.data.ikConstraints[ikConstraintIndex];
+              if (ikConst) {
+                if (!anMap.ik[ikConst.name]) anMap.ik[ikConst.name] = [];
+
+                // 6 per 6
+                for (let i = 0; i < ikTL.frames.length; i += 6) {
+                  let time = ikTL.frames[i];
+                  let mix = ikTL.frames[i + 1];
+                  let softness = ikTL.frames[i + 2];
+                  let bend_direction = ikTL.frames[i + 3];
+                  let compress = ikTL.frames[i + 4];
+                  let stretch = ikTL.frames[i + 5];
+
+                  let obj: any = {};
+
+                  if (time !== 0) {
+                    obj.time = roundFloat(time);
+                  }
+                  if (mix !== 1) {
+                    obj.mix = roundFloat(mix);
+                  }
+                  if (softness !== 0) {
+                    obj.softness = roundFloat(softness);
+                  }
+                  if (bend_direction !== 1) {
+                    obj.bendPositive = false;
+                  }
+                  if (compress !== 0) {
+                    obj.compress = roundFloat(compress);
+                  }
+                  if (stretch !== 0) {
+                    obj.stretch = roundFloat(stretch);
+                  }
+
+                  anMap.ik[ikConst.name].push(obj);
+                }
+              }
+            }
+          } else if (name === "TransformConstraintTimeline") {
+            if (!anMap.transform) anMap.transform = {};
+
+            // @ts-ignore
+            const tfTL = tl as TransformConstraintTimeline;
+            const transformConstraintIndex = tfTL.transformConstraintIndex;
+
+            if (
+              transformConstraintIndex !== undefined &&
+              transformConstraintIndex !== null
+            ) {
+              const tfConst =
+                g.skeleton.data.transformConstraints[transformConstraintIndex];
+              if (tfConst) {
+                if (!anMap.transform[tfConst.name])
+                  anMap.transform[tfConst.name] = [];
+
+                // 7 per 7
+                for (let i = 0; i < tfTL.frames.length; i += 7) {
+                  let time = tfTL.frames[i];
+                  let mixRotate = tfTL.frames[i + 1];
+                  let mixX = tfTL.frames[i + 2];
+                  let mixY = tfTL.frames[i + 3];
+                  let mixScaleX = tfTL.frames[i + 4];
+                  let mixScaleY = tfTL.frames[i + 5];
+                  let mixShearY = tfTL.frames[i + 6];
+
+                  let obj: any = {};
+
+                  if (time !== 0) {
+                    obj.time = roundFloat(time);
+                  }
+                  if (mixRotate !== 1) {
+                    obj.mixRotate = roundFloat(mixRotate);
+                  }
+                  if (mixX !== 1) {
+                    obj.mixX = roundFloat(mixX);
+                  }
+                  if (mixY !== mixX) {
+                    obj.mixY = roundFloat(mixY);
+                  }
+                  if (mixScaleX !== 1) {
+                    obj.mixScaleX = roundFloat(mixScaleX);
+                  }
+                  if (mixScaleY !== mixScaleX) {
+                    obj.mixScaleY = roundFloat(mixScaleY);
+                  }
+                  if (mixShearY !== 1) {
+                    obj.mixShearY = roundFloat(mixShearY);
+                  }
+
+                  anMap.transform[tfConst.name].push(obj);
+                }
+              }
+            }
           }
         }
 

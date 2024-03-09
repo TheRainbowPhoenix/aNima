@@ -209,6 +209,7 @@ export interface SlotTimeline {
 /** The base class for timelines that use interpolation between key frame values. */
 export abstract class CurveTimeline extends Timeline {
 	protected curves: NumberArrayLike; // type, x, y, ...
+	public _curves: Record<number, NumberArrayLike> = {};
 
 	constructor (frameCount: number, bezierCount: number, propertyIds: string[]) {
 		super(frameCount, propertyIds);
